@@ -166,6 +166,9 @@ public class SimpleImmutableMatrix {
     }
 
     public SimpleImmutableMatrix divideScalar(double v) {
+        if(v==0) {
+            throw new RuntimeException("Divide by Zero");
+        }
         SimpleImmutableMatrix a = this;
         SimpleImmutableMatrix c = new SimpleImmutableMatrix(m, n);
         for(int i=0;i<m;i++) {

@@ -102,7 +102,7 @@ public class SimpleImmutableMatrix {
         return c;
     }
 
-    public SimpleImmutableMatrix minus(SimpleImmutableMatrix b) {
+    public SimpleImmutableMatrix subtract(SimpleImmutableMatrix b) {
         SimpleImmutableMatrix a = this;
         if(a.m != b.m || a.n != b.n) {
             throw new RuntimeException("Matrix dimensions are not equal.");
@@ -130,6 +130,22 @@ public class SimpleImmutableMatrix {
             }
         }
         return c;
+    }
+
+    public SimpleImmutableMatrix addScalar(double v) {
+        return null;
+    }
+
+    public SimpleImmutableMatrix subtractScalar(double v) {
+        return null;
+    }
+
+    public SimpleImmutableMatrix multiplyScalar(double v) {
+        return null;
+    }
+
+    public SimpleImmutableMatrix divideScalar(double v) {
+        return null;
     }
 
     @Override

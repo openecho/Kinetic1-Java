@@ -116,16 +116,16 @@ public class SimpleImmutableMatrixTest extends TestCase {
     }
 
     /**
-     * Test of minus method, of class SimpleImmutableMatrix.
+     * Test of subtract method, of class SimpleImmutableMatrix.
      */
-    public void testMinus() {
+    public void testSubtract() {
         System.out.println("minus");
         double[][] data = new double[][] {{2,4,6},{6,4,2},{2,4,6}};
         SimpleImmutableMatrix instance = new SimpleImmutableMatrix(data);
         data = new double[][] {{1,2,3},{3,2,1},{1,2,3}};
         SimpleImmutableMatrix b = new SimpleImmutableMatrix(data);
         SimpleImmutableMatrix expResult = new SimpleImmutableMatrix(data);
-        SimpleImmutableMatrix result = instance.minus(b);
+        SimpleImmutableMatrix result = instance.subtract(b);
         assertTrue(expResult.equals(result));
     }
 

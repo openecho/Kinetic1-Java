@@ -58,6 +58,14 @@ public class SimpleImmutableMatrix {
         return n;
     }
 
+    public double[][] getData() {
+        double[][] data = new double[m][n];
+        for (int i = 0; i < m; i++) {
+            System.arraycopy(data[i], 0, this.data[i], 0, n);
+        }
+        return data;
+    }
+
     public double[] getRow(int i) {
         if(i>=m) {
             throw new IndexOutOfBoundsException();

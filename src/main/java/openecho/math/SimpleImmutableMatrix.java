@@ -133,19 +133,47 @@ public class SimpleImmutableMatrix {
     }
 
     public SimpleImmutableMatrix addScalar(double v) {
-        return null;
+        SimpleImmutableMatrix a = this;
+        SimpleImmutableMatrix c = new SimpleImmutableMatrix(m, n);
+        for(int i=0;i<m;i++) {
+            for(int j=0;j<n;j++) {
+                c.data[i][j]=a.data[i][j]+v;
+            }
+        }
+        return c;
     }
 
     public SimpleImmutableMatrix subtractScalar(double v) {
-        return null;
+        SimpleImmutableMatrix a = this;
+        SimpleImmutableMatrix c = new SimpleImmutableMatrix(m, n);
+        for(int i=0;i<m;i++) {
+            for(int j=0;j<n;j++) {
+                c.data[i][j]=a.data[i][j]-v;
+            }
+        }
+        return c;
     }
 
     public SimpleImmutableMatrix multiplyScalar(double v) {
-        return null;
+        SimpleImmutableMatrix a = this;
+        SimpleImmutableMatrix c = new SimpleImmutableMatrix(m, n);
+        for(int i=0;i<m;i++) {
+            for(int j=0;j<n;j++) {
+                c.data[i][j]=a.data[i][j]*v;
+            }
+        }
+        return c;
     }
 
     public SimpleImmutableMatrix divideScalar(double v) {
-        return null;
+        SimpleImmutableMatrix a = this;
+        SimpleImmutableMatrix c = new SimpleImmutableMatrix(m, n);
+        for(int i=0;i<m;i++) {
+            for(int j=0;j<n;j++) {
+                c.data[i][j]=a.data[i][j]/v;
+            }
+        }
+        return c;
     }
 
     @Override

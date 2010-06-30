@@ -152,6 +152,17 @@ public class SimpleMatrix {
         return c;
     }
 
+    public SimpleMatrix transpose() {
+        SimpleMatrix a = this;
+        SimpleMatrix t = new SimpleMatrix(a.n, a.m);
+        for (int i = 0; i < a.m; i++) {
+            for (int j = 0; j < a.n; j++) {
+                t.data[j][i] = a.data[i][j];
+            }
+        }
+        return t;
+    }
+
     public SimpleMatrix addScalar(double v) {
         SimpleMatrix a = this;
         SimpleMatrix c = new SimpleMatrix(m, n);

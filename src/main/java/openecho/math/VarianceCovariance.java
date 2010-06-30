@@ -40,6 +40,6 @@ public class VarianceCovariance {
             throw new NullPointerException();
         }
         SimpleMatrix a = new SimpleMatrix(DeviationScore.evaluate(data));
-        return SimpleMatrix.transpose(a).multiply(a).divideScalar(a.getM()).getData();
+        return a.transpose().multiply(a).divideScalar(a.getM()).getData();
     }
 }

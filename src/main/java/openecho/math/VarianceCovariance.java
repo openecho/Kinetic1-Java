@@ -16,21 +16,30 @@
 package openecho.math;
 
 /**
- * Deviation Score utility.
+ * Variance-Covariance utility for to generate a variance-covariance matrix (n x n)
+ * for a matrix (m x n) of  data.
+ *
+ * The calculation is based on the following formula,
+ *
+ * Cov(X, Y) = Σ ( Xi - X ) ( Yi - Y ) / N = Σ xiyi / N
+ *
+ * This version first calculates the a deviation score matrix,
  *
  * x = X - 11'X ( 1 / n )
+ *
+ * Then calculates the a covariance matrix using,
+ *
+ * V = x'x ( 1 / n )
  *
  * @author openecho
  * @version 1.0.0
  */
-public class DeviationScore {
+public class VarianceCovariance {
     public static double[][] evaluate(double[][] data) {
-        if(data==null) {
+        if(data == null) {
             throw new NullPointerException();
         }
-        SimpleMatrix x = new SimpleMatrix(data);
-        SimpleMatrix o = SimpleMatrix.oneMatrix(x.getM(), x.getM());
-        SimpleMatrix d = (x.subtract(o.multiply(x).divideScalar(x.getM())));
-        return d.getData();
+        SimpleMatrix a = new SimpleMatrix(DeviationScore.evaluate(data));
+        return SimpleMatrix.transpose(a).multiply(a).divideScalar(a.getM()).getData();
     }
 }

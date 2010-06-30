@@ -35,7 +35,7 @@ public class Standardize {
         if(data == null) {
             throw new NullPointerException();
         }
-        SimpleImmutableMatrix a = new SimpleImmutableMatrix(data);
+        SimpleMatrix a = new SimpleMatrix(data);
         double[][] d = new double[a.getM()][a.getN()];
         for(int j=0;j<a.getN();j++) {
             double[] nData = a.getColumn(j);

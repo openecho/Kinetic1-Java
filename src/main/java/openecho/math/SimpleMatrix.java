@@ -33,7 +33,7 @@ package openecho.math;
  * @author openecho
  * @version 1.0.0
  */
-public class SimpleImmutableMatrix {
+public class SimpleMatrix {
     /**
      * m dimension
      */
@@ -47,13 +47,13 @@ public class SimpleImmutableMatrix {
      */
     private final double[][] data;
 
-    public SimpleImmutableMatrix(int m, int n) {
+    public SimpleMatrix(int m, int n) {
         this.m = m;
         this.n = n;
         data = new double[m][n];
     }
 
-    public SimpleImmutableMatrix(double[][] data) {
+    public SimpleMatrix(double[][] data) {
         m = data.length;
         n = data[0].length;
         this.data = new double[m][n];
@@ -71,11 +71,11 @@ public class SimpleImmutableMatrix {
     }
 
     public double[][] getData() {
-        double[][] data = new double[m][n];
+        double[][] output = new double[m][n];
         for (int i = 0; i < m; i++) {
-            System.arraycopy(this.data[i], 0, data[i], 0, n);
+            System.arraycopy(this.data[i], 0, output[i], 0, n);
         }
-        return data;
+        return output;
     }
 
     public double[] getRow(int i) {
@@ -96,8 +96,8 @@ public class SimpleImmutableMatrix {
         return result;
     }
 
-    public boolean equals(SimpleImmutableMatrix b) {
-        SimpleImmutableMatrix a = this;
+    public boolean equals(SimpleMatrix b) {
+        SimpleMatrix a = this;
         for(int i=0;i<m;i++) {
             for(int j=0;j<n;j++) {
                 if(a.data[i][j]!=b.data[i][j]) {
@@ -108,12 +108,12 @@ public class SimpleImmutableMatrix {
         return true;
     }
 
-    public SimpleImmutableMatrix add(SimpleImmutableMatrix b) {
-        SimpleImmutableMatrix a = this;
+    public SimpleMatrix add(SimpleMatrix b) {
+        SimpleMatrix a = this;
         if(a.m != b.m || a.n != b.n) {
             throw new RuntimeException("Matrix dimensions are not equal.");
         }
-        SimpleImmutableMatrix c = new SimpleImmutableMatrix(m,n);
+        SimpleMatrix c = new SimpleMatrix(m,n);
         for(int i=0;i<m;i++) {
             for(int j=0;j<n;j++) {
                 c.data[i][j]=a.data[i][j]+b.data[i][j];
@@ -122,12 +122,12 @@ public class SimpleImmutableMatrix {
         return c;
     }
 
-    public SimpleImmutableMatrix subtract(SimpleImmutableMatrix b) {
-        SimpleImmutableMatrix a = this;
+    public SimpleMatrix subtract(SimpleMatrix b) {
+        SimpleMatrix a = this;
         if(a.m != b.m || a.n != b.n) {
             throw new RuntimeException("Matrix dimensions are not equal.");
         }
-        SimpleImmutableMatrix c = new SimpleImmutableMatrix(m,n);
+        SimpleMatrix c = new SimpleMatrix(m,n);
         for(int i=0;i<m;i++) {
             for(int j=0;j<n;j++) {
                 c.data[i][j]=a.data[i][j]-b.data[i][j];
@@ -136,12 +136,12 @@ public class SimpleImmutableMatrix {
         return c;
     }
 
-    public SimpleImmutableMatrix multiply(SimpleImmutableMatrix b) {
-        SimpleImmutableMatrix a = this;
+    public SimpleMatrix multiply(SimpleMatrix b) {
+        SimpleMatrix a = this;
         if(a.n != b.m) {
             throw new RuntimeException("Matrix dimensions are not incorrect.");
         }
-        SimpleImmutableMatrix c = new SimpleImmutableMatrix(a.m, b.n);
+        SimpleMatrix c = new SimpleMatrix(a.m, b.n);
         for(int i=0;i<c.m;i++) {
             for(int j=0;j<c.n;j++) {
                 for(int k=0;k<a.n;k++) {
@@ -152,9 +152,9 @@ public class SimpleImmutableMatrix {
         return c;
     }
 
-    public SimpleImmutableMatrix addScalar(double v) {
-        SimpleImmutableMatrix a = this;
-        SimpleImmutableMatrix c = new SimpleImmutableMatrix(m, n);
+    public SimpleMatrix addScalar(double v) {
+        SimpleMatrix a = this;
+        SimpleMatrix c = new SimpleMatrix(m, n);
         for(int i=0;i<m;i++) {
             for(int j=0;j<n;j++) {
                 c.data[i][j]=a.data[i][j]+v;
@@ -163,9 +163,9 @@ public class SimpleImmutableMatrix {
         return c;
     }
 
-    public SimpleImmutableMatrix subtractScalar(double v) {
-        SimpleImmutableMatrix a = this;
-        SimpleImmutableMatrix c = new SimpleImmutableMatrix(m, n);
+    public SimpleMatrix subtractScalar(double v) {
+        SimpleMatrix a = this;
+        SimpleMatrix c = new SimpleMatrix(m, n);
         for(int i=0;i<m;i++) {
             for(int j=0;j<n;j++) {
                 c.data[i][j]=a.data[i][j]-v;
@@ -174,9 +174,9 @@ public class SimpleImmutableMatrix {
         return c;
     }
 
-    public SimpleImmutableMatrix multiplyScalar(double v) {
-        SimpleImmutableMatrix a = this;
-        SimpleImmutableMatrix c = new SimpleImmutableMatrix(m, n);
+    public SimpleMatrix multiplyScalar(double v) {
+        SimpleMatrix a = this;
+        SimpleMatrix c = new SimpleMatrix(m, n);
         for(int i=0;i<m;i++) {
             for(int j=0;j<n;j++) {
                 c.data[i][j]=a.data[i][j]*v;
@@ -185,12 +185,12 @@ public class SimpleImmutableMatrix {
         return c;
     }
 
-    public SimpleImmutableMatrix divideScalar(double v) {
+    public SimpleMatrix divideScalar(double v) {
         if(v==0) {
             throw new RuntimeException("Divide by Zero");
         }
-        SimpleImmutableMatrix a = this;
-        SimpleImmutableMatrix c = new SimpleImmutableMatrix(m, n);
+        SimpleMatrix a = this;
+        SimpleMatrix c = new SimpleMatrix(m, n);
         for(int i=0;i<m;i++) {
             for(int j=0;j<n;j++) {
                 c.data[i][j]=a.data[i][j]/v;
@@ -213,8 +213,8 @@ public class SimpleImmutableMatrix {
         return String.format("%s %s", super.toString(),dataString);
     }
 
-    public static SimpleImmutableMatrix transpose(SimpleImmutableMatrix a) {
-        SimpleImmutableMatrix t = new SimpleImmutableMatrix(a.n, a.m);
+    public static SimpleMatrix transpose(SimpleMatrix a) {
+        SimpleMatrix t = new SimpleMatrix(a.n, a.m);
         for (int i = 0; i < a.m; i++) {
             for (int j = 0; j < a.n; j++) {
                 t.data[j][i] = a.data[i][j];
@@ -223,16 +223,16 @@ public class SimpleImmutableMatrix {
         return t;
     }
 
-    public static SimpleImmutableMatrix identity(int n) {
-        SimpleImmutableMatrix i = new SimpleImmutableMatrix(n, n);
+    public static SimpleMatrix identity(int n) {
+        SimpleMatrix i = new SimpleMatrix(n, n);
         for (int j = 0; j < n; j++) {
             i.data[j][j] = 1;
         }
         return i;
     }
 
-    public static SimpleImmutableMatrix random(int m, int n) {
-        SimpleImmutableMatrix r = new SimpleImmutableMatrix(m, n);
+    public static SimpleMatrix random(int m, int n) {
+        SimpleMatrix r = new SimpleMatrix(m, n);
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
                 r.data[i][j] = Math.random();
@@ -241,8 +241,8 @@ public class SimpleImmutableMatrix {
         return r;
     }
 
-    public static SimpleImmutableMatrix random(int m, int n, double lowerBound, double higherBound) {
-        SimpleImmutableMatrix r = new SimpleImmutableMatrix(m, n);
+    public static SimpleMatrix random(int m, int n, double lowerBound, double higherBound) {
+        SimpleMatrix r = new SimpleMatrix(m, n);
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
                 r.data[i][j] = (Math.random()*(higherBound-lowerBound))+lowerBound;
@@ -251,8 +251,8 @@ public class SimpleImmutableMatrix {
         return r;
     }
 
-    public static SimpleImmutableMatrix generate(int m, int n, double v) {
-        SimpleImmutableMatrix g = new SimpleImmutableMatrix(m, n);
+    public static SimpleMatrix generate(int m, int n, double v) {
+        SimpleMatrix g = new SimpleMatrix(m, n);
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
                 g.data[i][j] = v;
@@ -261,7 +261,7 @@ public class SimpleImmutableMatrix {
         return g;
     }
 
-    public static SimpleImmutableMatrix oneMatrix(int m, int n) {
+    public static SimpleMatrix oneMatrix(int m, int n) {
         return generate(m,n,1D);
     }
 }

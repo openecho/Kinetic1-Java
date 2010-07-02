@@ -27,8 +27,16 @@ public abstract class RepeatedAction {
      */
     protected long tick;
 
+    /**
+     * Holds the last Action Exception caught when this
+     * Repeated Action was run. Any calling class should set this
+     * in the event of an error.
+     */
+    public ActionException actionException;
+
     public RepeatedAction() {
         tick = 0;
+        actionException = null;
     }
     /**
      * Get the name of the RepeatedAction

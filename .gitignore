@@ -1,4 +1,5 @@
 nb-configuration.xml
+nbactions.xml
 src/main/java/tmp/
 target/
 

@@ -26,7 +26,6 @@ public class RepeatActionThread implements Runnable {
     public static final int RUNNING = 0;
     public static final int PAUSED = 1;
     public static final int STOPPED = 2;
-
     protected int actionCount;
     protected int actionMarker;
     protected RepeatedAction[] actions;
@@ -36,6 +35,7 @@ public class RepeatActionThread implements Runnable {
      * Holds the period of the loop thread.
      */
     protected int loopPeriodMilli;
+    protected long loopPeriodNano;
     /**
      * Holds the start time of the Thread.
      */
@@ -58,7 +58,10 @@ public class RepeatActionThread implements Runnable {
      * this iteration of the game loop.
      */
     protected long loopSleepTimeNano = 0;
-
+    /**
+     * Holds the lower bound for sleep time.
+     */
+    protected long minimumLoopSleepTimeMilli = 0;
     /**
      * Holds the default period for all loops.
      */
@@ -66,11 +69,11 @@ public class RepeatActionThread implements Runnable {
     /**
      * Holds the lower bounds for loop sleep times.
      */
-    public static final int MINIMUM_SLEEP_TIME_MILLIS;
+    public static final int DEFAULT_MINIMUM_SLEEP_TIME_MILLIS;
 
     static {
         DEFAULT_LOOP_PERIOD_MILLIS = 100;
-        MINIMUM_SLEEP_TIME_MILLIS = 1;
+        DEFAULT_MINIMUM_SLEEP_TIME_MILLIS = 1;
     }
 
     /**
@@ -97,6 +100,7 @@ public class RepeatActionThread implements Runnable {
      * @return The loop period.
      */
     public int setLoopPeriod(int loopPeriod) {
+        loopPeriodNano = Timer.milliSecondsToNanoSeconds(loopPeriod);
         return loopPeriodMilli = loopPeriod;
     }
 
@@ -109,14 +113,14 @@ public class RepeatActionThread implements Runnable {
         return loopPeriodMilli;
     }
 
-    public void registerAction(RepeatedTimedAction a) {
-        for(int i=0;i<actionMarker;i++) {
-            if(a==actions[i]) {
+    public void registerAction(RepeatedAction a) {
+        for (int i = 0; i < actionMarker; i++) {
+            if (a == actions[i]) {
                 return;
             }
         }
-        if(actionMarker < actionCount) {
-            actions[actionMarker]=a;
+        if (actionMarker < actionCount) {
+            actions[actionMarker] = a;
             actionMarker++;
         } else {
             throw new RuntimeException("To Many Actions Registered. Make the LoopThread Larger.");
@@ -124,9 +128,14 @@ public class RepeatActionThread implements Runnable {
     }
 
     public void unregisterAction(RepeatedTimedAction a) {
-        for(int i=0;i<actionCount;i++) {
-            if(a==actions[i]) {
-                
+        for (int i = 0; i < actionCount; i++) {
+            if (a == actions[i]) {
+                // Shuffle the rest of the actions along.
+                for (; i < actionCount - 1; i++) {
+                    actions[i] = actions[i + 1];
+                }
+                actions[actionCount--] = null;
+                return;
             }
         }
     }
@@ -144,8 +153,8 @@ public class RepeatActionThread implements Runnable {
     }
 
     public RepeatedAction[] clearActions() {
-        for(int i=0;i<actionCount;i++) {
-            actions[i]=null;
+        for (int i = 0; i < actionCount; i++) {
+            actions[i] = null;
         }
         actionCount = 0;
         return actions;
@@ -173,7 +182,44 @@ public class RepeatActionThread implements Runnable {
     }
 
     public void run() {
-
+        StopWatch actionWatch = new StopWatch();
+        StopWatch loopWatch = new StopWatch();
+        StopWatch sleepWatch = new StopWatch();
+        loopStartTimeMilli = Timer.getInstance().getMilliSecondDateTime();
+        state = RUNNING;
+        while (state != STOPPED) {
+            while (state == PAUSED) {
+                try {
+                    Thread.sleep(100000);
+                } catch (InterruptedException e) {
+                    /**
+                     * Normal Interupt. WIll sleep if still paused
+                     * otherwise will fall out.
+                     */
+                }
+            }
+            loopWatch.start();
+            actionWatch.start();
+            runActions();
+            actionWatch.stop();
+            loopSleepTotalAdjustNano = actionWatch.getDeltaNanoTime() + loopErrorAdjustNano;
+            loopSleepTimeNano = loopPeriodNano - loopSleepTotalAdjustNano;
+            sleepWatch.start();
+            int sleepTimeMilli = (int) Timer.nanoSecondsToMilliSeconds(loopSleepTimeNano);
+            if (sleepTimeMilli < 0) {
+                sleepTimeMilli = 5;
+            }
+            try {
+                Thread.sleep(sleepTimeMilli);
+            } catch (InterruptedException e) {
+                /**
+                 * Normal Interupt.
+                 */
+            }
+            sleepWatch.stop();
+            loopWatch.stop();
+            loopErrorAdjustNano = loopPeriodNano - loopWatch.getDeltaNanoTime();
+        }
     }
 
     /**

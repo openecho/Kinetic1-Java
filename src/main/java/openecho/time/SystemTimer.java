@@ -24,10 +24,11 @@ package openecho.time;
  * @version 1.0.0
  */
 public class SystemTimer extends Timer {
-	/**
-	 * Retrieve the System Timer.
-	 */
-	public final long getNanoSecondTime() {
-		return System.nanoTime();
-	}
+
+    /**
+     * Retrieve the System Timer.
+     */
+    public final long getNanoSecondTime() {
+        return System.nanoTime();
+    }
 }

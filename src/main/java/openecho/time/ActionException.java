@@ -23,37 +23,40 @@ package openecho.time;
  */
 public class ActionException extends Exception {
 
-	/**
-	 * Serial UID
-	 */
-	private static final long serialVersionUID = 695382805099000726L;
+    /**
+     * Serial UID
+     */
+    private static final long serialVersionUID = 695382805099000726L;
 
-        /**
-         * Default Constructor
-         */
-	public ActionException() {
-		super();
-	}
-	/**
-         * Constructor With Message
-         * @param message message.
-         */
-	public ActionException(String message) {
-		super(message);
-	}
-	/**
-         * Constructor with stacktrace
-         * @param throwable throwable stack
-         */
-	public ActionException(Throwable throwable) {
-		super(throwable);
-	}
-	/**
-         * Constructor with message and throwable
-         * @param message message.
-         * @param throwable throwable stack.
-         */
-	public ActionException(String message, Throwable throwable) {
-		super(message, throwable);
-	}
+    /**
+     * Default Constructor
+     */
+    public ActionException() {
+        super();
+    }
+
+    /**
+     * Constructor With Message
+     * @param message message.
+     */
+    public ActionException(String message) {
+        super(message);
+    }
+
+    /**
+     * Constructor with stacktrace
+     * @param throwable throwable stack
+     */
+    public ActionException(Throwable throwable) {
+        super(throwable);
+    }
+
+    /**
+     * Constructor with message and throwable
+     * @param message message.
+     * @param throwable throwable stack.
+     */
+    public ActionException(String message, Throwable throwable) {
+        super(message, throwable);
+    }
 }

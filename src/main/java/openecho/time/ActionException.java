@@ -16,12 +16,12 @@
 package openecho.time;
 
 /**
- * Timed Action Exception. TimedAction's may throw this exception.
+ * Action Exception. Action's may throw this exception.
  *
  * @author openecho
  * @version 1.0.0
  */
-public class TimedActionException extends Exception {
+public class ActionException extends Exception {
 
 	/**
 	 * Serial UID
@@ -31,21 +31,21 @@ public class TimedActionException extends Exception {
         /**
          * Default Constructor
          */
-	public TimedActionException() {
+	public ActionException() {
 		super();
 	}
 	/**
          * Constructor With Message
          * @param message message.
          */
-	public TimedActionException(String message) {
+	public ActionException(String message) {
 		super(message);
 	}
 	/**
          * Constructor with stacktrace
          * @param throwable throwable stack
          */
-	public TimedActionException(Throwable throwable) {
+	public ActionException(Throwable throwable) {
 		super(throwable);
 	}
 	/**
@@ -53,7 +53,7 @@ public class TimedActionException extends Exception {
          * @param message message.
          * @param throwable throwable stack.
          */
-	public TimedActionException(String message, Throwable throwable) {
+	public ActionException(String message, Throwable throwable) {
 		super(message, throwable);
 	}
 }

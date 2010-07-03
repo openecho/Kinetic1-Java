@@ -140,6 +140,42 @@ public class ImmutableVector {
         return c;
     }
 
+    public ImmutableVector addScalar(double v) {
+        ImmutableVector a = this;
+        ImmutableVector c = new ImmutableVector(n);
+        for (int i = 0; i < n; i++) {
+            c.data[i] = a.data[i] + v;
+        }
+        return c;
+    }
+
+    public ImmutableVector subtractScalar(double v) {
+        ImmutableVector a = this;
+        ImmutableVector c = new ImmutableVector(n);
+        for (int i = 0; i < n; i++) {
+            c.data[i] = a.data[i] - v;
+        }
+        return c;
+    }
+
+    public ImmutableVector multiplyScalar(double v) {
+        ImmutableVector a = this;
+        ImmutableVector c = new ImmutableVector(n);
+        for (int i = 0; i < n; i++) {
+            c.data[i] = a.data[i] * v;
+        }
+        return c;
+    }
+
+    public ImmutableVector divideScalar(double v) {
+        ImmutableVector a = this;
+        ImmutableVector c = new ImmutableVector(n);
+        for (int i = 0; i < n; i++) {
+            c.data[i] = a.data[i] / v;
+        }
+        return c;
+    }
+
     public static ImmutableVector zero() {
         return new ImmutableVector(new double[]{0D,0D,0D});
     }

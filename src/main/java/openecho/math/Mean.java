@@ -24,23 +24,77 @@ import java.lang.reflect.Array;
  * @version 1.0.0
  */
 public class Mean {
+
+    /**
+     * Sum of added values
+     */
+    double sum;
+    /**
+     * Count of added values
+     */
+    int count;
+
+    /**
+     * Default Constructor
+     */
+    public Mean() {
+        sum = 0D;
+        count = 0;
+    }
+
+    /**
+     * Adds a moment (new value to be calculated in the mean).
+     * @param value new moment value.
+     */
+    public void addMoment(double value) {
+        sum += value;
+        count++;
+    }
+
+    /**
+     * Finds the count of the moments added to this Mean.
+     * @return int the count of moments added.
+     */
+    public int getCount() {
+        return count;
+    }
+
+    /**
+     * Evaluates the value for the current state of the Mean.
+     * @return The mean value.
+     */
+    public double evaulate() {
+        if (count == 0) {
+            return 0D;
+        }
+        return sum / (double) count;
+    }
+
+    /**
+     * Rest the mean.
+     */
+    public void reset() {
+        sum = 0D;
+        count = 0;
+    }
+
     /**
      * Calculates the mean of the provided vector of data.
      * @param vector data to calculate the mean.
      * @return mean
      */
     public static double evaluate(double[] data) {
-        if(data==null) {
+        if (data == null) {
             throw new NullPointerException();
         }
         int length = Array.getLength(data);
-        if(length == 0) {
+        if (length == 0) {
             return 0;
         }
         double sum = 0;
-        for(int i=0;i<length;i++) {
+        for (int i = 0; i < length; i++) {
             sum += data[i];
         }
-        return sum/length;
+        return sum / length;
     }
 }

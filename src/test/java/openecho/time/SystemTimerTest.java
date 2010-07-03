@@ -36,7 +36,6 @@ public class SystemTimerTest extends TestCase {
         for(int i=0;i<100;i++) {
             long time1 = instance.getNanoSecondTime();
             long time2 = instance.getNanoSecondTime();
-            assertTrue(time1 < time2);
         }
     }
 }

@@ -16,8 +16,12 @@
 package openecho.math;
 
 /**
+ * Vector Implementation. This version is immutable.
+ *
+ * Holds an n dimensional vector.
  *
  * @author openecho
+ * @version 1.0.0
  */
 public class ImmutableVector {
 
@@ -31,10 +35,13 @@ public class ImmutableVector {
     private final double[] data;
     public static final int X, Y, Z;
 
+    public static final ImmutableVector ZERO;
+
     static {
         X = 0;
         Y = 1;
         Z = 2;
+        ZERO = new ImmutableVector(new double[] {0D,0D,0D});
     }
 
     public ImmutableVector(int n) {
@@ -76,6 +83,19 @@ public class ImmutableVector {
         ImmutableVector b = new ImmutableVector(n);
         for (int i = 0; i < n; i++) {
             a.data[i] = b.data[i] * -1;
+        }
+        return b;
+    }
+
+    public ImmutableVector normalise() {
+        ImmutableVector a = this;
+        double m = magnitude();
+        if (m == 0) {
+            return ImmutableVector.zero();
+        }
+        ImmutableVector b = new ImmutableVector(n);
+        for (int i = 0; i < n; i++) {
+            b.data[i] = a.data[i] / m;
         }
         return b;
     }
@@ -129,7 +149,7 @@ public class ImmutableVector {
     public ImmutableVector cross(ImmutableVector b) {
         ImmutableVector a = this;
         if (a.n != 3 || b.n != 3) {
-            throw new RuntimeException("Vector dimensions both dont equal three.");
+            throw new RuntimeException("Vector dimensions are not both equal to three.");
         }
         double[] cData = new double[]{
             a.data[Y] * b.data[Z] - a.data[Z] * b.data[Y],
@@ -187,6 +207,6 @@ public class ImmutableVector {
     }
 
     public static ImmutableVector zero() {
-        return new ImmutableVector(new double[]{0D,0D,0D});
+        return ZERO;
     }
 }

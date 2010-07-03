@@ -23,9 +23,9 @@ package openecho.time;
 public class RepeatActionThread implements Runnable {
 
     public static final int CREATED = 0;
-    public static final int RUNNING = 0;
-    public static final int PAUSED = 1;
-    public static final int STOPPED = 2;
+    public static final int RUNNING = 1;
+    public static final int PAUSED = 2;
+    public static final int STOPPED = 3;
     protected int actionCount;
     protected int actionMarker;
     protected RepeatedAction[] actions;

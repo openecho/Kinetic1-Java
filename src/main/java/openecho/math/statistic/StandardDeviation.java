@@ -13,24 +13,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  **/
-package openecho.math;
+package openecho.math.statistic;
+
+import java.lang.reflect.Array;
 
 /**
- * Deviation Score utility.
- *
- * x = X - 11'X ( 1 / n )
+ * Standard Deviation Utility
  *
  * @author openecho
  * @version 1.0.0
  */
-public class DeviationScore {
-    public static double[][] evaluate(double[][] data) {
+public class StandardDeviation {
+    public static double evaluate(double[] data) {
         if(data==null) {
             throw new NullPointerException();
         }
-        ImmutableMatrix x = new ImmutableMatrix(data);
-        ImmutableMatrix o = ImmutableMatrix.oneMatrix(x.getM(), x.getM());
-        ImmutableMatrix d = (x.subtract(o.multiply(x).divideScalar(x.getM())));
-        return d.getData();
+        int length = Array.getLength(data);
+        if(length < 2) {
+            throw new RuntimeException("More than two values are required to calculate a standard deviation");
+        }
+        double mean = Mean.evaluate(data);
+        double sumDifferenceSquared = 0;
+        for(int i=0;i<length;i++) {
+            sumDifferenceSquared += Math.pow(data[i]-mean,2);
+        }
+        return Math.sqrt(sumDifferenceSquared/(length-1));
     }
 }

@@ -39,7 +39,7 @@ public class VarianceCovariance {
         if(data == null) {
             throw new NullPointerException();
         }
-        SimpleMatrix a = new SimpleMatrix(DeviationScore.evaluate(data));
+        ImmutableMatrix a = new ImmutableMatrix(DeviationScore.evaluate(data));
         return a.transpose().multiply(a).divideScalar(a.getM()).getData();
     }
 }

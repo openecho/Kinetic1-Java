@@ -28,9 +28,9 @@ public class DeviationScore {
         if(data==null) {
             throw new NullPointerException();
         }
-        SimpleMatrix x = new SimpleMatrix(data);
-        SimpleMatrix o = SimpleMatrix.oneMatrix(x.getM(), x.getM());
-        SimpleMatrix d = (x.subtract(o.multiply(x).divideScalar(x.getM())));
+        ImmutableMatrix x = new ImmutableMatrix(data);
+        ImmutableMatrix o = ImmutableMatrix.oneMatrix(x.getM(), x.getM());
+        ImmutableMatrix d = (x.subtract(o.multiply(x).divideScalar(x.getM())));
         return d.getData();
     }
 }

@@ -39,14 +39,14 @@ public class MatrixFormat extends Format {
         cellFormat = new DecimalFormat(" ####0.0000;-####0.0000");
     }
 
-    public int[] getColumnCharacterWidths(SimpleMatrix a) {
+    public int[] getColumnCharacterWidths(ImmutableMatrix a) {
         return null;
     }
 
     @Override
     public StringBuffer format(Object obj, StringBuffer toAppendTo, FieldPosition pos) {
-        if(obj instanceof SimpleMatrix) {
-            SimpleMatrix a = (SimpleMatrix) obj;
+        if(obj instanceof ImmutableMatrix) {
+            ImmutableMatrix a = (ImmutableMatrix) obj;
             double[][] data = a.getData();
             for(int i=0;i<a.getM();i++) {
                 toAppendTo.append(rowPrefix);

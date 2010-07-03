@@ -176,6 +176,16 @@ public class ImmutableVector {
         return c;
     }
 
+    @Override
+    public String toString() {
+        String dataString = "{";
+        for(int i=0;i<n;i++) {
+            dataString+=data[i]+((i<n-1)?",":"");
+        }
+        dataString+="}";
+        return String.format("%s %s", super.toString(),dataString);
+    }
+
     public static ImmutableVector zero() {
         return new ImmutableVector(new double[]{0D,0D,0D});
     }

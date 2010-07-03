@@ -96,5 +96,8 @@ public class ImmutableVector {
     public ImmutableVector dot(ImmutableVector b) {
         return null;
     }
-    
+
+    public ImmutableVector cross(ImmutableVector b) {
+        return null;
+    }
 }

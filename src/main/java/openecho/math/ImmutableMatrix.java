@@ -16,9 +16,9 @@
 package openecho.math;
 
 /**
- * Simple Matrix Implementation. This version is immutable.
+ * Matrix Implementation. This version is immutable.
  *
- * Holds and m-by-n matrix where,
+ * Holds an m-by-n matrix where,
  *
  * <pre>
  *         n1  n2  n3  ... nN

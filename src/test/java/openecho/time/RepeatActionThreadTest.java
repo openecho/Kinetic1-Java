@@ -37,9 +37,9 @@ public class RepeatActionThreadTest extends TestCase {
         RepeatActionThread instance = new RepeatActionThread(1);
         instance.registerAction(new TestRepeatableAction());
         instance.start();
-        for(int i=0;i<10;i++) {
+        for(int i=0;i<4;i++) {
             try {
-                Thread.sleep(1000);
+                Thread.sleep(500);
             } catch (InterruptedException ex) {
                 Logger.getLogger(RepeatActionThreadTest.class.getName()).log(Level.SEVERE, null, ex);
             }

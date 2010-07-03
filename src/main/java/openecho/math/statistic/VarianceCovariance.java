@@ -13,7 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  **/
-package openecho.math;
+package openecho.math.statistic;
+
+import openecho.math.ImmutableMatrix;
+import openecho.math.statistic.DeviationScore;
 
 /**
  * Variance-Covariance utility for to generate a variance-covariance matrix (n x n)

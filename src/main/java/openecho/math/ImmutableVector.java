@@ -29,13 +29,12 @@ public class ImmutableVector {
      * matrix data
      */
     private final double[] data;
-
-    public static final int X,Y,Z;
+    public static final int X, Y, Z;
 
     static {
-        X=0;
-        Y=1;
-        Z=2;
+        X = 0;
+        Y = 1;
+        Z = 2;
     }
 
     public ImmutableVector(int n) {
@@ -59,10 +58,32 @@ public class ImmutableVector {
         return output;
     }
 
+    public double magnitude() {
+        ImmutableVector a = this;
+        double squaredSum = 0;
+        for (int i = 0; i < n; i++) {
+            squaredSum += Math.pow(a.data[i], 2);
+        }
+        return Math.sqrt(squaredSum);
+    }
+
+    public double length() {
+        return magnitude();
+    }
+
+    public ImmutableVector negative() {
+        ImmutableVector a = this;
+        ImmutableVector b = new ImmutableVector(n);
+        for (int i = 0; i < n; i++) {
+            a.data[i] = b.data[i] * -1;
+        }
+        return b;
+    }
+
     public boolean equals(ImmutableVector b) {
         ImmutableVector a = this;
-        for(int i=0;i<n;i++) {
-            if(a.data[i]!=b.data[i]) {
+        for (int i = 0; i < n; i++) {
+            if (a.data[i] != b.data[i]) {
                 return false;
             }
         }
@@ -71,33 +92,55 @@ public class ImmutableVector {
 
     public ImmutableVector add(ImmutableVector b) {
         ImmutableVector a = this;
-        if(a.n != b.n) {
+        if (a.n != b.n) {
             throw new RuntimeException("Vector dimensions are not equal.");
         }
         ImmutableVector c = new ImmutableVector(n);
-        for(int i=0;i<n;i++) {
-            c.data[i]=a.data[i]+b.data[i];
+        for (int i = 0; i < n; i++) {
+            c.data[i] = a.data[i] + b.data[i];
         }
         return c;
     }
 
     public ImmutableVector subtract(ImmutableVector b) {
         ImmutableVector a = this;
-        if(a.n != b.n) {
+        if (a.n != b.n) {
             throw new RuntimeException("Vector dimensions are not equal.");
         }
         ImmutableVector c = new ImmutableVector(n);
-        for(int i=0;i<n;i++) {
-            c.data[i]=a.data[i]-b.data[i];
+        for (int i = 0; i < n; i++) {
+            c.data[i] = a.data[i] - b.data[i];
         }
         return c;
     }
 
-    public ImmutableVector dot(ImmutableVector b) {
-        return null;
+    public double dot(ImmutableVector b) {
+        ImmutableVector a = this;
+        if (a.n != b.n) {
+            throw new RuntimeException("Vector dimensions are not equal.");
+        }
+        double dotProduct = 0;
+        for (int i = 0; i < n; i++) {
+            dotProduct += a.data[i] * b.data[i];
+        }
+        return dotProduct;
     }
 
     public ImmutableVector cross(ImmutableVector b) {
-        return null;
+        ImmutableVector a = this;
+        if (a.n != 3 || b.n != 3) {
+            throw new RuntimeException("Vector dimensions both dont equal three.");
+        }
+        double[] cData = new double[]{
+            a.data[Y] * b.data[Z] - a.data[Z] * b.data[Y],
+            a.data[Z] * b.data[X] - a.data[X] * b.data[Z],
+            a.data[X] * b.data[Y] - a.data[Y] * b.data[X]
+        };
+        ImmutableVector c = new ImmutableVector(cData);
+        return c;
+    }
+
+    public static ImmutableVector zero() {
+        return new ImmutableVector(new double[]{0D,0D,0D});
     }
 }

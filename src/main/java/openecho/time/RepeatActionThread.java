@@ -49,10 +49,9 @@ public class RepeatActionThread implements Runnable {
      */
     protected long loopErrorAdjustNano = 0;
     /**
-     * Holds the total adjustment required to the current loops sleep time
-     * based on time to execute actions.
+     * Target loop time for this loop
      */
-    protected long loopSleepTotalAdjustNano = 0;
+    protected long loopPeriodTargetNano = 0;
     /**
      * Holds the nano time that the Thread will be requested to sleep in
      * this iteration of the game loop.
@@ -87,7 +86,7 @@ public class RepeatActionThread implements Runnable {
         this.state = CREATED;
         this.internalThread = null;
         this.loopPeriodMilli = DEFAULT_LOOP_PERIOD_MILLIS;
-
+        this.loopPeriodNano = Timer.milliSecondsToNanoSeconds(DEFAULT_LOOP_PERIOD_MILLIS);
     }
 
     public int getCurrentState() {
@@ -192,33 +191,33 @@ public class RepeatActionThread implements Runnable {
                 try {
                     Thread.sleep(100000);
                 } catch (InterruptedException e) {
-                    /**
-                     * Normal Interupt. WIll sleep if still paused
-                     * otherwise will fall out.
-                     */
+                /**
+                * Normal Interupt. WIll sleep if still paused
+                * otherwise will fall out.
+                */
                 }
             }
             loopWatch.start();
             actionWatch.start();
             runActions();
             actionWatch.stop();
-            loopSleepTotalAdjustNano = actionWatch.getDeltaNanoTime() + loopErrorAdjustNano;
-            loopSleepTimeNano = loopPeriodNano - loopSleepTotalAdjustNano;
+            loopPeriodTargetNano = loopPeriodNano + loopErrorAdjustNano;
+            loopSleepTimeNano = loopPeriodTargetNano - actionWatch.getDeltaNanoTime();
             sleepWatch.start();
             int sleepTimeMilli = (int) Timer.nanoSecondsToMilliSeconds(loopSleepTimeNano);
             if (sleepTimeMilli < 0) {
-                sleepTimeMilli = 5;
+                sleepTimeMilli = 1;
             }
             try {
                 Thread.sleep(sleepTimeMilli);
             } catch (InterruptedException e) {
-                /**
-                 * Normal Interupt.
-                 */
+            /**
+            * Normal Interupt.
+            */
             }
             sleepWatch.stop();
             loopWatch.stop();
-            loopErrorAdjustNano = loopPeriodNano - loopWatch.getDeltaNanoTime();
+            loopErrorAdjustNano = loopPeriodTargetNano - loopWatch.getDeltaNanoTime();
         }
     }
 

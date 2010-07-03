@@ -13,7 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  **/
-package openecho.math;
+package openecho.math.statistic;
+
+import openecho.math.ImmutableMatrix;
 
 /**
  * Standardize utility for Standardizing matrix (m x n) data.

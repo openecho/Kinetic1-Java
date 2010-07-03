@@ -93,7 +93,7 @@ public class ImmutableVector {
         return c;
     }
 
-    public ImmutableVector multiply(ImmutableVector b) {
+    public ImmutableVector dot(ImmutableVector b) {
         return null;
     }
     

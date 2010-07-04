@@ -21,7 +21,7 @@ package openecho.math;
  * Holds an m-by-n matrix where,
  *
  * <pre>
- *         n1  n2  n3  ... nN
+ *         n1  n2  n3 ...  nN
  *      +---------------------
  *   m1 | a11 a12 a13 ... aN1
  *   m2 | a21 a22 a23 ... aN1

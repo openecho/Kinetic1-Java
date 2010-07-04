@@ -16,7 +16,6 @@
 package openecho.math.statistic;
 
 import openecho.math.ImmutableMatrix;
-import openecho.math.statistic.DeviationScore;
 
 /**
  * Variance-Covariance utility for to generate a variance-covariance matrix (n x n)

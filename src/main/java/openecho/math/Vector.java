@@ -115,7 +115,7 @@ public abstract class Vector {
     public String toString() {
         String dataString = "{";
         for (int i = 0; i < n; i++) {
-            dataString += data[i] + ((i < n - 1) ? "," : "");
+            dataString += data[i] + ((i < n - 1) ? ", " : "");
         }
         dataString += "}";
         return String.format("%s %s", super.toString(), dataString);

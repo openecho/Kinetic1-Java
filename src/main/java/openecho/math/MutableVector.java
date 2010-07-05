@@ -21,6 +21,8 @@ package openecho.math;
  */
 public class MutableVector extends Vector {
 
+    double xCross, yCross, zCross;
+
     public MutableVector(int n) {
         super(n);
     }
@@ -81,13 +83,12 @@ public class MutableVector extends Vector {
         if (a.n != 3 || b.n != 3) {
             throw new RuntimeException("Vector dimensions are not both equal to three.");
         }
-        // TODO: Make these global.
-        double x = a.data[Y] * b.data[Z] - a.data[Z] * b.data[Y];
-        double y = a.data[Z] * b.data[X] - a.data[X] * b.data[Z];
-        double z = a.data[X] * b.data[Y] - a.data[Y] * b.data[X];
-        a.data[X] = x;
-        a.data[Y] = y;
-        a.data[Z] = z;
+        xCross = a.data[Y] * b.data[Z] - a.data[Z] * b.data[Y];
+        yCross = a.data[Z] * b.data[X] - a.data[X] * b.data[Z];
+        zCross = a.data[X] * b.data[Y] - a.data[Y] * b.data[X];
+        a.data[X] = xCross;
+        a.data[Y] = yCross;
+        a.data[Z] = zCross;
         return a;
     }
 

@@ -53,6 +53,11 @@ public class ImmutableMatrix extends Matrix {
     }
 
     @Override
+    public final boolean isMutable() {
+        return false;
+    }
+    
+    @Override
     public double[] getRow(int i) {
         if(i>=m) {
             throw new IndexOutOfBoundsException();

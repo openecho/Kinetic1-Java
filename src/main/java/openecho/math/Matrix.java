@@ -94,6 +94,12 @@ public abstract class Matrix {
     public abstract double[][] getData();
 
     /**
+     * Flag indicating if this version of the Matrix is mutable.
+     * @return boolean Matrix mutable when true otherwise not mutable.
+     */
+    public abstract boolean isMutable();
+
+    /**
      * Retrieve the data for a row from the Matrix.
      * @param i the row to retrieve (0 <= i < m)
      * @return double[] the row data

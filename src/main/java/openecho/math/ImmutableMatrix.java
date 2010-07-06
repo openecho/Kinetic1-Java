@@ -53,6 +53,11 @@ public class ImmutableMatrix extends Matrix {
     }
 
     @Override
+    public void setData(double[][] data) {
+        throw new UnsupportedOperationException("Cannot Set Data on an ImmutableMatrix.");
+    }
+
+    @Override
     public final boolean isMutable() {
         return false;
     }

@@ -35,6 +35,13 @@ public class MutableMatrix extends Matrix {
     }
 
     @Override
+    public void setData(double[][] data) {
+        m = data.length;
+        n = data[0].length;
+        this.data = data;
+    }
+
+    @Override
     public final boolean isMutable() {
         return true;
     }

@@ -37,11 +37,11 @@ public abstract class Matrix {
     /**
      * m dimension
      */
-    final int m;
+    int m;
     /**
      * n dimension
      */
-    final int n;
+    int n;
     /**
      * matrix data
      */
@@ -75,7 +75,7 @@ public abstract class Matrix {
      * Find the number of rows in the Matrix (M)
      * @return row count.
      */
-    public int getM() {
+    public final int getM() {
         return m;
     }
 
@@ -83,15 +83,22 @@ public abstract class Matrix {
      * Find the number of columns in the Matrix (N)
      * @return column count.
      */
-    public int getN() {
+    public final int getN() {
         return n;
     }
 
     /**
-     * Retrieve the data from the Matrix
+     * Retrieve the data from the Matrix. This will be unsupported on some
+     * implementations.
      * @return double[][] data from this Matrix.
      */
     public abstract double[][] getData();
+
+    /**
+     * Sets the data into the Matrix. This will be unsupported on some 
+     * implementations.
+     */
+    public abstract void setData(double[][] data);
 
     /**
      * Flag indicating if this version of the Matrix is mutable.

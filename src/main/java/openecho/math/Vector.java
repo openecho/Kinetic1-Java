@@ -56,6 +56,12 @@ public abstract class Vector {
 
     public abstract double[] getData();
 
+    /**
+     * Flag indicating if this version of the Vector is mutable.
+     * @return boolean Vector mutable when true otherwise not mutable.
+     */
+    public abstract boolean isMutable();
+
     public final double magnitude() {
         Vector a = this;
         double squaredSum = 0;

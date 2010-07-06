@@ -35,7 +35,7 @@ public class SimpleImmutableMatrixTest extends TestCase {
         System.out.println("getM");
         int m = (int) Math.random()*100;
         int n = (int) Math.random()*100;
-        ImmutableMatrix instance = ImmutableMatrix.random(m, n);
+        Matrix instance = Matrix.random(m, n);
         int expResult = m;
         int result = instance.getM();
         assertEquals(expResult, result);
@@ -48,7 +48,7 @@ public class SimpleImmutableMatrixTest extends TestCase {
         System.out.println("getN");
         int m = (int) Math.random()*100;
         int n = (int) Math.random()*100;
-        ImmutableMatrix instance = ImmutableMatrix.random(m, n);
+        Matrix instance = Matrix.random(m, n);
         int result = instance.getN();
         int expResult = n;
         assertEquals(expResult, result);
@@ -90,7 +90,7 @@ public class SimpleImmutableMatrixTest extends TestCase {
     public void testEquals() {
         System.out.println("equals");
         double[][] data = new double[][] {{1,2,3},{3,2,1},{1,2,3}};
-        ImmutableMatrix a = ImmutableMatrix.random(3, 3);
+        Matrix a = Matrix.random(3, 3);
         ImmutableMatrix b = new ImmutableMatrix(data);
         ImmutableMatrix instance = new ImmutableMatrix(data);
         boolean expResult = false;
@@ -111,7 +111,7 @@ public class SimpleImmutableMatrixTest extends TestCase {
         ImmutableMatrix instance = new ImmutableMatrix(data);
         data = new double[][] {{2,4,6},{6,4,2},{2,4,6}};
         ImmutableMatrix expResult = new ImmutableMatrix(data);
-        ImmutableMatrix result = instance.add(b);
+        Matrix result = instance.add(b);
         assertTrue(expResult.equals(result));
     }
 
@@ -125,7 +125,7 @@ public class SimpleImmutableMatrixTest extends TestCase {
         data = new double[][] {{1,2,3},{3,2,1},{1,2,3}};
         ImmutableMatrix b = new ImmutableMatrix(data);
         ImmutableMatrix expResult = new ImmutableMatrix(data);
-        ImmutableMatrix result = instance.subtract(b);
+        Matrix result = instance.subtract(b);
         assertTrue(expResult.equals(result));
     }
 
@@ -142,7 +142,7 @@ public class SimpleImmutableMatrixTest extends TestCase {
         System.out.println(instance);
         data = new double[][] {{32}};
         ImmutableMatrix expResult = new ImmutableMatrix(data);
-        ImmutableMatrix result = b.multiply(instance);
+        Matrix result = b.multiply(instance);
         System.out.println(result);
         assertTrue(expResult.equals(result));
     }
@@ -156,7 +156,7 @@ public class SimpleImmutableMatrixTest extends TestCase {
         ImmutableMatrix a = new ImmutableMatrix(data);
         data = new double[][] {{1},{2},{3}};
         ImmutableMatrix expResult = new ImmutableMatrix(data);
-        ImmutableMatrix result = ImmutableMatrix.transpose(a);
+        Matrix result = ImmutableMatrix.transpose(a);
         assertTrue(expResult.equals(result));
     }
 
@@ -168,7 +168,7 @@ public class SimpleImmutableMatrixTest extends TestCase {
         int n = 3;
         double[][] data = new double[][] {{1,0,0},{0,1,0},{0,0,1}};
         ImmutableMatrix expResult = new ImmutableMatrix(data);;
-        ImmutableMatrix result = ImmutableMatrix.identity(n);
+        Matrix result = ImmutableMatrix.identity(n);
         assertTrue(expResult.equals(result));
     }
 
@@ -179,7 +179,7 @@ public class SimpleImmutableMatrixTest extends TestCase {
         System.out.println("random");
         int m = 3;
         int n = 3;
-        ImmutableMatrix result = ImmutableMatrix.random(m, n);
+        Matrix result = ImmutableMatrix.random(m, n);
         assertEquals(m, result.getM());
         assertEquals(n, result.getN());
     }
@@ -191,7 +191,7 @@ public class SimpleImmutableMatrixTest extends TestCase {
         System.out.println("random");
         int m = 3;
         int n = 3;
-        ImmutableMatrix result = ImmutableMatrix.random(m, n);
+        Matrix result = ImmutableMatrix.random(m, n);
         assertEquals(m, result.getM());
         assertEquals(n, result.getN());
     }

@@ -34,7 +34,14 @@ public class ImmutableVector extends Vector {
     }
 
     @Override
-    public ImmutableVector negative() {
+    public final double[] getData() {
+        double[] returnData = new double[n];
+        System.arraycopy(returnData, 0, data, 0, n);
+        return returnData;
+    }
+
+    @Override
+    public final ImmutableVector negative() {
         ImmutableVector a = this;
         ImmutableVector b = new ImmutableVector(n);
         for (int i = 0; i < n; i++) {
@@ -43,7 +50,7 @@ public class ImmutableVector extends Vector {
         return b;
     }
     @Override
-    public Vector normalise() {
+    public final Vector normalise() {
         ImmutableVector a = this;
         double m = magnitude();
         if (m == 0) {
@@ -56,7 +63,7 @@ public class ImmutableVector extends Vector {
         return b;
     }
     @Override
-    public Vector add(Vector b) {
+    public final Vector add(Vector b) {
         ImmutableVector a = this;
         if (a.n != b.n) {
             throw new RuntimeException("Vector dimensions are not equal.");
@@ -68,7 +75,7 @@ public class ImmutableVector extends Vector {
         return c;
     }
     @Override
-    public Vector subtract(Vector b) {
+    public final Vector subtract(Vector b) {
         ImmutableVector a = this;
         if (a.n != b.n) {
             throw new RuntimeException("Vector dimensions are not equal.");
@@ -81,7 +88,7 @@ public class ImmutableVector extends Vector {
     }
     
     @Override
-    public Vector cross(Vector b) {
+    public final Vector cross(Vector b) {
         ImmutableVector a = this;
         if (a.n != 3 || b.n != 3) {
             throw new RuntimeException("Vector dimensions are not both equal to three.");
@@ -95,7 +102,7 @@ public class ImmutableVector extends Vector {
         return c;
     }
     @Override
-    public Vector addScalar(double v) {
+    public final Vector addScalar(double v) {
         ImmutableVector a = this;
         ImmutableVector c = new ImmutableVector(n);
         for (int i = 0; i < n; i++) {
@@ -104,7 +111,7 @@ public class ImmutableVector extends Vector {
         return c;
     }
     @Override
-    public Vector subtractScalar(double v) {
+    public final Vector subtractScalar(double v) {
         ImmutableVector a = this;
         ImmutableVector c = new ImmutableVector(n);
         for (int i = 0; i < n; i++) {
@@ -113,7 +120,7 @@ public class ImmutableVector extends Vector {
         return c;
     }
     @Override
-    public Vector multiplyScalar(double v) {
+    public final Vector multiplyScalar(double v) {
         ImmutableVector a = this;
         ImmutableVector c = new ImmutableVector(n);
         for (int i = 0; i < n; i++) {
@@ -122,7 +129,7 @@ public class ImmutableVector extends Vector {
         return c;
     }
     @Override
-    public Vector divideScalar(double v) {
+    public final Vector divideScalar(double v) {
         if (v == 0) {
             throw new RuntimeException("Divide By Zero.");
         }

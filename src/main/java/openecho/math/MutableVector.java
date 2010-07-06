@@ -37,6 +37,11 @@ public class MutableVector extends Vector {
     }
 
     @Override
+    public final boolean isMutable() {
+        return true;
+    }
+
+    @Override
     public final Vector negative() {
         MutableVector a = this;
         for (int i = 0; i < n; i++) {

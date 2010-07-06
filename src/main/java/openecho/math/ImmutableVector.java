@@ -41,6 +41,11 @@ public class ImmutableVector extends Vector {
     }
 
     @Override
+    public final boolean isMutable() {
+        return false;
+    }
+
+    @Override
     public final ImmutableVector negative() {
         ImmutableVector a = this;
         ImmutableVector b = new ImmutableVector(n);

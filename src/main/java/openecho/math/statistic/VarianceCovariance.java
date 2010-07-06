@@ -15,7 +15,7 @@
  **/
 package openecho.math.statistic;
 
-import openecho.math.ImmutableMatrix;
+import openecho.math.Matrix;
 
 /**
  * Variance-Covariance utility for to generate a variance-covariance matrix (n x n)
@@ -41,7 +41,7 @@ public class VarianceCovariance {
         if(data == null) {
             throw new NullPointerException();
         }
-        ImmutableMatrix a = new ImmutableMatrix(DeviationScore.evaluate(data));
+        Matrix a = Matrix.create(DeviationScore.evaluate(data));
         return a.transpose().multiply(a).divideScalar(a.getM()).getData();
     }
 }

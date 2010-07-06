@@ -15,7 +15,7 @@
  **/
 package openecho.math.statistic;
 
-import openecho.math.ImmutableMatrix;
+import openecho.math.Matrix;
 
 /**
  * Standardize utility for Standardizing matrix (m x n) data.
@@ -37,7 +37,7 @@ public class Standardize {
         if(data == null) {
             throw new NullPointerException();
         }
-        ImmutableMatrix a = new ImmutableMatrix(data);
+        Matrix a = Matrix.create(data);
         double[][] d = new double[a.getM()][a.getN()];
         for(int j=0;j<a.getN();j++) {
             double[] nData = a.getColumn(j);

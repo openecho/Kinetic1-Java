@@ -33,43 +33,17 @@ package openecho.math;
  * @author openecho
  * @version 1.0.0
  */
-public class ImmutableMatrix {
-    /**
-     * m dimension
-     */
-    private final int m;
-    /**
-     * n dimension
-     */
-    private final int n;
-    /**
-     * matrix data
-     */
-    private final double[][] data;
+public class ImmutableMatrix extends Matrix {
 
     public ImmutableMatrix(int m, int n) {
-        this.m = m;
-        this.n = n;
-        data = new double[m][n];
+        super(m,n);
     }
 
     public ImmutableMatrix(double[][] data) {
-        m = data.length;
-        n = data[0].length;
-        this.data = new double[m][n];
-        for (int i = 0; i < m; i++) {
-            System.arraycopy(data[i], 0, this.data[i], 0, n);
-        }
+        super(data);
     }
 
-    public int getM() {
-        return m;
-    }
-
-    public int getN() {
-        return n;
-    }
-
+    @Override
     public double[][] getData() {
         double[][] output = new double[m][n];
         for (int i = 0; i < m; i++) {
@@ -78,37 +52,18 @@ public class ImmutableMatrix {
         return output;
     }
 
+    @Override
     public double[] getRow(int i) {
         if(i>=m) {
             throw new IndexOutOfBoundsException();
         }
-        return data[i];
+        double[] output = new double[n];
+        System.arraycopy(this.data[i], 0, output, 0, n);
+        return output;
     }
 
-    public double[] getColumn(int i) {
-        if(i>=n) {
-            throw new IndexOutOfBoundsException();
-        }
-        double[] result = new double[m];
-        for(int j=0;j<m;j++) {
-            result[j]=data[j][i];
-        }
-        return result;
-    }
-
-    public boolean equals(ImmutableMatrix b) {
-        ImmutableMatrix a = this;
-        for(int i=0;i<m;i++) {
-            for(int j=0;j<n;j++) {
-                if(a.data[i][j]!=b.data[i][j]) {
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
-
-    public ImmutableMatrix add(ImmutableMatrix b) {
+    @Override
+    public Matrix add(Matrix b) {
         ImmutableMatrix a = this;
         if(a.m != b.m || a.n != b.n) {
             throw new RuntimeException("Matrix dimensions are not equal.");
@@ -122,7 +77,8 @@ public class ImmutableMatrix {
         return c;
     }
 
-    public ImmutableMatrix subtract(ImmutableMatrix b) {
+    @Override
+    public Matrix subtract(Matrix b) {
         ImmutableMatrix a = this;
         if(a.m != b.m || a.n != b.n) {
             throw new RuntimeException("Matrix dimensions are not equal.");
@@ -136,7 +92,8 @@ public class ImmutableMatrix {
         return c;
     }
 
-    public ImmutableMatrix multiply(ImmutableMatrix b) {
+    @Override
+    public Matrix multiply(Matrix b) {
         ImmutableMatrix a = this;
         if(a.n != b.m) {
             throw new RuntimeException("Matrix dimensions are not incorrect.");
@@ -152,7 +109,8 @@ public class ImmutableMatrix {
         return c;
     }
 
-    public ImmutableMatrix transpose() {
+    @Override
+    public Matrix transpose() {
         ImmutableMatrix a = this;
         ImmutableMatrix t = new ImmutableMatrix(a.n, a.m);
         for (int i = 0; i < a.m; i++) {
@@ -163,7 +121,8 @@ public class ImmutableMatrix {
         return t;
     }
 
-    public ImmutableMatrix addScalar(double v) {
+    @Override
+    public Matrix addScalar(double v) {
         ImmutableMatrix a = this;
         ImmutableMatrix c = new ImmutableMatrix(m, n);
         for(int i=0;i<m;i++) {
@@ -174,7 +133,8 @@ public class ImmutableMatrix {
         return c;
     }
 
-    public ImmutableMatrix subtractScalar(double v) {
+    @Override
+    public Matrix subtractScalar(double v) {
         ImmutableMatrix a = this;
         ImmutableMatrix c = new ImmutableMatrix(m, n);
         for(int i=0;i<m;i++) {
@@ -185,7 +145,8 @@ public class ImmutableMatrix {
         return c;
     }
 
-    public ImmutableMatrix multiplyScalar(double v) {
+    @Override
+    public Matrix multiplyScalar(double v) {
         ImmutableMatrix a = this;
         ImmutableMatrix c = new ImmutableMatrix(m, n);
         for(int i=0;i<m;i++) {
@@ -196,7 +157,8 @@ public class ImmutableMatrix {
         return c;
     }
 
-    public ImmutableMatrix divideScalar(double v) {
+    @Override
+    public Matrix divideScalar(double v) {
         if(v==0) {
             throw new RuntimeException("Divide by Zero");
         }
@@ -208,71 +170,5 @@ public class ImmutableMatrix {
             }
         }
         return c;
-    }
-
-    @Override
-    public String toString() {
-        String dataString = "{";
-        for(int i=0;i<m;i++) {
-            dataString+="{";
-            for(int j=0;j<n;j++) {
-                dataString += data[i][j]+((j<n-1)?",":"");
-            }
-            dataString+="}"+((i<m-1)?",":"");
-        }
-        dataString+="}";
-        return String.format("%s %s", super.toString(),dataString);
-    }
-
-    public static ImmutableMatrix transpose(ImmutableMatrix a) {
-        ImmutableMatrix t = new ImmutableMatrix(a.n, a.m);
-        for (int i = 0; i < a.m; i++) {
-            for (int j = 0; j < a.n; j++) {
-                t.data[j][i] = a.data[i][j];
-            }
-        }
-        return t;
-    }
-
-    public static ImmutableMatrix identity(int n) {
-        ImmutableMatrix i = new ImmutableMatrix(n, n);
-        for (int j = 0; j < n; j++) {
-            i.data[j][j] = 1;
-        }
-        return i;
-    }
-
-    public static ImmutableMatrix random(int m, int n) {
-        ImmutableMatrix r = new ImmutableMatrix(m, n);
-        for (int i = 0; i < m; i++) {
-            for (int j = 0; j < n; j++) {
-                r.data[i][j] = Math.random();
-            }
-        }
-        return r;
-    }
-
-    public static ImmutableMatrix random(int m, int n, double lowerBound, double higherBound) {
-        ImmutableMatrix r = new ImmutableMatrix(m, n);
-        for (int i = 0; i < m; i++) {
-            for (int j = 0; j < n; j++) {
-                r.data[i][j] = (Math.random()*(higherBound-lowerBound))+lowerBound;
-            }
-        }
-        return r;
-    }
-
-    public static ImmutableMatrix generate(int m, int n, double v) {
-        ImmutableMatrix g = new ImmutableMatrix(m, n);
-        for (int i = 0; i < m; i++) {
-            for (int j = 0; j < n; j++) {
-                g.data[i][j] = v;
-            }
-        }
-        return g;
-    }
-
-    public static ImmutableMatrix oneMatrix(int m, int n) {
-        return generate(m,n,1D);
     }
 }

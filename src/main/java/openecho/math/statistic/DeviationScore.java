@@ -16,6 +16,7 @@
 package openecho.math.statistic;
 
 import openecho.math.ImmutableMatrix;
+import openecho.math.Matrix;
 
 /**
  * Deviation Score utility.
@@ -30,9 +31,9 @@ public class DeviationScore {
         if(data==null) {
             throw new NullPointerException();
         }
-        ImmutableMatrix x = new ImmutableMatrix(data);
-        ImmutableMatrix o = ImmutableMatrix.oneMatrix(x.getM(), x.getM());
-        ImmutableMatrix d = (x.subtract(o.multiply(x).divideScalar(x.getM())));
+        Matrix x = Matrix.create(data);
+        Matrix o = Matrix.oneMatrix(x.getM(), x.getM());
+        Matrix d = (x.subtract(o.multiply(x).divideScalar(x.getM())));
         return d.getData();
     }
 }

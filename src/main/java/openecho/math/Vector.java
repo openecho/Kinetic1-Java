@@ -54,9 +54,7 @@ public abstract class Vector {
         return n;
     }
 
-    public final double[] getData() {
-        return data;
-    }
+    public abstract double[] getData();
 
     public final double magnitude() {
         Vector a = this;

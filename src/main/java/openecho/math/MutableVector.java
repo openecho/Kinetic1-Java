@@ -32,7 +32,12 @@ public class MutableVector extends Vector {
     }
 
     @Override
-    public Vector negative() {
+    public final double[] getData() {
+        return data;
+    }
+
+    @Override
+    public final Vector negative() {
         MutableVector a = this;
         for (int i = 0; i < n; i++) {
             a.data[i] = a.data[i] * -1;
@@ -41,7 +46,7 @@ public class MutableVector extends Vector {
     }
 
     @Override
-    public Vector normalise() {
+    public final Vector normalise() {
         MutableVector a = this;
         double m = magnitude();
         if (m == 0) {
@@ -54,7 +59,7 @@ public class MutableVector extends Vector {
     }
 
     @Override
-    public Vector add(Vector b) {
+    public final Vector add(Vector b) {
         MutableVector a = this;
         if (a.n != b.n) {
             throw new RuntimeException("Vector dimensions are not equal.");
@@ -66,7 +71,7 @@ public class MutableVector extends Vector {
     }
 
     @Override
-    public Vector subtract(Vector b) {
+    public final Vector subtract(Vector b) {
         MutableVector a = this;
         if (a.n != b.n) {
             throw new RuntimeException("Vector dimensions are not equal.");
@@ -78,7 +83,7 @@ public class MutableVector extends Vector {
     }
 
     @Override
-    public Vector cross(Vector b) {
+    public final Vector cross(Vector b) {
         MutableVector a = this;
         if (a.n != 3 || b.n != 3) {
             throw new RuntimeException("Vector dimensions are not both equal to three.");
@@ -93,7 +98,7 @@ public class MutableVector extends Vector {
     }
 
     @Override
-    public Vector addScalar(double v) {
+    public final Vector addScalar(double v) {
         MutableVector a = this;
         for (int i = 0; i < n; i++) {
             a.data[i] = a.data[i] + v;
@@ -102,7 +107,7 @@ public class MutableVector extends Vector {
     }
 
     @Override
-    public Vector subtractScalar(double v) {
+    public final Vector subtractScalar(double v) {
         MutableVector a = this;
         for (int i = 0; i < n; i++) {
             a.data[i] = a.data[i] - v;
@@ -111,7 +116,7 @@ public class MutableVector extends Vector {
     }
 
     @Override
-    public Vector multiplyScalar(double v) {
+    public final Vector multiplyScalar(double v) {
         MutableVector a = this;
         for (int i = 0; i < n; i++) {
             a.data[i] = a.data[i] * v;
@@ -120,7 +125,7 @@ public class MutableVector extends Vector {
     }
 
     @Override
-    public Vector divideScalar(double v) {
+    public final Vector divideScalar(double v) {
         if (v == 0) {
             throw new RuntimeException("Divide By Zero.");
         }

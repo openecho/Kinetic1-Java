@@ -21,15 +21,7 @@ import openecho.math.Vector;
  *
  * @author openecho
  */
-public class Shape {
-
-    Vector origin;
-
-    double mass;
-
-    Vector centroid;
-
-    double rotation;
+public interface Shape {
 
     // Get Radius
 

@@ -15,49 +15,24 @@
  **/
 package openecho.geometry;
 
-import openecho.math.Vector;
-
 /**
  *
  * @author openecho
  */
-public class Edge implements Shape {
-
-    public Vector a,b;
+public class Square implements Shape {
 
     public double mass;
 
-    public Vector centroid;
+    public Point2D centroid;
 
     public double rotation;
 
-    // Radius
+    public Point2D a,b,c,d;
 
-    // Bounding Box
-
-    // Bounding Hull
-    
-    public Edge(Vector a, Vector b) {
+    public Square(Point2D a, Point2D b, Point2D c, Point2D d) {
         this.a = a;
         this.b = b;
+        this.c = c;
+        this.d = d;
     }
-
-    public Vector getStartPoint() {
-        return a;
-    }
-
-    public void setStartPoint(Vector startPoint) {
-        this.a = startPoint;
-    }
-
-    public Vector getEndPoint() {
-        return b;
-    }
-
-    public void setEndPoint(Vector endPoint) {
-        this.b = endPoint;
-    }
-
-    
-    
 }

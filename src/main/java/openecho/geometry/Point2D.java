@@ -13,51 +13,33 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  **/
+
 package openecho.geometry;
 
+import openecho.math.MutableVector;
 import openecho.math.Vector;
 
 /**
  *
  * @author openecho
  */
-public class Edge implements Shape {
-
-    public Vector a,b;
-
-    public double mass;
-
-    public Vector centroid;
-
-    public double rotation;
-
-    // Radius
-
-    // Bounding Box
-
-    // Bounding Hull
+public class Point2D extends MutableVector {
     
-    public Edge(Vector a, Vector b) {
-        this.a = a;
-        this.b = b;
+    public Point2D(double[] data) {
+        super(data);
     }
 
-    public Vector getStartPoint() {
-        return a;
+    public Point2D(int n) {
+        super(n);
     }
 
-    public void setStartPoint(Vector startPoint) {
-        this.a = startPoint;
+    public double getX() {
+        return data[X];
     }
 
-    public Vector getEndPoint() {
-        return b;
+    public double getY() {
+        return data[Y];
     }
 
-    public void setEndPoint(Vector endPoint) {
-        this.b = endPoint;
-    }
-
-    
     
 }

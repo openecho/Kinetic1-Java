@@ -42,7 +42,9 @@ public abstract class RepeatedAction {
      * Get the name of the RepeatedAction
      * @return String name.
      */
-    public abstract String getName();
+    public String getName() {
+        return getClass().getName();
+    }
 
     /**
      * Execute the Repeated Action.

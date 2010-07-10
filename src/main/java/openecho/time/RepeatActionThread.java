@@ -177,7 +177,6 @@ public class RepeatActionThread implements Runnable {
     public synchronized void stop() {
         state = STOPPED;
         internalThread.interrupt();
-        internalThread = null;
     }
 
     public void run() {

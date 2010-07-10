@@ -45,7 +45,7 @@ public abstract class Matrix {
     /**
      * matrix data
      */
-    double[][] data;
+    protected double[][] data;
 
     /**
      * Default constructor to specify the dimensions of the m by n Matrix

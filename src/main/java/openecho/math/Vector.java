@@ -28,7 +28,7 @@ public abstract class Vector {
     /**
      * matrix data
      */
-    double[] data;
+    protected double[] data;
     public static final int X, Y, Z;
     public static final ImmutableVector ZERO;
 

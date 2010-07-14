@@ -311,8 +311,23 @@ public abstract class Matrix {
      * @param n dimension of square Matrix.
      * @return Matrix constructed identity Matrix.
      */
-    public static Matrix identity(int n) {
-        Matrix i = new ImmutableMatrix(n, n);
+    public static Matrix identity(int n) {    
+        return identity(n, false);
+    }
+
+     /**
+     * Creates an identity n by n Matrix
+     * @param n dimension of square Matrix.
+     * @param mutbale specifies if the return Matrix will be mutable.
+     * @return Matrix constructed identity Matrix.
+     */
+    public static Matrix identity(int n, boolean mutable) {
+        Matrix i = null;
+        if(!mutable) {
+            i = new ImmutableMatrix(n, n);
+        } else {
+            i = new MutableMatrix(n,n);
+        }
         for (int j = 0; j < n; j++) {
             i.data[j][j] = 1;
         }

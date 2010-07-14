@@ -15,19 +15,26 @@
  **/
 package openecho.geometry;
 
-import openecho.math.Vector;
-
 /**
  *
  * @author openecho
  */
 public interface Shape {
 
+    public Point2D getCentroid();
+
+    public Point2D getOrigin();
+
+    public Point2D[] getPoints();
+
     // Get Radius
+    public double getRadius();
 
     // Get Bounding Box
 
     // Get Convex Hull
 
     // Get Axis Aligned Bounding Box
+
+    public Shape applyShapeTransformation(ShapeTransformation t);
 }

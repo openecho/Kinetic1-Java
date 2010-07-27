@@ -12,9 +12,9 @@ import junit.framework.TestCase;
  *
  * @author openecho
  */
-public class SimpleImmutableMatrixTest extends TestCase {
+public class ImmutableMatrixTest extends TestCase {
     
-    public SimpleImmutableMatrixTest(String testName) {
+    public ImmutableMatrixTest(String testName) {
         super(testName);
     }
 
@@ -134,13 +134,13 @@ public class SimpleImmutableMatrixTest extends TestCase {
      */
     public void testMultiply() {
         System.out.println("multiply");
-        double[][] data = new double[][] {{1,2,3}};
+        double[][] data = new double[][] {{3D,2D,4D},{1D,2D,3D}};
         ImmutableMatrix b = new ImmutableMatrix(data);
         System.out.println(b);
-        data = new double[][] {{4},{5},{6}};
+        data = new double[][] {{4D},{3D},{2D}};
         ImmutableMatrix instance = new ImmutableMatrix(data);
         System.out.println(instance);
-        data = new double[][] {{32}};
+        data = new double[][] {{26D},{16D}};
         ImmutableMatrix expResult = new ImmutableMatrix(data);
         Matrix result = b.multiply(instance);
         System.out.println(result);

@@ -20,12 +20,11 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import javax.swing.JPanel;
-import openecho.geometry.Circle;
-import openecho.geometry.Line;
-import openecho.geometry.Point2D;
-import openecho.geometry.Shape;
-import openecho.geometry.Rectangle;
-import openecho.math.Vector;
+import openecho.geometry.d2.Circle;
+import openecho.geometry.d2.Line;
+import openecho.geometry.d2.Point;
+import openecho.geometry.d2.Shape;
+import openecho.geometry.d2.Rectangle;
 
 /**
  *
@@ -72,22 +71,22 @@ public class PlotPanel extends JPanel {
         double x,y,xWorld,yWorld;
 
         for(Shape shape: shapes) {
-            if(shape instanceof Point2D) {
+            if(shape instanceof Point) {
                 g.setColor(Color.BLUE);
-                Point2D point = shape.getOrigin();
+                Point point = shape.getOrigin();
                 drawPoint(g, point);
             } else if(shape instanceof Line) {
                 g.setColor(Color.GREEN);
-                Point2D[] points = shape.getPoints();
-                for(Point2D point: points) {
+                Point[] points = shape.getPoints();
+                for(Point point: points) {
                     drawPoint(g, point);
                 }
                 drawLine(g,points[0],points[1]);
                 drawCentrePoint(g, shape.getCentroid());
             } else if(shape instanceof Rectangle) {
                 g.setColor(Color.RED);
-                Point2D[] points = shape.getPoints();
-                for(Point2D point: points) {
+                Point[] points = shape.getPoints();
+                for(Point point: points) {
                     drawPoint(g, point);
                 }
                 drawLine(g,points[0],points[1]);
@@ -98,7 +97,7 @@ public class PlotPanel extends JPanel {
                 drawCentrePoint(g, shape.getCentroid());
             } else if(shape instanceof Circle) {
                 g.setColor(Color.BLACK);
-                Point2D[] points = shape.getPoints();
+                Point[] points = shape.getPoints();
                 drawCircle(g, shape.getCentroid(), shape.getRadius());
                 drawPoint(g, points[0]);
                 drawLine(g,shape.getCentroid(),points[0]);
@@ -107,12 +106,12 @@ public class PlotPanel extends JPanel {
         }
     }
 
-    public void drawPoint(Graphics g, Point2D p) {
-        Point2D centroid = p.getCentroid();
+    public void drawPoint(Graphics g, Point p) {
+        Point centroid = p.getCentroid();
         g.fillOval(convertX(centroid.getX()-2), convertY(p.getY()+2), 4, 4);
     }
 
-    public void drawCentrePoint(Graphics g, Point2D p) {
+    public void drawCentrePoint(Graphics g, Point p) {
         double x,y,xWorld,yWorld;
         x = p.getX();
         y =  p.getY();
@@ -120,7 +119,7 @@ public class PlotPanel extends JPanel {
         g.drawOval(convertX(x-4), convertY(y+4), 8, 8);
     }
 
-    public void drawLine(Graphics g, Point2D a, Point2D b) {
+    public void drawLine(Graphics g, Point a, Point b) {
         double xA,yA,xB,yB;
         xA = a.getX();
         yA =  a.getY();
@@ -133,7 +132,7 @@ public class PlotPanel extends JPanel {
         drawLine(g,l.getStartPoint(),l.getEndPoint());
     }
 
-    public void drawCircle(Graphics g, Point2D c, double r) {
+    public void drawCircle(Graphics g, Point c, double r) {
         double x,y,n;
         x = c.getX() - r;
         y = c.getY() + r;

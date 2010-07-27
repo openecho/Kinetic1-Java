@@ -1,0 +1,37 @@
+/**
+ * Copyright (C) 2010 openecho
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ **/
+
+package openecho.geometry.d2;
+
+import openecho.math.MutableMatrix;
+
+/**
+ *
+ * @author jmarsden
+ */
+public class PointMatrix extends MutableMatrix {
+
+    public PointMatrix() {
+        super(3,1);
+    }
+
+    public PointMatrix setPointData(Point point) {
+        data[0][0] = point.getData()[Point.X];
+        data[1][0] = point.getData()[Point.Y];
+        data[2][0] = 1;
+        return this;
+    }
+}

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  **/
-package openecho.geometry;
+package openecho.geometry.d2;
 
 import openecho.math.Vector;
 import openecho.math.statistic.Mean;
@@ -24,7 +24,7 @@ import openecho.math.statistic.Mean;
  */
 public class Line implements Shape {
 
-    public Point2D a,b;
+    public Point a,b;
 
     public double mass;
 
@@ -38,48 +38,48 @@ public class Line implements Shape {
 
     // Bounding Hull
     
-    public Line(Point2D a, Point2D b) {
+    public Line(Point a, Point b) {
         this.a = a;
         this.b = b;
     }
 
     public Line(Vector v) {
-        this.a = new Point2D(0D,0D);
-        this.b = new Point2D(v.getData()[Vector.X],v.getData()[Vector.Y]);
+        this.a = new Point(0D,0D);
+        this.b = new Point(v.getData()[Vector.X],v.getData()[Vector.Y]);
     }
 
-    public Point2D getStartPoint() {
+    public Point getStartPoint() {
         return a;
     }
 
-    public void setStartPoint(Point2D startPoint) {
+    public void setStartPoint(Point startPoint) {
         this.a = startPoint;
     }
 
-    public Point2D getEndPoint() {
+    public Point getEndPoint() {
         return b;
     }
 
-    public void setEndPoint(Point2D endPoint) {
+    public void setEndPoint(Point endPoint) {
         this.b = endPoint;
     }
 
-    public Point2D getCentroid() {
+    public Point getCentroid() {
         Mean x = new Mean();
         Mean y = new Mean();
-        for(Point2D point: getPoints()) {
+        for(Point point: getPoints()) {
             x.addMoment(point.getX());
             y.addMoment(point.getY());
         }
-        return new Point2D(x.evaulate(),y.evaulate());
+        return new Point(x.evaulate(),y.evaulate());
     }
 
-    public Point2D getOrigin() {
+    public Point getOrigin() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    public Point2D[] getPoints() {
-        return new Point2D[] {a,b};
+    public Point[] getPoints() {
+        return new Point[] {a,b};
     }
 
     public double getRadius() {

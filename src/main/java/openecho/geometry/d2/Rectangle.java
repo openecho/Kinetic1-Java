@@ -13,9 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  **/
-package openecho.geometry;
+package openecho.geometry.d2;
 
-import openecho.math.Matrix;
 import openecho.math.statistic.Mean;
 
 /**
@@ -26,45 +25,49 @@ public class Rectangle implements Shape {
 
     public double mass;
 
-    public Point2D centroid;
+    public Point centroid;
 
     public double rotation;
 
-    public Point2D a,b,c,d;
+    public Point a,b,c,d;
+
+    public PointMatrix pointMatrix;
 
     private Rectangle() {
         this.a = null;
         this.b = null;
         this.c = null;
         this.d = null;
+        pointMatrix = new PointMatrix();
     }
 
-    public Rectangle(Point2D a, Point2D b, Point2D c, Point2D d) {
+    public Rectangle(Point a, Point b, Point c, Point d) {
         this.a = a;
         this.b = b;
         this.c = c;
         this.d = d;
+        pointMatrix = new PointMatrix();
     }
 
-    public Point2D getCentroid() {
+    public Point getCentroid() {
         if(centroid == null) {
             Mean x = new Mean();
             Mean y = new Mean();
-            for(Point2D point: getPoints()) {
+            for(Point point: getPoints()) {
                 x.addMoment(point.getX());
                 y.addMoment(point.getY());
             }
-            centroid = new Point2D(x.evaulate(),y.evaulate());
+            centroid = new Point(x.evaulate(),y.evaulate());
         }
         return centroid;
     }
 
-    public Point2D getOrigin() {
+    public Point getOrigin() {
         return this.a;
     }
 
-    public Point2D[] getPoints() {
-        return new Point2D[] {a,b,c,d};
+    public Point[] getPoints() {
+        return new Point[] {a,b,c,d};
     }
 
     public double getRadius() {
@@ -72,13 +75,12 @@ public class Rectangle implements Shape {
     }
 
     public Shape applyShapeTransformation(ShapeTransformation t) {
-        PointMatrix pointMatrix = new PointMatrix();
         Rectangle transformedShape = new Rectangle();
-        transformedShape.a = Point2D.createFromTransformationMatrix(t.multiply(pointMatrix.setPointData(a)));
-        transformedShape.b = Point2D.createFromTransformationMatrix(t.multiply(pointMatrix.setPointData(b)));
-        transformedShape.c = Point2D.createFromTransformationMatrix(t.multiply(pointMatrix.setPointData(c)));
-        transformedShape.d = Point2D.createFromTransformationMatrix(t.multiply(pointMatrix.setPointData(d)));
-        transformedShape.centroid = Point2D.createFromTransformationMatrix(t.multiply(pointMatrix.setPointData(getCentroid())));
+        transformedShape.a = Point.createFromTransformationMatrix(t.multiply(pointMatrix.setPointData(a)));
+        transformedShape.b = Point.createFromTransformationMatrix(t.multiply(pointMatrix.setPointData(b)));
+        transformedShape.c = Point.createFromTransformationMatrix(t.multiply(pointMatrix.setPointData(c)));
+        transformedShape.d = Point.createFromTransformationMatrix(t.multiply(pointMatrix.setPointData(d)));
+        transformedShape.centroid = Point.createFromTransformationMatrix(t.multiply(pointMatrix.setPointData(getCentroid())));
         return transformedShape;
     }
 }

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  **/
-package openecho.geometry;
+package openecho.geometry.d2;
 
 /**
  *
@@ -21,11 +21,11 @@ package openecho.geometry;
  */
 public interface Shape {
 
-    public Point2D getCentroid();
+    public Point getCentroid();
 
-    public Point2D getOrigin();
+    public Point getOrigin();
 
-    public Point2D[] getPoints();
+    public Point[] getPoints();
 
     // Get Radius
     public double getRadius();

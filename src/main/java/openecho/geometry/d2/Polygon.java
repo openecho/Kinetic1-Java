@@ -14,7 +14,7 @@
  * limitations under the License.
  **/
 
-package openecho.geometry;
+package openecho.geometry.d2;
 
 import java.util.ArrayList;
 
@@ -26,25 +26,25 @@ public class Polygon implements Shape {
 
     public double mass;
 
-    public Point2D centroid;
+    public Point centroid;
 
     public double rotation;
 
-    public ArrayList<Point2D> points;
+    public ArrayList<Point> points;
 
     public Polygon() {
-        points = new ArrayList<Point2D>();
+        points = new ArrayList<Point>();
     }
     
-    public Point2D getCentroid() {
+    public Point getCentroid() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    public Point2D getOrigin() {
+    public Point getOrigin() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    public Point2D[] getPoints() {
+    public Point[] getPoints() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 

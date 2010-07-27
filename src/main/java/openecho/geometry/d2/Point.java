@@ -14,7 +14,7 @@
  * limitations under the License.
  **/
 
-package openecho.geometry;
+package openecho.geometry.d2;
 
 import openecho.math.MutableVector;
 import openecho.math.Matrix;
@@ -22,17 +22,17 @@ import openecho.math.Matrix;
  *
  * @author openecho
  */
-public class Point2D extends MutableVector implements Shape {
+public class Point extends MutableVector implements Shape {
 
-    public Point2D(double x, double y) {
+    public Point(double x, double y) {
         super(new double[] {x,y});
     }
 
-    public Point2D(double[] data) {
+    public Point(double[] data) {
         super(data);
     }
 
-    public Point2D(int n) {
+    public Point(int n) {
         super(n);
     }
 
@@ -44,34 +44,34 @@ public class Point2D extends MutableVector implements Shape {
         return data[Y];
     }
 
-    public Point2D getCentroid() {
+    public Point getCentroid() {
         return this;
     }
 
-    public Point2D getOrigin() {
+    public Point getOrigin() {
         return this;
     }
 
-    public Point2D[] getPoints() {
-        return new Point2D[] {this};
+    public Point[] getPoints() {
+        return new Point[] {this};
     }
 
     public double getRadius() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    public Point2D applyShapeTransformation(ShapeTransformation t) {
+    public Point applyShapeTransformation(ShapeTransformation t) {
         PointMatrix pointMatrix = new PointMatrix();
-        return Point2D.createFromTransformationMatrix(t.multiply(pointMatrix.setPointData(getCentroid())));
+        return Point.createFromTransformationMatrix(t.multiply(pointMatrix.setPointData(getCentroid())));
     }
 
-    public static Point2D createFromTransformationMatrix(Matrix transformationMatrix) {
+    public static Point createFromTransformationMatrix(Matrix transformationMatrix) {
         if(transformationMatrix.getN() != 1 || transformationMatrix.getM() < 2) {
             throw new RuntimeException("Cannot Create Point2D from a Matrix unless its 1xM where M >= 2");
         }
-        Point2D point = null;
+        Point point = null;
         double[][] data = transformationMatrix.getData();
-        point = new Point2D(data[0][0], data[1][0]);
+        point = new Point(data[0][0], data[1][0]);
         return point;
     }
 }

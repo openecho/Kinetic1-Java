@@ -42,8 +42,7 @@ public class ShapeTransformation extends MutableMatrix {
         if(getM() != b.getM() || getN() != b.getN()) {
             this.multiply((Matrix) b);
         }
-        Matrix output = super.multiply(b);
-        this.data = output.getData();
+        this.data = super.multiply(b).getData();
         this.rotation += b.rotation;
         this.xScale *= b.xScale;
         this.yScale *= b.yScale;

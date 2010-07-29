@@ -86,7 +86,7 @@ public class MutableMatrix extends Matrix {
     public Matrix multiply(Matrix b) {
         MutableMatrix a = this;
         if(a.n != b.m) {
-            throw new RuntimeException("Matrix dimensions are not incorrect.");
+            throw new RuntimeException("Matrix dimensions are not correct.");
         }
         ImmutableMatrix c = new ImmutableMatrix(a.m, b.n);
         for(int i=0;i<c.m;i++) {

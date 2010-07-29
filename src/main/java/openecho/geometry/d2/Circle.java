@@ -66,8 +66,8 @@ public class Circle implements Shape {
         }
         PointMatrix pointMatrix = new PointMatrix();
         Circle transformedShape = new Circle();
-        transformedShape.centroid = Point.createFromTransformationMatrix(pointMatrix.setPointData(centroid).multiply(t));
-        transformedShape.reference = Point.createFromTransformationMatrix(pointMatrix.setPointData(reference).multiply(t));
+        transformedShape.centroid = Point.createFromTransformationMatrix(t.multiply(pointMatrix.setPointData(centroid)));
+        transformedShape.reference = Point.createFromTransformationMatrix(t.multiply(pointMatrix.setPointData(centroid)));
         transformedShape.radius = radius;
         return transformedShape;
     }

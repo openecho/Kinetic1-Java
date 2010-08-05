@@ -1,3 +1,3 @@
 # Java Pack
 
-http://jwm.slavitica.net/p
+SCM Management http://jwm.slavitica.net/p

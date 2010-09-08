@@ -21,57 +21,53 @@ package openecho.math;
  */
 public abstract class VectorD extends Vector {
 
-    /**
-     * n dimension
-     */
-    final int n;
-    /**
-     * matrix data
-     */
-    double[] data;
-    public static final int X, Y, Z;
-    public static final ImmutableVectorD ZERO;
+    public static final ArrayVectorD ZERO;
 
     static {
-        X = 0;
-        Y = 1;
-        Z = 2;
-        ZERO = new ImmutableVectorD(new double[]{0D, 0D, 0D});
+        ZERO = new ArrayVectorD(new Double[] {0D, 0D, 0D});
     }
 
     public VectorD(int n) {
+        this(n,false);
+    }
+
+    public VectorD(int n, boolean mutable) {
         this.n = n;
-        this.data = new double[n];
+        this.mutable = mutable;
     }
 
-    public VectorD(double[] data) {
+    public VectorD(Number[] data) {
+        this(data, false);
+    }
+
+    public VectorD(Number[] data, boolean mutable) {
         n = data.length;
-        this.data = new double[n];
-        System.arraycopy(data, 0, this.data, 0, n);
+        this.mutable = mutable;
     }
 
-    public final int getN() {
-        return n;
-    }
+    protected abstract void initData(Number[] data);
 
-    public abstract double[] getData();
+    protected abstract void initData(int i, Number data);
 
-    /**
-     * Flag indicating if this version of the VectorD is mutable.
-     * @return boolean VectorD mutable when true otherwise not mutable.
-     */
-    public abstract boolean isMutable();
+    public abstract Double[] getData();
 
-    public final double magnitude() {
+    public abstract Double getData(int i);
+
+    public abstract void setData(Number[] data);
+
+    public abstract void setData(int i, Number data);
+
+    public final Double magnitude() {
         VectorD a = this;
         double squaredSum = 0;
         for (int i = 0; i < n; i++) {
-            squaredSum += Math.pow(a.data[i], 2);
+            squaredSum += Math.pow(a.getData(i), 2);
         }
         return Math.sqrt(squaredSum);
     }
 
-    public final double length() {
+    @Override
+    public final Double length() {
         return magnitude();
     }
 
@@ -79,50 +75,92 @@ public abstract class VectorD extends Vector {
 
     public abstract VectorD normalise();
 
-    public final boolean equals(VectorD b) {
-        VectorD a = this;
+    public final boolean equals(Vector b) {
+        Vector a = this;
         for (int i = 0; i < n; i++) {
-            if (a.data[i] != b.data[i]) {
+            if (!a.getData(i).equals(b.getData(i))) {
                 return false;
             }
         }
         return true;
     }
 
-    public abstract VectorD add(VectorD b);
+    public abstract VectorD add(Vector b);
 
-    public abstract VectorD subtract(VectorD b);
+    public abstract VectorD subtract(Vector b);
 
-    public double dot(VectorD b) {
-        VectorD a = this;
-        if (a.n != b.n) {
+    public Double dot(Vector b) {
+        if (n != b.n) {
             throw new RuntimeException("Vector dimensions are not equal.");
         }
         double dotProduct = 0;
         for (int i = 0; i < n; i++) {
-            dotProduct += a.data[i] * b.data[i];
+            dotProduct += getData(i) * b.getData(i).doubleValue();
         }
         return dotProduct;
     }
 
-    public abstract VectorD cross(VectorD b);
+    public abstract VectorD cross(Vector b);
 
-    public abstract VectorD addScalar(double v);
+    public abstract VectorD addScalar(Number v);
 
-    public abstract VectorD subtractScalar(double v);
+    public abstract VectorD subtractScalar(Number v);
 
-    public abstract VectorD multiplyScalar(double v);
+    public abstract VectorD multiplyScalar(Number v);
 
-    public abstract VectorD divideScalar(double v);
+    public abstract VectorD divideScalar(Number v);
 
-    @Override
+//    public VectorD(int n) {
+//        this.n = n;
+//        this.data = new double[n];
+//    }
+//
+//    public VectorD(double[] data) {
+//        n = data.length;
+//        this.data = new double[n];
+//        System.arraycopy(data, 0, this.data, 0, n);
+//    }
+
+//
+//    public abstract VectorD negative();
+//
+//    public abstract VectorD normalise();
+//
+
+//
+//    public abstract VectorD add(VectorD b);
+//
+//    public abstract VectorD subtract(VectorD b);
+//
+
+//
+//    public abstract VectorD cross(VectorD b);
+//
+//    public abstract VectorD addScalar(double v);
+//
+//    public abstract VectorD subtractScalar(double v);
+//
+//    public abstract VectorD multiplyScalar(double v);
+//
+//    public abstract VectorD divideScalar(double v);
+//
+
+        @Override
     public String toString() {
         String dataString = "{";
         for (int i = 0; i < n; i++) {
-            dataString += data[i] + ((i < n - 1) ? ", " : "");
+            dataString += getData(i) + ((i < n - 1) ? ", " : "");
         }
         dataString += "}";
         return String.format("%s %s", super.toString(), dataString);
+    }
+
+    public static VectorD empty(int i) {
+        return null;
+    }
+
+    public static VectorD random(int i) {
+        return null;
     }
 
     public static VectorD zero() {

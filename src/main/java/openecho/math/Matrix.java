@@ -75,11 +75,18 @@ public abstract class Matrix {
      */
     public abstract Number[][] getData();
 
+    public abstract Number getData(int i, int j);
+
+    public abstract void setData(Number[][] data);
+
+    public abstract void setData(int i, int j, Number data);
+
+    public abstract boolean equals(Matrix b);
+
     public abstract Number[] getRow(int i);
 
     public abstract Number[] getColumn(int i);
 
-    public abstract boolean equals(Matrix b);
 
      /**
      * Adds a Matrix to this instance. Matrix A + Matrix B = Matrix C.

@@ -53,7 +53,18 @@ public class ImmutableMatrixD extends MatrixD {
     }
 
     @Override
-    public void setData(Double[][] data) {
+    public Double getData(int i, int j) {
+        Double output = new Double(data[i][j]);
+        return output;
+    }
+
+    @Override
+    public void setData(int i, int j, Number data) {
+        throw new UnsupportedOperationException("Cannot Set Data on an ImmutableMatrix.");
+    }
+
+    @Override
+    public void setData(Number[][] data) {
         throw new UnsupportedOperationException("Cannot Set Data on an ImmutableMatrix.");
     }
 

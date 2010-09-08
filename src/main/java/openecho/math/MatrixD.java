@@ -68,12 +68,15 @@ public abstract class MatrixD extends Matrix {
      */
     public abstract Double[][] getData();
 
+    public abstract Double getData(int i, int j);
+
     /**
      * Sets the data into the MatrixD. This will be unsupported on some
      * implementations.
      */
-    public abstract void setData(Double[][] data);
+    public abstract void setData(Number[][] data);
 
+    public abstract void setData(int i, int j, Number data);
 
     /**
      * Retrieve the data for a row from the MatrixD.

@@ -15,6 +15,8 @@
  **/
 package openecho.math;
 
+import openecho.math.random.FastRandom;
+
 /**
  *
  * @author openecho
@@ -24,11 +26,11 @@ public abstract class VectorD extends Vector {
     public static final ArrayVectorD ZERO;
 
     static {
-        ZERO = new ArrayVectorD(new Double[] {0D, 0D, 0D});
+        ZERO = new ArrayVectorD(new Double[]{0D, 0D, 0D});
     }
 
     public VectorD(int n) {
-        this(n,false);
+        this(n, false);
     }
 
     public VectorD(int n, boolean mutable) {
@@ -110,42 +112,7 @@ public abstract class VectorD extends Vector {
 
     public abstract VectorD divideScalar(Number v);
 
-//    public VectorD(int n) {
-//        this.n = n;
-//        this.data = new double[n];
-//    }
-//
-//    public VectorD(double[] data) {
-//        n = data.length;
-//        this.data = new double[n];
-//        System.arraycopy(data, 0, this.data, 0, n);
-//    }
-
-//
-//    public abstract VectorD negative();
-//
-//    public abstract VectorD normalise();
-//
-
-//
-//    public abstract VectorD add(VectorD b);
-//
-//    public abstract VectorD subtract(VectorD b);
-//
-
-//
-//    public abstract VectorD cross(VectorD b);
-//
-//    public abstract VectorD addScalar(double v);
-//
-//    public abstract VectorD subtractScalar(double v);
-//
-//    public abstract VectorD multiplyScalar(double v);
-//
-//    public abstract VectorD divideScalar(double v);
-//
-
-        @Override
+    @Override
     public String toString() {
         String dataString = "{";
         for (int i = 0; i < n; i++) {
@@ -156,11 +123,19 @@ public abstract class VectorD extends Vector {
     }
 
     public static VectorD empty(int i) {
-        return null;
+        VectorD e = new ArrayVectorD(i);
+        for(int j=0;j<i;j++) {
+            e.setData(i, 0D);
+        }
+        return e;
     }
 
     public static VectorD random(int i) {
-        return null;
+        VectorD r = new ArrayVectorD(i);
+        for(int j=0;j<i;j++) {
+            r.setData(i, FastRandom.getInstance().random());
+        }
+        return r;
     }
 
     public static VectorD zero() {

@@ -39,23 +39,23 @@ public class MatrixFormat extends Format {
         cellFormat = new DecimalFormat(" ####0.0000;-####0.0000");
     }
 
-    public int[] getColumnCharacterWidths(ImmutableMatrix a) {
+    public int[] getColumnCharacterWidths(ImmutableMatrixD a) {
         return null;
     }
 
     @Override
     public StringBuffer format(Object obj, StringBuffer toAppendTo, FieldPosition pos) {
-        if(obj instanceof ImmutableMatrix) {
-            ImmutableMatrix a = (ImmutableMatrix) obj;
-            double[][] data = a.getData();
-            for(int i=0;i<a.getM();i++) {
-                toAppendTo.append(rowPrefix);
-                for(int j=0;j<a.getN();j++) {
-                    toAppendTo.append(cellFormat.format(data[i][j])).append((j<a.getN()-1) ? cellSeparator : "");
-                }
-                toAppendTo.append(rowSuffix).append("\r\n");
-            }
-        }
+//        if(obj instanceof ImmutableMatrixD) {
+//            ImmutableMatrixD a = (ImmutableMatrixD) obj;
+//            double[][] data = a.getData();
+//            for(int i=0;i<a.getM();i++) {
+//                toAppendTo.append(rowPrefix);
+//                for(int j=0;j<a.getN();j++) {
+//                    toAppendTo.append(cellFormat.format(data[i][j])).append((j<a.getN()-1) ? cellSeparator : "");
+//                }
+//                toAppendTo.append(rowSuffix).append("\r\n");
+//            }
+//        }
         return toAppendTo;
     }
 

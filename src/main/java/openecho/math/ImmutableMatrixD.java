@@ -16,7 +16,7 @@
 package openecho.math;
 
 /**
- * Matrix Implementation. This version is immutable.
+ * MatrixD Implementation. This version is immutable.
  *
  * Holds an m-by-n matrix where,
  *
@@ -33,19 +33,19 @@ package openecho.math;
  * @author openecho
  * @version 1.0.0
  */
-public class ImmutableMatrix extends Matrix {
+public class ImmutableMatrixD extends MatrixD {
 
-    public ImmutableMatrix(int m, int n) {
+    public ImmutableMatrixD(int m, int n) {
         super(m,n);
     }
 
-    public ImmutableMatrix(double[][] data) {
+    public ImmutableMatrixD(Double[][] data) {
         super(data);
     }
 
     @Override
-    public double[][] getData() {
-        double[][] output = new double[m][n];
+    public Double[][] getData() {
+        Double[][] output = new Double[m][n];
         for (int i = 0; i < m; i++) {
             System.arraycopy(this.data[i], 0, output[i], 0, n);
         }
@@ -53,7 +53,7 @@ public class ImmutableMatrix extends Matrix {
     }
 
     @Override
-    public void setData(double[][] data) {
+    public void setData(Double[][] data) {
         throw new UnsupportedOperationException("Cannot Set Data on an ImmutableMatrix.");
     }
 
@@ -63,56 +63,59 @@ public class ImmutableMatrix extends Matrix {
     }
     
     @Override
-    public double[] getRow(int i) {
+    public Double[] getRow(int i) {
         if(i>=m) {
             throw new IndexOutOfBoundsException();
         }
-        double[] output = new double[n];
+        Double[] output = new Double[n];
         System.arraycopy(this.data[i], 0, output, 0, n);
         return output;
     }
 
     @Override
-    public Matrix add(Matrix b) {
-        ImmutableMatrix a = this;
+    public MatrixD add(Matrix b) {
+        ImmutableMatrixD a = this;
+        Number[][] bData = b.getData();
         if(a.m != b.m || a.n != b.n) {
             throw new RuntimeException("Matrix dimensions are not equal.");
         }
-        ImmutableMatrix c = new ImmutableMatrix(m,n);
+        ImmutableMatrixD c = new ImmutableMatrixD(m,n);
         for(int i=0;i<m;i++) {
             for(int j=0;j<n;j++) {
-                c.data[i][j]=a.data[i][j]+b.data[i][j];
+                c.data[i][j]=a.data[i][j].doubleValue()+bData[i][j].doubleValue();
             }
         }
         return c;
     }
 
     @Override
-    public Matrix subtract(Matrix b) {
-        ImmutableMatrix a = this;
+    public MatrixD subtract(Matrix b) {
+        ImmutableMatrixD a = this;
+        Number[][] bData = b.getData();
         if(a.m != b.m || a.n != b.n) {
             throw new RuntimeException("Matrix dimensions are not equal.");
         }
-        ImmutableMatrix c = new ImmutableMatrix(m,n);
+        ImmutableMatrixD c = new ImmutableMatrixD(m,n);
         for(int i=0;i<m;i++) {
             for(int j=0;j<n;j++) {
-                c.data[i][j]=a.data[i][j]-b.data[i][j];
+                c.data[i][j]=a.data[i][j].doubleValue()-bData[i][j].doubleValue();
             }
         }
         return c;
     }
 
     @Override
-    public Matrix multiply(Matrix b) {
-        ImmutableMatrix a = this;
+    public MatrixD multiply(Matrix b) {
+        ImmutableMatrixD a = this;
+        Number[][] bData = b.getData();
         if(a.n != b.m) {
             throw new RuntimeException("Matrix dimensions are not incorrect.");
         }
-        ImmutableMatrix c = new ImmutableMatrix(a.m, b.n);
+        ImmutableMatrixD c = new ImmutableMatrixD(a.m, b.n);
         for(int i=0;i<c.m;i++) {
             for(int j=0;j<c.n;j++) {
                 for(int k=0;k<a.n;k++) {
-                    c.data[i][j] += (a.data[i][k]*b.data[k][j]);
+                    c.data[i][j] += (a.data[i][k].doubleValue()*bData[k][j].doubleValue());
                 }
             }
         }
@@ -120,9 +123,9 @@ public class ImmutableMatrix extends Matrix {
     }
 
     @Override
-    public Matrix transpose() {
-        ImmutableMatrix a = this;
-        ImmutableMatrix t = new ImmutableMatrix(a.n, a.m);
+    public MatrixD transpose() {
+        ImmutableMatrixD a = this;
+        ImmutableMatrixD t = new ImmutableMatrixD(a.n, a.m);
         for (int i = 0; i < a.m; i++) {
             for (int j = 0; j < a.n; j++) {
                 t.data[j][i] = a.data[i][j];
@@ -132,51 +135,51 @@ public class ImmutableMatrix extends Matrix {
     }
 
     @Override
-    public Matrix addScalar(double v) {
-        ImmutableMatrix a = this;
-        ImmutableMatrix c = new ImmutableMatrix(m, n);
+    public MatrixD addScalar(Number v) {
+        ImmutableMatrixD a = this;
+        ImmutableMatrixD c = new ImmutableMatrixD(m, n);
         for(int i=0;i<m;i++) {
             for(int j=0;j<n;j++) {
-                c.data[i][j]=a.data[i][j]+v;
+                c.data[i][j]=a.data[i][j]+v.doubleValue();
             }
         }
         return c;
     }
 
     @Override
-    public Matrix subtractScalar(double v) {
-        ImmutableMatrix a = this;
-        ImmutableMatrix c = new ImmutableMatrix(m, n);
+    public MatrixD subtractScalar(Number v) {
+        ImmutableMatrixD a = this;
+        ImmutableMatrixD c = new ImmutableMatrixD(m, n);
         for(int i=0;i<m;i++) {
             for(int j=0;j<n;j++) {
-                c.data[i][j]=a.data[i][j]-v;
+                c.data[i][j]=a.data[i][j]-v.doubleValue();
             }
         }
         return c;
     }
 
     @Override
-    public Matrix multiplyScalar(double v) {
-        ImmutableMatrix a = this;
-        ImmutableMatrix c = new ImmutableMatrix(m, n);
+    public MatrixD multiplyScalar(Number v) {
+        ImmutableMatrixD a = this;
+        ImmutableMatrixD c = new ImmutableMatrixD(m, n);
         for(int i=0;i<m;i++) {
             for(int j=0;j<n;j++) {
-                c.data[i][j]=a.data[i][j]*v;
+                c.data[i][j]=a.data[i][j]*v.doubleValue();
             }
         }
         return c;
     }
 
     @Override
-    public Matrix divideScalar(double v) {
-        if(v==0) {
+    public MatrixD divideScalar(Number v) {
+        if(v.doubleValue()==0) {
             throw new RuntimeException("Divide by Zero");
         }
-        ImmutableMatrix a = this;
-        ImmutableMatrix c = new ImmutableMatrix(m, n);
+        ImmutableMatrixD a = this;
+        ImmutableMatrixD c = new ImmutableMatrixD(m, n);
         for(int i=0;i<m;i++) {
             for(int j=0;j<n;j++) {
-                c.data[i][j]=a.data[i][j]/v;
+                c.data[i][j]=a.data[i][j]/v.doubleValue();
             }
         }
         return c;

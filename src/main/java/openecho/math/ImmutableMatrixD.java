@@ -86,14 +86,13 @@ public class ImmutableMatrixD extends MatrixD {
     @Override
     public MatrixD add(Matrix b) {
         ImmutableMatrixD a = this;
-        Number[][] bData = b.getData();
         if(a.m != b.m || a.n != b.n) {
             throw new RuntimeException("Matrix dimensions are not equal.");
         }
         ImmutableMatrixD c = new ImmutableMatrixD(m,n);
         for(int i=0;i<m;i++) {
             for(int j=0;j<n;j++) {
-                c.data[i][j]=a.data[i][j]+bData[i][j].doubleValue();
+                c.data[i][j]=a.data[i][j]+b.getData(i, j).doubleValue();
             }
         }
         return c;
@@ -102,14 +101,13 @@ public class ImmutableMatrixD extends MatrixD {
     @Override
     public MatrixD subtract(Matrix b) {
         ImmutableMatrixD a = this;
-        Number[][] bData = b.getData();
         if(a.m != b.m || a.n != b.n) {
             throw new RuntimeException("Matrix dimensions are not equal.");
         }
         ImmutableMatrixD c = new ImmutableMatrixD(m,n);
         for(int i=0;i<m;i++) {
             for(int j=0;j<n;j++) {
-                c.data[i][j]=a.data[i][j]-bData[i][j].doubleValue();
+                c.data[i][j]=a.data[i][j]-b.getData(i, j).doubleValue();
             }
         }
         return c;
@@ -118,7 +116,6 @@ public class ImmutableMatrixD extends MatrixD {
     @Override
     public MatrixD multiply(Matrix b) {
         ImmutableMatrixD a = this;
-        Number[][] bData = b.getData();
         if(a.n != b.m) {
             throw new RuntimeException("Matrix dimensions are not incorrect.");
         }
@@ -126,7 +123,7 @@ public class ImmutableMatrixD extends MatrixD {
         for(int i=0;i<c.m;i++) {
             for(int j=0;j<c.n;j++) {
                 for(int k=0;k<a.n;k++) {
-                    c.data[i][j] += (a.data[i][k]*bData[k][j].doubleValue());
+                    c.data[i][j] += (a.data[i][k]*b.getData(k, j).doubleValue());
                 }
             }
         }

@@ -15,6 +15,8 @@
  **/
 package openecho.math;
 
+import openecho.math.random.FastRandom;
+
 /**
  * Abstract m by n Double Matrix in the following form.
  * <pre>
@@ -34,22 +36,19 @@ package openecho.math;
  */
 public abstract class MatrixD extends Matrix {
 
-    Double[][] data;
-
     /**
      * Default constructor to specify the dimensions of the m by n MatrixD
      * @param m rows in the MatrixD.
      * @param n columns in the MatrixD.
      */
     public MatrixD(int m, int n) {
+        this(m,n,false);
+    }
+
+    public MatrixD(int m, int n, boolean mutable) {
         this.m = m;
         this.n = n;
-        data = new Double[m][n];
-        for (int i = 0; i < m; i++) {
-            for (int j = 0; j < n; j++) {
-                data[i][j] = 0D;
-            }
-        }
+        this.mutable = mutable;
     }
 
     /**
@@ -57,15 +56,21 @@ public abstract class MatrixD extends Matrix {
      * @param data datum for the matrix.
      */
     public MatrixD(Double[][] data) {
-        m = data.length;
-        n = data[0].length;
-        this.data = new Double[m][n];
-        for (int i = 0; i < m; i++) {
-            System.arraycopy(data[i], 0, this.data[i], 0, n);
-        }
+        this(data,false);
     }
 
 
+    public MatrixD(Double[][] data, boolean mutable) {
+        m = data.length;
+        n = data[0].length;
+        this.mutable = mutable;
+        this.initData(data);
+    }
+
+    protected abstract void initData(Number[][] data);
+
+    protected abstract void initData(int i, int j, Number data);
+    
     /**
      * Retrieve the data from the MatrixD. This will be unsupported on some
      * implementations.
@@ -82,6 +87,7 @@ public abstract class MatrixD extends Matrix {
     public abstract void setData(Number[][] data);
 
     public abstract void setData(int i, int j, Number data);
+
 
     /**
      * Retrieve the data for a row from the MatrixD.
@@ -102,7 +108,7 @@ public abstract class MatrixD extends Matrix {
         }
         Double[] result = new Double[m];
         for (int j = 0; j < m; j++) {
-            result[j] = data[j][i];
+            result[j] = getData(j,i);
         }
         return result;
     }
@@ -118,7 +124,7 @@ public abstract class MatrixD extends Matrix {
         Number[][] bData = b.getData();
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
-                if (!a.data[i][j].equals(bData[i][j])) {
+                if (!getData(i,j).equals(bData[i][j])) {
                     return false;
                 }
             }
@@ -191,6 +197,7 @@ public abstract class MatrixD extends Matrix {
         if (n != m) {
             throw new RuntimeException("Not a square matrix.");
         }
+        Double[][] data = getData();
         if (n == 1) {
             return data[0][0];
         } else if (n == 2) {
@@ -217,7 +224,7 @@ public abstract class MatrixD extends Matrix {
         for (int i = 0; i < m; i++) {
             dataString += "{";
             for (int j = 0; j < n; j++) {
-                dataString += data[i][j] + ((j < n - 1) ? "," : "");
+                dataString += getData(i, j) + ((j < n - 1) ? "," : "");
             }
             dataString += "}" + ((i < m - 1) ? "," : "");
         }
@@ -233,10 +240,10 @@ public abstract class MatrixD extends Matrix {
      * @return MatrixD the constructed MatrixD.
      */
     public static MatrixD empty(int m, int n) {
-        MatrixD e = new MutableMatrixD(m, n);
+        MatrixD e = new RowArrayMatrixD(m, n, true);
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
-                e.data[i][j] = 0D;
+                e.setData(i,j,0D);
             }
         }
         return e;
@@ -248,7 +255,7 @@ public abstract class MatrixD extends Matrix {
      * @return MatrixD the constructed MatrixD.
      */
     public static MatrixD create(Double[][] data) {
-        MatrixD c = new ImmutableMatrixD(data);
+        MatrixD c = new RowArrayMatrixD(data);
         return c;
     }
 
@@ -261,12 +268,7 @@ public abstract class MatrixD extends Matrix {
      * @return MatrixD the constructed MatrixD.
      */
     public static MatrixD create(Double[][] data, boolean mutable) {
-        MatrixD c = null;
-        if (!mutable) {
-            c = new ImmutableMatrixD(data);
-        } else {
-            c = new MutableMatrixD(data);
-        }
+        MatrixD c = new RowArrayMatrixD(data, mutable);
         return c;
     }
 
@@ -276,10 +278,10 @@ public abstract class MatrixD extends Matrix {
      * @return MatrixD A' which is a transpose of this instance.
      */
     public static MatrixD transpose(MatrixD a) {
-        MatrixD t = new ImmutableMatrixD(a.n, a.m);
+        MatrixD t = new RowArrayMatrixD(a.n, a.m);
         for (int i = 0; i < a.m; i++) {
             for (int j = 0; j < a.n; j++) {
-                t.data[j][i] = a.data[i][j];
+                t.initData(j, i, a.getData(i, j));
             }
         }
         return t;
@@ -291,9 +293,9 @@ public abstract class MatrixD extends Matrix {
      * @return MatrixD constructed identity MatrixD.
      */
     public static MatrixD identity(int n) {
-        MatrixD i = new ImmutableMatrixD(n, n);
+        MatrixD i = new RowArrayMatrixD(n, n);
         for (int j = 0; j < n; j++) {
-            i.data[j][j] = 1D;
+            i.initData(j,j,1D);
         }
         return i;
     }
@@ -306,10 +308,10 @@ public abstract class MatrixD extends Matrix {
      * @return MatrixD R.
      */
     public static MatrixD random(int m, int n) {
-        MatrixD r = new ImmutableMatrixD(m, n);
+        MatrixD r = new RowArrayMatrixD(m, n);
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
-                r.data[i][j] = Math.random();
+                r.initData(i, j, FastRandom.random());
             }
         }
         return r;
@@ -325,10 +327,10 @@ public abstract class MatrixD extends Matrix {
      * @return MatrixD R.
      */
     public static MatrixD random(int m, int n, double lowerBound, double higherBound) {
-        MatrixD r = new ImmutableMatrixD(m, n);
+        MatrixD r = new RowArrayMatrixD(m, n);
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
-                r.data[i][j] = (Math.random() * (higherBound - lowerBound)) + lowerBound;
+                r.initData(i, j, (FastRandom.random() * (higherBound - lowerBound)) + lowerBound);
             }
         }
         return r;
@@ -343,10 +345,10 @@ public abstract class MatrixD extends Matrix {
      * @return MatrixD G.
      */
     public static MatrixD generate(int m, int n, double v) {
-        MatrixD g = new ImmutableMatrixD(m, n);
+        MatrixD g = new RowArrayMatrixD(m, n);
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
-                g.data[i][j] = v;
+                g.initData(i, j, v);
             }
         }
         return g;

@@ -8,6 +8,7 @@ package openecho.math;
 /**
  *
  * @author jmarsden
+ * @deprecated 
  */
 public class ImmutableMatrixF extends MatrixF {
     

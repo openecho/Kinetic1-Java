@@ -21,7 +21,7 @@ import java.lang.reflect.Array;
  * Mean utility.
  *
  * @author openecho
- * @version 1.0.0
+ * @version 1.0.1
  */
 public class Mean {
 

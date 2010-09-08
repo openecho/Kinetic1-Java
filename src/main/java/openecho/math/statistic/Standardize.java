@@ -24,7 +24,7 @@ import openecho.math.MatrixD;
  * Standardize centers and scales the input data.
  *
  * @author openecho
- * @version 1.0.0
+ * @version 1.0.1
  */
 public class Standardize {
     /**

@@ -15,6 +15,8 @@
  **/
 package openecho.math;
 
+import openecho.math.random.FastRandom;
+
 /**
  * Abstract m by n Float Matrix in the following form.
  * <pre>
@@ -34,22 +36,19 @@ package openecho.math;
  */
 public abstract class MatrixF extends Matrix {
 
-    Float[][] data;
-
     /**
      * Default constructor to specify the dimensions of the m by n MatrixF
      * @param m rows in the MatrixF.
      * @param n columns in the MatrixF.
      */
     public MatrixF(int m, int n) {
+        this(m,n,false);
+    }
+
+    public MatrixF(int m, int n, boolean mutable) {
         this.m = m;
         this.n = n;
-        data = new Float[m][n];
-        for (int i = 0; i < m; i++) {
-            for (int j = 0; j < n; j++) {
-                data[i][j] = 0F;
-            }
-        }
+        this.mutable = mutable;
     }
 
     /**
@@ -57,14 +56,20 @@ public abstract class MatrixF extends Matrix {
      * @param data datum for the matrix.
      */
     public MatrixF(Float[][] data) {
-        m = data.length;
-        n = data[0].length;
-        this.data = new Float[m][n];
-        for (int i = 0; i < m; i++) {
-            System.arraycopy(data[i], 0, this.data[i], 0, n);
-        }
+        this(data,false);
     }
 
+
+    public MatrixF(Float[][] data, boolean mutable) {
+        m = data.length;
+        n = data[0].length;
+        this.mutable = mutable;
+        this.initData(data);
+    }
+
+    protected abstract void initData(Number[][] data);
+
+    protected abstract void initData(int i, int j, Number data);
 
     /**
      * Retrieve the data from the MatrixF. This will be unsupported on some
@@ -102,7 +107,7 @@ public abstract class MatrixF extends Matrix {
         }
         Float[] result = new Float[m];
         for (int j = 0; j < m; j++) {
-            result[j] = data[j][i];
+            result[j] = getData(j,i);
         }
         return result;
     }
@@ -118,7 +123,7 @@ public abstract class MatrixF extends Matrix {
         Number[][] bData = b.getData();
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
-                if (!a.data[i][j].equals(bData[i][j])) {
+                if (!a.getData(i,j).equals(bData[i][j])) {
                     return false;
                 }
             }
@@ -191,6 +196,7 @@ public abstract class MatrixF extends Matrix {
         if (n != m) {
             throw new RuntimeException("Not a square matrix.");
         }
+        Float[][] data = getData();
         if (n == 1) {
             return data[0][0];
         } else if (n == 2) {
@@ -217,7 +223,7 @@ public abstract class MatrixF extends Matrix {
         for (int i = 0; i < m; i++) {
             dataString += "{";
             for (int j = 0; j < n; j++) {
-                dataString += data[i][j] + ((j < n - 1) ? "," : "");
+                dataString += getData(i,j) + ((j < n - 1) ? "," : "");
             }
             dataString += "}" + ((i < m - 1) ? "," : "");
         }
@@ -233,10 +239,10 @@ public abstract class MatrixF extends Matrix {
      * @return MatrixD the constructed MatrixF.
      */
     public static MatrixF empty(int m, int n) {
-        MatrixF e = new MutableMatrixF(m, n);
+        MatrixF e = new RowArrayMatrixF(m, n);
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
-                e.data[i][j] = 0F;
+                e.setData(i,j,0F);
             }
         }
         return e;
@@ -248,7 +254,7 @@ public abstract class MatrixF extends Matrix {
      * @return MatrixF the constructed MatrixF.
      */
     public static MatrixF create(Float[][] data) {
-        MatrixF c = new ImmutableMatrixF(data);
+        MatrixF c = new RowArrayMatrixF(data);
         return c;
     }
 
@@ -263,9 +269,9 @@ public abstract class MatrixF extends Matrix {
     public static MatrixF create(Float[][] data, boolean mutable) {
         MatrixF c = null;
         if (!mutable) {
-            c = new ImmutableMatrixF(data);
+            c = new RowArrayMatrixF(data);
         } else {
-            c = new MutableMatrixF(data);
+            c = new RowArrayMatrixF(data, true);
         }
         return c;
     }
@@ -276,10 +282,10 @@ public abstract class MatrixF extends Matrix {
      * @return MatrixF A' which is a transpose of this instance.
      */
     public static MatrixF transpose(MatrixF a) {
-        MatrixF t = new ImmutableMatrixF(a.n, a.m);
+        MatrixF t = new RowArrayMatrixF(a.n, a.m);
         for (int i = 0; i < a.m; i++) {
             for (int j = 0; j < a.n; j++) {
-                t.data[j][i] = a.data[i][j];
+                t.initData(j, i, a.getData(i, j));
             }
         }
         return t;
@@ -291,9 +297,9 @@ public abstract class MatrixF extends Matrix {
      * @return MatrixF constructed identity MatrixF.
      */
     public static MatrixF identity(int n) {
-        MatrixF i = new ImmutableMatrixF(n, n);
+        MatrixF i = new RowArrayMatrixF(n, n);
         for (int j = 0; j < n; j++) {
-            i.data[j][j] = 1F;
+            i.initData(j,j,1F);
         }
         return i;
     }
@@ -306,10 +312,10 @@ public abstract class MatrixF extends Matrix {
      * @return MatrixF R.
      */
     public static MatrixF random(int m, int n) {
-        MatrixF r = new ImmutableMatrixF(m, n);
+        MatrixF r = new RowArrayMatrixF(m, n);
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
-                r.data[i][j] = (float) Math.random();
+                r.initData(i, j, FastRandom.random());
             }
         }
         return r;
@@ -325,10 +331,10 @@ public abstract class MatrixF extends Matrix {
      * @return MatrixF R.
      */
     public static MatrixF random(int m, int n, float lowerBound, float higherBound) {
-        MatrixF r = new ImmutableMatrixF(m, n);
+        MatrixF r = new RowArrayMatrixF(m, n);
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
-                r.data[i][j] =  (float) (Math.random() * (higherBound - lowerBound)) + lowerBound;
+                r.initData(i, j, (FastRandom.random() * (higherBound - lowerBound)) + lowerBound);
             }
         }
         return r;
@@ -343,10 +349,10 @@ public abstract class MatrixF extends Matrix {
      * @return MatrixF G.
      */
     public static MatrixF generate(int m, int n, float v) {
-        MatrixF g = new ImmutableMatrixF(m, n);
+        MatrixF g = new RowArrayMatrixF(m, n);
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
-                g.data[i][j] = v;
+                g.initData(i, j, v);
             }
         }
         return g;

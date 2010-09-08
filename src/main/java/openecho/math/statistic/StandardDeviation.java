@@ -24,7 +24,7 @@ import java.lang.reflect.Array;
  * @version 1.0.0
  */
 public class StandardDeviation {
-    public static double evaluate(double[] data) {
+    public static Double evaluate(Double[] data) {
         if(data==null) {
             throw new NullPointerException();
         }

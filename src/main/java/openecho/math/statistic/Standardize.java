@@ -15,7 +15,8 @@
  **/
 package openecho.math.statistic;
 
-import openecho.math.Matrix;
+import java.lang.reflect.Array;
+import openecho.math.MatrixD;
 
 /**
  * Standardize utility for Standardizing matrix (m x n) data.
@@ -33,14 +34,16 @@ public class Standardize {
      * @param data matrix (m x n) of m samples containing n observations
      * @return standardized matrix
      */
-    public static double[][] evaluate(double[][] data) {
+    public static Double[][] evaluate(Double[][] data) {
         if(data == null) {
             throw new NullPointerException();
         }
-        Matrix a = Matrix.create(data);
-        double[][] d = new double[a.getM()][a.getN()];
+        MatrixD a = MatrixD.create(data);
+        Double[][] d = new Double[a.getM()][a.getN()];
         for(int j=0;j<a.getN();j++) {
-            double[] nData = a.getColumn(j);
+            Number[] nNumbers = a.getColumn(j);
+            Double[] nData = new Double[Array.getLength(nNumbers)];
+
             double std = StandardDeviation.evaluate(nData);
             double mean = Mean.evaluate(nData);
             for(int i=0;i<a.getM();i++) {

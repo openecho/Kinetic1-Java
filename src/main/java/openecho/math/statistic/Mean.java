@@ -83,13 +83,13 @@ public class Mean {
      * @param vector data to calculate the mean.
      * @return mean
      */
-    public static double evaluate(double[] data) {
+    public static Double evaluate(Double[] data) {
         if (data == null) {
             throw new NullPointerException();
         }
         int length = Array.getLength(data);
         if (length == 0) {
-            return 0;
+            return 0D;
         }
         double sum = 0;
         for (int i = 0; i < length; i++) {

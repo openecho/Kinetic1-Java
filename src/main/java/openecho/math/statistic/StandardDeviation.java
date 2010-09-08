@@ -21,7 +21,7 @@ import java.lang.reflect.Array;
  * Standard Deviation Utility
  *
  * @author openecho
- * @version 1.0.0
+ * @version 1.0.1
  */
 public class StandardDeviation {
     public static Double evaluate(Double[] data) {

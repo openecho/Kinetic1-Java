@@ -15,7 +15,6 @@
  **/
 package openecho.math.statistic;
 
-import openecho.math.Matrix;
 import openecho.math.MatrixD;
 
 /**
@@ -35,7 +34,7 @@ import openecho.math.MatrixD;
  * V = x'x ( 1 / n )
  *
  * @author openecho
- * @version 1.0.0
+ * @version 1.0.1
  */
 public class VarianceCovariance {
     public static Double[][] evaluate(Double[][] data) {

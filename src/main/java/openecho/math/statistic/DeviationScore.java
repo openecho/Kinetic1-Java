@@ -15,7 +15,6 @@
  **/
 package openecho.math.statistic;
 
-import openecho.math.Matrix;
 import openecho.math.MatrixD;
 
 /**
@@ -24,7 +23,7 @@ import openecho.math.MatrixD;
  * x = X - 11'X ( 1 / n )
  *
  * @author openecho
- * @version 1.0.0
+ * @version 1.0.1
  */
 public class DeviationScore {
     public static Double[][] evaluate(Double[][] data) {

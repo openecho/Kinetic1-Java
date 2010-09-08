@@ -16,20 +16,20 @@
 package openecho.math;
 
 /**
- * Vector Implementation. This version is immutable.
+ * VectorD Implementation. This version is immutable.
  *
  * Holds an n dimensional vector.
  *
  * @author openecho
  * @version 1.0.0
  */
-public class ImmutableVector extends Vector {
+public class ImmutableVectorD extends VectorD {
 
-    public ImmutableVector(int n) {
+    public ImmutableVectorD(int n) {
         super(n);
     }
 
-    public ImmutableVector(double[] data) {
+    public ImmutableVectorD(double[] data) {
         super(data);
     }
 
@@ -46,46 +46,46 @@ public class ImmutableVector extends Vector {
     }
 
     @Override
-    public final ImmutableVector negative() {
-        ImmutableVector a = this;
-        ImmutableVector b = new ImmutableVector(n);
+    public final ImmutableVectorD negative() {
+        ImmutableVectorD a = this;
+        ImmutableVectorD b = new ImmutableVectorD(n);
         for (int i = 0; i < n; i++) {
             a.data[i] = b.data[i] * -1;
         }
         return b;
     }
     @Override
-    public final Vector normalise() {
-        ImmutableVector a = this;
+    public final VectorD normalise() {
+        ImmutableVectorD a = this;
         double m = magnitude();
         if (m == 0) {
-            return Vector.zero();
+            return VectorD.zero();
         }
-        ImmutableVector b = new ImmutableVector(n);
+        ImmutableVectorD b = new ImmutableVectorD(n);
         for (int i = 0; i < n; i++) {
             b.data[i] = a.data[i] / m;
         }
         return b;
     }
     @Override
-    public final Vector add(Vector b) {
-        ImmutableVector a = this;
+    public final VectorD add(VectorD b) {
+        ImmutableVectorD a = this;
         if (a.n != b.n) {
             throw new RuntimeException("Vector dimensions are not equal.");
         }
-        ImmutableVector c = new ImmutableVector(n);
+        ImmutableVectorD c = new ImmutableVectorD(n);
         for (int i = 0; i < n; i++) {
             c.data[i] = a.data[i] + b.data[i];
         }
         return c;
     }
     @Override
-    public final Vector subtract(Vector b) {
-        ImmutableVector a = this;
+    public final VectorD subtract(VectorD b) {
+        ImmutableVectorD a = this;
         if (a.n != b.n) {
             throw new RuntimeException("Vector dimensions are not equal.");
         }
-        ImmutableVector c = new ImmutableVector(n);
+        ImmutableVectorD c = new ImmutableVectorD(n);
         for (int i = 0; i < n; i++) {
             c.data[i] = a.data[i] - b.data[i];
         }
@@ -93,8 +93,8 @@ public class ImmutableVector extends Vector {
     }
     
     @Override
-    public final Vector cross(Vector b) {
-        ImmutableVector a = this;
+    public final VectorD cross(VectorD b) {
+        ImmutableVectorD a = this;
         if (a.n != 3 || b.n != 3) {
             throw new RuntimeException("Vector dimensions are not both equal to three.");
         }
@@ -103,43 +103,43 @@ public class ImmutableVector extends Vector {
             a.data[Z] * b.data[X] - a.data[X] * b.data[Z],
             a.data[X] * b.data[Y] - a.data[Y] * b.data[X]
         };
-        ImmutableVector c = new ImmutableVector(cData);
+        ImmutableVectorD c = new ImmutableVectorD(cData);
         return c;
     }
     @Override
-    public final Vector addScalar(double v) {
-        ImmutableVector a = this;
-        ImmutableVector c = new ImmutableVector(n);
+    public final VectorD addScalar(double v) {
+        ImmutableVectorD a = this;
+        ImmutableVectorD c = new ImmutableVectorD(n);
         for (int i = 0; i < n; i++) {
             c.data[i] = a.data[i] + v;
         }
         return c;
     }
     @Override
-    public final Vector subtractScalar(double v) {
-        ImmutableVector a = this;
-        ImmutableVector c = new ImmutableVector(n);
+    public final VectorD subtractScalar(double v) {
+        ImmutableVectorD a = this;
+        ImmutableVectorD c = new ImmutableVectorD(n);
         for (int i = 0; i < n; i++) {
             c.data[i] = a.data[i] - v;
         }
         return c;
     }
     @Override
-    public final Vector multiplyScalar(double v) {
-        ImmutableVector a = this;
-        ImmutableVector c = new ImmutableVector(n);
+    public final VectorD multiplyScalar(double v) {
+        ImmutableVectorD a = this;
+        ImmutableVectorD c = new ImmutableVectorD(n);
         for (int i = 0; i < n; i++) {
             c.data[i] = a.data[i] * v;
         }
         return c;
     }
     @Override
-    public final Vector divideScalar(double v) {
+    public final VectorD divideScalar(double v) {
         if (v == 0) {
             throw new RuntimeException("Divide By Zero.");
         }
-        ImmutableVector a = this;
-        ImmutableVector c = new ImmutableVector(n);
+        ImmutableVectorD a = this;
+        ImmutableVectorD c = new ImmutableVectorD(n);
         for (int i = 0; i < n; i++) {
             c.data[i] = a.data[i] / v;
         }

@@ -19,15 +19,15 @@ package openecho.math;
  *
  * @author openecho
  */
-public class MutableVector extends Vector {
+public class MutableVectorD extends VectorD {
 
     double xCross, yCross, zCross;
 
-    public MutableVector(int n) {
+    public MutableVectorD(int n) {
         super(n);
     }
 
-    public MutableVector(double[] data) {
+    public MutableVectorD(double[] data) {
         super(data);
     }
 
@@ -42,8 +42,8 @@ public class MutableVector extends Vector {
     }
 
     @Override
-    public final Vector negative() {
-        MutableVector a = this;
+    public final VectorD negative() {
+        MutableVectorD a = this;
         for (int i = 0; i < n; i++) {
             a.data[i] = a.data[i] * -1;
         }
@@ -51,11 +51,11 @@ public class MutableVector extends Vector {
     }
 
     @Override
-    public final Vector normalise() {
-        MutableVector a = this;
+    public final VectorD normalise() {
+        MutableVectorD a = this;
         double m = magnitude();
         if (m == 0) {
-            return Vector.zero();
+            return VectorD.zero();
         }
         for (int i = 0; i < n; i++) {
             a.data[i] = a.data[i] / m;
@@ -64,8 +64,8 @@ public class MutableVector extends Vector {
     }
 
     @Override
-    public final Vector add(Vector b) {
-        MutableVector a = this;
+    public final VectorD add(VectorD b) {
+        MutableVectorD a = this;
         if (a.n != b.n) {
             throw new RuntimeException("Vector dimensions are not equal.");
         }
@@ -76,8 +76,8 @@ public class MutableVector extends Vector {
     }
 
     @Override
-    public final Vector subtract(Vector b) {
-        MutableVector a = this;
+    public final VectorD subtract(VectorD b) {
+        MutableVectorD a = this;
         if (a.n != b.n) {
             throw new RuntimeException("Vector dimensions are not equal.");
         }
@@ -88,8 +88,8 @@ public class MutableVector extends Vector {
     }
 
     @Override
-    public final Vector cross(Vector b) {
-        MutableVector a = this;
+    public final VectorD cross(VectorD b) {
+        MutableVectorD a = this;
         if (a.n != 3 || b.n != 3) {
             throw new RuntimeException("Vector dimensions are not both equal to three.");
         }
@@ -103,8 +103,8 @@ public class MutableVector extends Vector {
     }
 
     @Override
-    public final Vector addScalar(double v) {
-        MutableVector a = this;
+    public final VectorD addScalar(double v) {
+        MutableVectorD a = this;
         for (int i = 0; i < n; i++) {
             a.data[i] = a.data[i] + v;
         }
@@ -112,8 +112,8 @@ public class MutableVector extends Vector {
     }
 
     @Override
-    public final Vector subtractScalar(double v) {
-        MutableVector a = this;
+    public final VectorD subtractScalar(double v) {
+        MutableVectorD a = this;
         for (int i = 0; i < n; i++) {
             a.data[i] = a.data[i] - v;
         }
@@ -121,8 +121,8 @@ public class MutableVector extends Vector {
     }
 
     @Override
-    public final Vector multiplyScalar(double v) {
-        MutableVector a = this;
+    public final VectorD multiplyScalar(double v) {
+        MutableVectorD a = this;
         for (int i = 0; i < n; i++) {
             a.data[i] = a.data[i] * v;
         }
@@ -130,11 +130,11 @@ public class MutableVector extends Vector {
     }
 
     @Override
-    public final Vector divideScalar(double v) {
+    public final VectorD divideScalar(double v) {
         if (v == 0) {
             throw new RuntimeException("Divide By Zero.");
         }
-        MutableVector a = this;
+        MutableVectorD a = this;
         for (int i = 0; i < n; i++) {
             a.data[i] = a.data[i] / v;
         }

@@ -82,7 +82,7 @@ public class ImmutableMatrixD extends MatrixD {
         ImmutableMatrixD c = new ImmutableMatrixD(m,n);
         for(int i=0;i<m;i++) {
             for(int j=0;j<n;j++) {
-                c.data[i][j]=a.data[i][j].doubleValue()+bData[i][j].doubleValue();
+                c.data[i][j]=a.data[i][j]+bData[i][j].doubleValue();
             }
         }
         return c;
@@ -98,7 +98,7 @@ public class ImmutableMatrixD extends MatrixD {
         ImmutableMatrixD c = new ImmutableMatrixD(m,n);
         for(int i=0;i<m;i++) {
             for(int j=0;j<n;j++) {
-                c.data[i][j]=a.data[i][j].doubleValue()-bData[i][j].doubleValue();
+                c.data[i][j]=a.data[i][j]-bData[i][j].doubleValue();
             }
         }
         return c;
@@ -115,7 +115,7 @@ public class ImmutableMatrixD extends MatrixD {
         for(int i=0;i<c.m;i++) {
             for(int j=0;j<c.n;j++) {
                 for(int k=0;k<a.n;k++) {
-                    c.data[i][j] += (a.data[i][k].doubleValue()*bData[k][j].doubleValue());
+                    c.data[i][j] += (a.data[i][k]*bData[k][j].doubleValue());
                 }
             }
         }

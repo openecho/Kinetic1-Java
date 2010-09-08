@@ -39,7 +39,7 @@ public class MatrixFormat extends Format {
         cellFormat = new DecimalFormat(" ####0.0000;-####0.0000");
     }
 
-    public int[] getColumnCharacterWidths(ImmutableMatrixD a) {
+    public int[] getColumnCharacterWidths(Matrix a) {
         return null;
     }
 

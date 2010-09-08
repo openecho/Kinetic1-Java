@@ -19,23 +19,23 @@ package openecho.math;
  *
  * @author openecho
  */
-public class MutableMatrix extends Matrix {
+public class MutableMatrixD extends MatrixD {
 
-    public MutableMatrix(int m, int n) {
+    public MutableMatrixD(int m, int n) {
         super(m,n);
     }
 
-    public MutableMatrix(double[][] data) {
+    public MutableMatrixD(Double[][] data) {
         super(data);
     }
 
     @Override
-    public double[][] getData() {
+    public Double[][] getData() {
         return data;
     }
 
     @Override
-    public void setData(double[][] data) {
+    public void setData(Double[][] data) {
         m = data.length;
         n = data[0].length;
         this.data = data;
@@ -47,7 +47,7 @@ public class MutableMatrix extends Matrix {
     }
 
     @Override
-    public double[] getRow(int i) {
+    public Double[] getRow(int i) {
         if(i>=m) {
             throw new IndexOutOfBoundsException();
         }
@@ -55,44 +55,47 @@ public class MutableMatrix extends Matrix {
     }
 
     @Override
-    public Matrix add(Matrix b) {
-        MutableMatrix a = this;
+    public MatrixD add(Matrix b) {
+        MutableMatrixD a = this;
+        Number[][] bData = b.getData();
         if(a.m != b.m || a.n != b.n) {
             throw new RuntimeException("Matrix dimensions are not equal.");
         }
         for(int i=0;i<m;i++) {
             for(int j=0;j<n;j++) {
-                a.data[i][j]=a.data[i][j]+b.data[i][j];
+                a.data[i][j]=a.data[i][j]+bData[i][j].doubleValue();
             }
         }
         return a;
     }
 
     @Override
-    public Matrix subtract(Matrix b) {
-        MutableMatrix a = this;
+    public MatrixD subtract(Matrix b) {
+        MutableMatrixD a = this;
+        Number[][] bData = b.getData();
         if(a.m != b.m || a.n != b.n) {
             throw new RuntimeException("Matrix dimensions are not equal.");
         }
         for(int i=0;i<m;i++) {
             for(int j=0;j<n;j++) {
-                a.data[i][j]=a.data[i][j]-b.data[i][j];
+                a.data[i][j]=a.data[i][j]-bData[i][j].doubleValue();;
             }
         }
         return a;
     }
 
     @Override
-    public Matrix multiply(Matrix b) {
-        MutableMatrix a = this;
+    public MatrixD multiply(Matrix b) {
+        MutableMatrixD a = this;
         if(a.n != b.m) {
             throw new RuntimeException("Matrix dimensions are not incorrect.");
         }
-        ImmutableMatrix c = new ImmutableMatrix(a.m, b.n);
+        Number[][] bData = b.getData();
+        ImmutableMatrixD c = new ImmutableMatrixD(a.m, b.n);
         for(int i=0;i<c.m;i++) {
             for(int j=0;j<c.n;j++) {
                 for(int k=0;k<a.n;k++) {
-                    c.data[i][j] += (a.data[i][k]*b.data[k][j]);
+                    c.data[i][j] += (a.data[i][k]*bData[k][j].doubleValue());
                 }
             }
         }
@@ -100,9 +103,9 @@ public class MutableMatrix extends Matrix {
     }
 
     @Override
-    public Matrix transpose() {
-        MutableMatrix a = this;
-        MutableMatrix t = new MutableMatrix(a.n, a.m);
+    public MatrixD transpose() {
+        MutableMatrixD a = this;
+        MutableMatrixD t = new MutableMatrixD(a.n, a.m);
         for (int i = 0; i < a.m; i++) {
             for (int j = 0; j < a.n; j++) {
                 t.data[j][i] = a.data[i][j];
@@ -112,44 +115,44 @@ public class MutableMatrix extends Matrix {
     }
 
     @Override
-    public Matrix addScalar(double v) {
-        MutableMatrix a = this;
+    public MatrixD addScalar(Number v) {
+        MutableMatrixD a = this;
         for(int i=0;i<m;i++) {
             for(int j=0;j<n;j++) {
-                a.data[i][j]=a.data[i][j]+v;
+                a.data[i][j]=a.data[i][j]+v.doubleValue();
             }
         }
         return a;
     }
 
     @Override
-    public Matrix subtractScalar(double v) {
-        MutableMatrix a = this;
+    public MatrixD subtractScalar(Number v) {
+        MutableMatrixD a = this;
         for(int i=0;i<m;i++) {
             for(int j=0;j<n;j++) {
-                a.data[i][j]=a.data[i][j]-v;
+                a.data[i][j]=a.data[i][j]-v.doubleValue();
             }
         }
         return a;
     }
 
     @Override
-    public Matrix multiplyScalar(double v) {
-        MutableMatrix a = this;
+    public MatrixD multiplyScalar(Number v) {
+        MutableMatrixD a = this;
         for(int i=0;i<m;i++) {
             for(int j=0;j<n;j++) {
-                a.data[i][j]=a.data[i][j]*v;
+                a.data[i][j]=a.data[i][j]*v.doubleValue();
             }
         }
         return a;
     }
 
     @Override
-    public Matrix divideScalar(double v) {
-        MutableMatrix a = this;
+    public MatrixD divideScalar(Number v) {
+        MutableMatrixD a = this;
         for(int i=0;i<m;i++) {
             for(int j=0;j<n;j++) {
-                a.data[i][j]=a.data[i][j]/v;
+                a.data[i][j]=a.data[i][j]/v.doubleValue();
             }
         }
         return a;

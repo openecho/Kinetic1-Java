@@ -35,10 +35,24 @@ public class MutableMatrixD extends MatrixD {
     }
 
     @Override
-    public void setData(Double[][] data) {
+    public Double getData(int i, int j) {
+        return data[i][j];
+    }
+
+    @Override
+    public void setData(Number[][] data) {
         m = data.length;
         n = data[0].length;
-        this.data = data;
+        for(int i=0;i<m;i++) {
+            for(int j=0;j<n;j++) {
+                this.data[i][j] = data[i][j].doubleValue();
+            }
+        }
+    }
+
+    @Override
+    public void setData(int i, int j, Number data) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
@@ -157,4 +171,5 @@ public class MutableMatrixD extends MatrixD {
         }
         return a;
     }
+
 }

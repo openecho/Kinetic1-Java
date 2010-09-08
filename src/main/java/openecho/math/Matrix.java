@@ -43,6 +43,8 @@ public abstract class Matrix {
      */
     int n;
 
+    boolean mutable = false;
+
     /**
      * matrix data
      */
@@ -66,7 +68,13 @@ public abstract class Matrix {
      * Flag indicating if this version of the Matrix is mutable.
      * @return boolean Matrix mutable when true otherwise not mutable.
      */
-    public abstract boolean isMutable();
+    public boolean isMutable() {
+        return mutable;
+    }
+
+    void setMutable(boolean mutable) {
+        this.mutable = mutable;
+    }
 
     /**
      * Retrieve the data from the Matrix. This will be unsupported on some

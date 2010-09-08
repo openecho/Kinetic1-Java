@@ -18,8 +18,11 @@ package openecho.math;
 /**
  *
  * @author openecho
+ * @deprecated 
  */
 public class MutableMatrixD extends MatrixD {
+
+    Double[][] data;
 
     public MutableMatrixD(int m, int n) {
         super(m,n);
@@ -27,6 +30,30 @@ public class MutableMatrixD extends MatrixD {
 
     public MutableMatrixD(Double[][] data) {
         super(data);
+    }
+
+        @Override
+    protected final void initData(Number[][] data) {
+        m = data.length;
+        n = data[0].length;
+        if (data instanceof Double[][]) {
+            this.data = (Double[][]) data;
+        } else {
+            for (int i = 0; i < m; i++) {
+                for (int j = 0; j < n; j++) {
+                    this.data[i][j] = data[i][j].doubleValue();
+                }
+            }
+        }
+    }
+
+    @Override
+    protected final void initData(int i, int j, Number data) {
+        if (data instanceof Double) {
+            this.data[i][j] = (Double) data;
+        } else {
+            this.data[i][j] = data.doubleValue();
+        }
     }
 
     @Override

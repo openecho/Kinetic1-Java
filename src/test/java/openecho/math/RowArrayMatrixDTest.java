@@ -222,13 +222,13 @@ public class RowArrayMatrixDTest extends TestCase {
      */
     public void testAddScalar() {
         System.out.println("addScalar");
-        Number v = null;
-        RowArrayMatrixD instance = null;
-        MatrixD expResult = null;
+        Number v = 5D;
+        Double[][] data = new Double[][]{{1D, 2D, 3D}, {3D, 2D, 1D}, {1D, 2D, 3D}};
+        RowArrayMatrixD instance = new RowArrayMatrixD(data);
+        data = new Double[][]{{6D, 7D, 8D}, {8D, 7D, 6D}, {6D, 7D, 8D}};
+        MatrixD expResult = new RowArrayMatrixD(data);
         MatrixD result = instance.addScalar(v);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertTrue(expResult.equals(result));
     }
 
     /**
@@ -236,13 +236,13 @@ public class RowArrayMatrixDTest extends TestCase {
      */
     public void testSubtractScalar() {
         System.out.println("subtractScalar");
-        Number v = null;
-        RowArrayMatrixD instance = null;
-        MatrixD expResult = null;
+        Number v = 1D;
+        Double[][] data = new Double[][]{{1D, 2D, 3D}, {3D, 2D, 1D}, {1D, 2D, 3D}};
+        RowArrayMatrixD instance = new RowArrayMatrixD(data);
+        data = new Double[][]{{0D, 1D, 2D}, {2D, 1D, 0D}, {0D, 1D, 2D}};
+        MatrixD expResult = new RowArrayMatrixD(data);
         MatrixD result = instance.subtractScalar(v);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertTrue(expResult.equals(result));
     }
 
     /**
@@ -250,13 +250,13 @@ public class RowArrayMatrixDTest extends TestCase {
      */
     public void testMultiplyScalar() {
         System.out.println("multiplyScalar");
-        Number v = null;
-        RowArrayMatrixD instance = null;
-        MatrixD expResult = null;
+        Number v = 5D;
+        Double[][] data = new Double[][]{{1D, 2D, 3D}, {3D, 2D, 1D}, {1D, 2D, 3D}};
+        RowArrayMatrixD instance = new RowArrayMatrixD(data);
+        data = new Double[][]{{5D, 10D, 15D}, {15D, 10D, 5D}, {5D, 10D, 15D}};
+        MatrixD expResult = new RowArrayMatrixD(data);
         MatrixD result = instance.multiplyScalar(v);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertTrue(expResult.equals(result));
     }
 
     /**
@@ -264,13 +264,13 @@ public class RowArrayMatrixDTest extends TestCase {
      */
     public void testDivideScalar() {
         System.out.println("divideScalar");
-        Number v = null;
-        RowArrayMatrixD instance = null;
-        MatrixD expResult = null;
+        Number v = 5D;
+        Double[][] data = new Double[][]{{5D, 10D, 15D}, {15D, 10D, 5D}, {5D, 10D, 15D}};
+        RowArrayMatrixD instance = new RowArrayMatrixD(data);
+        data = new Double[][]{{1D, 2D, 3D}, {3D, 2D, 1D}, {1D, 2D, 3D}};
+        MatrixD expResult = new RowArrayMatrixD(data);
         MatrixD result = instance.divideScalar(v);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertTrue(expResult.equals(result));
     }
 
     /**

@@ -8,13 +8,13 @@ import java.lang.reflect.Array;
 import junit.framework.TestCase;
 
 /**
- * Unit Tests for SimpleImmutableMatrixTest.
+ * Unit Tests for ImmutableMatrixDTest.
  *
  * @author openecho
  */
-public class SimpleImmutableMatrixTest extends TestCase {
+public class ImmutableMatrixDTest extends TestCase {
     
-    public SimpleImmutableMatrixTest(String testName) {
+    public ImmutableMatrixDTest(String testName) {
         super(testName);
     }
 
@@ -59,11 +59,11 @@ public class SimpleImmutableMatrixTest extends TestCase {
      */
     public void testGetRow() {
         System.out.println("getRow");
-        double[][] data = new double[][] {{1,2,3},{3,2,1},{1,2,3}};
+        Double[][] data = new Double[][] {{1D,2D,3D},{3D,2D,1D},{1D,2D,3D}};
         int i = 1;
         ImmutableMatrixD instance = new ImmutableMatrixD(data);
-        double[] expResult = data[1];
-        double[] result = instance.getRow(i);
+        Double[] expResult = data[1];
+        Double[] result = instance.getRow(i);
         for(int j=0;j<Array.getLength(expResult);j++) {
             assertEquals(expResult[j], result[j]);
         }
@@ -74,11 +74,11 @@ public class SimpleImmutableMatrixTest extends TestCase {
      */
     public void testGetColumn() {
         System.out.println("getColumn");
-        double[][] data = new double[][] {{1,2,3},{3,2,1},{1,2,3}};
+        Double[][] data = new Double[][] {{1D,2D,3D},{3D,2D,1D},{1D,2D,3D}};
         int i = 1;
         ImmutableMatrixD instance = new ImmutableMatrixD(data);
-        double[] expResult = new double[] {2,2,2};
-        double[] result = instance.getColumn(i);
+        Double[] expResult = new Double[] {2D,2D,2D};
+        Double[] result = instance.getColumn(i);
         for(int j=0;j<Array.getLength(expResult);j++) {
             assertEquals(expResult[j], result[j]);
         }
@@ -89,7 +89,7 @@ public class SimpleImmutableMatrixTest extends TestCase {
      */
     public void testEquals() {
         System.out.println("equals");
-        double[][] data = new double[][] {{1,2,3},{3,2,1},{1,2,3}};
+        Double[][] data = new Double[][] {{1D,2D,3D},{3D,2D,1D},{1D,2D,3D}};
         MatrixD a = MatrixD.random(3, 3);
         ImmutableMatrixD b = new ImmutableMatrixD(data);
         ImmutableMatrixD instance = new ImmutableMatrixD(data);
@@ -106,10 +106,10 @@ public class SimpleImmutableMatrixTest extends TestCase {
      */
     public void testAdd() {
         System.out.println("add");
-        double[][] data = new double[][] {{1,2,3},{3,2,1},{1,2,3}};
+        Double[][] data = new Double[][] {{1D,2D,3D},{3D,2D,1D},{1D,2D,3D}};
         ImmutableMatrixD b = new ImmutableMatrixD(data);
         ImmutableMatrixD instance = new ImmutableMatrixD(data);
-        data = new double[][] {{2,4,6},{6,4,2},{2,4,6}};
+        data = new Double[][] {{2D,4D,6D},{6D,4D,2D},{2D,4D,6D}};
         ImmutableMatrixD expResult = new ImmutableMatrixD(data);
         MatrixD result = instance.add(b);
         assertTrue(expResult.equals(result));
@@ -120,9 +120,9 @@ public class SimpleImmutableMatrixTest extends TestCase {
      */
     public void testSubtract() {
         System.out.println("minus");
-        double[][] data = new double[][] {{2,4,6},{6,4,2},{2,4,6}};
+        Double[][] data = new Double[][] {{2D,4D,6D},{6D,4D,2D},{2D,4D,6D}};
         ImmutableMatrixD instance = new ImmutableMatrixD(data);
-        data = new double[][] {{1,2,3},{3,2,1},{1,2,3}};
+        data = new Double[][] {{1D,2D,3D},{3D,2D,1D},{1D,2D,3D}};
         ImmutableMatrixD b = new ImmutableMatrixD(data);
         ImmutableMatrixD expResult = new ImmutableMatrixD(data);
         MatrixD result = instance.subtract(b);
@@ -134,14 +134,15 @@ public class SimpleImmutableMatrixTest extends TestCase {
      */
     public void testMultiply() {
         System.out.println("multiply");
-        double[][] data = new double[][] {{1,2,3}};
+        Double[][] data = new Double[][] {{1D,2D,3D}};
         ImmutableMatrixD b = new ImmutableMatrixD(data);
         System.out.println(b);
-        data = new double[][] {{4},{5},{6}};
+        data = new Double[][] {{4D},{5D},{6D}};
         ImmutableMatrixD instance = new ImmutableMatrixD(data);
         System.out.println(instance);
-        data = new double[][] {{32}};
+        data = new Double[][] {{32D}};
         ImmutableMatrixD expResult = new ImmutableMatrixD(data);
+        System.out.println(expResult);
         MatrixD result = b.multiply(instance);
         System.out.println(result);
         assertTrue(expResult.equals(result));
@@ -152,9 +153,9 @@ public class SimpleImmutableMatrixTest extends TestCase {
      */
     public void testTranspose() {
         System.out.println("transpose");
-        double[][] data = new double[][] {{1,2,3}};
+        Double[][] data = new Double[][] {{1D,2D,3D}};
         ImmutableMatrixD a = new ImmutableMatrixD(data);
-        data = new double[][] {{1},{2},{3}};
+        data = new Double[][] {{1D},{2D},{3D}};
         ImmutableMatrixD expResult = new ImmutableMatrixD(data);
         MatrixD result = ImmutableMatrixD.transpose(a);
         assertTrue(expResult.equals(result));
@@ -166,9 +167,11 @@ public class SimpleImmutableMatrixTest extends TestCase {
     public void testIdentity() {
         System.out.println("identity");
         int n = 3;
-        double[][] data = new double[][] {{1,0,0},{0,1,0},{0,0,1}};
+        Double[][] data = new Double[][] {{1D,0D,0D},{0D,1D,0D},{0D,0D,1D}};
         ImmutableMatrixD expResult = new ImmutableMatrixD(data);;
         MatrixD result = ImmutableMatrixD.identity(n);
+        System.out.println(expResult);
+        System.out.println(result);
         assertTrue(expResult.equals(result));
     }
 

@@ -45,6 +45,11 @@ public abstract class MatrixD extends Matrix {
         this.m = m;
         this.n = n;
         data = new Double[m][n];
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                data[i][j] = 0D;
+            }
+        }
     }
 
     /**
@@ -113,7 +118,7 @@ public abstract class MatrixD extends Matrix {
         Number[][] bData = b.getData();
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
-                if (a.data[i][j].equals(bData[i][j])) {
+                if (!a.data[i][j].equals(bData[i][j])) {
                     return false;
                 }
             }

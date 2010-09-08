@@ -34,4 +34,332 @@ package openecho.math;
  */
 public abstract class MatrixF extends Matrix {
 
+    Float[][] data;
+
+    /**
+     * Default constructor to specify the dimensions of the m by n MatrixF
+     * @param m rows in the MatrixF.
+     * @param n columns in the MatrixF.
+     */
+    public MatrixF(int m, int n) {
+        this.m = m;
+        this.n = n;
+        data = new Float[m][n];
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                data[i][j] = 0F;
+            }
+        }
+    }
+
+    /**
+     * Constructor to create a MatrixF with the given data set.
+     * @param data datum for the matrix.
+     */
+    public MatrixF(Float[][] data) {
+        m = data.length;
+        n = data[0].length;
+        this.data = new Float[m][n];
+        for (int i = 0; i < m; i++) {
+            System.arraycopy(data[i], 0, this.data[i], 0, n);
+        }
+    }
+
+
+    /**
+     * Retrieve the data from the MatrixF. This will be unsupported on some
+     * implementations.
+     * @return Float[][] data from this MatrixF.
+     */
+    public abstract Float[][] getData();
+
+    public abstract Float getData(int i, int j);
+
+    /**
+     * Sets the data into the Matrix. This will be unsupported on some
+     * implementations.
+     */
+    public abstract void setData(Number[][] data);
+
+    public abstract void setData(int i, int j, Number data);
+
+    /**
+     * Retrieve the data for a row from the MatrixF.
+     * @param i the row to retrieve (0 <= i < m)
+     * @return Float[] the row data
+     */
+    public abstract Float[] getRow(int i);
+
+    /**
+     * Retrieve the data for a column from the MatrixF. It is worth noting
+     * that this data is never mutable.
+     * @param i the row to retrieve (0 <= i < n)
+     * @return Float[] the column data
+     */
+    public Float[] getColumn(int i) {
+        if (i >= n) {
+            throw new IndexOutOfBoundsException();
+        }
+        Float[] result = new Float[m];
+        for (int j = 0; j < m; j++) {
+            result[j] = data[j][i];
+        }
+        return result;
+    }
+
+    /**
+     * Matrix equality check. True when A = B, (a[i,j]) = (b[i,j]) where
+     * 0 <= i < m and 0 <= j < n.
+     * @param b Matrix B.
+     * @return boolean true when equal otherwise false.
+     */
+    public boolean equals(Matrix b) {
+        MatrixF a = this;
+        Number[][] bData = b.getData();
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (!a.data[i][j].equals(bData[i][j])) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+  /**
+     * Adds a Matrix to this instance. Matrix A + Matrix B = Matrix C.
+     * @param b Matrix B.
+     * @return Matrix Matrix C.
+     */
+    public abstract MatrixF add(Matrix b);
+
+    /**
+     * Subtracts a Matrix from this instance. Matrix A - Matrix B = Matrix C.
+     * @param b Matrix B.
+     * @return Matrix Matrix C.
+     */
+    public abstract MatrixF subtract(Matrix b);
+
+    /**
+     * Multiplies a Matrix to this instance. Matrix A * Matrix B = Matrix C.
+     * @param b Matrix B.
+     * @return Matrix Matrix C.
+     */
+    public abstract MatrixF multiply(Matrix b);
+
+    /**
+     * Returns the transpose of this instance. Matrix A' = transpose(Matrix A)
+     * @return Matrix A' which is a transpose of this instance.
+     */
+    public abstract MatrixF transpose();
+
+    /**
+     * Adds a scalar value to this Matrix instance. Matrix C = C(c[i,j]) = a[i,j]+v
+     * @param v Value to add
+     * @return Matrix Matrix C
+     */
+    public abstract MatrixF addScalar(Number v);
+
+    /**
+     * Adds a scalar value to this Matrix instance. Matrix C = C(c[i,j]) = a[i,j]-v
+     * @param v Value to subtract
+     * @return Matrix Matrix C
+     */
+    public abstract MatrixF subtractScalar(Number v);
+
+    /**
+     * Adds a scalar value to this Matrix instance. Matrix C = C(c[i,j]) = a[i,j]*v
+     * @param v Value to multiply
+     * @return Matrix Matrix C
+     */
+    public abstract MatrixF multiplyScalar(Number v);
+
+    /**
+     * Adds a scalar value to this Matrix instance. Matrix C = C(c[i,j]) = a[i,j]/v
+     * @param v Value to divide
+     * @return Matrix Matrix C
+     */
+    public abstract MatrixF divideScalar(Number v);
+    
+
+      /**
+     * Calculates the determinant of the MatrixF if it is square (n=m). Currently
+     * this supports cases where n < 3.
+     * @return double detminant of the MatrixF.
+     */
+    public Float determinant() {
+        if (n != m) {
+            throw new RuntimeException("Not a square matrix.");
+        }
+        if (n == 1) {
+            return data[0][0];
+        } else if (n == 2) {
+            return data[0][0] * data[1][1]
+                    - data[0][1] * data[1][0];
+        } else if (n == 3) {
+            return data[0][0] * data[1][1] * data[2][2]
+                    + data[0][1] * data[1][2] * data[2][0]
+                    + data[0][2] * data[1][0] * data[2][1]
+                    - data[0][0] * data[1][2] * data[2][1]
+                    - data[0][1] * data[1][0] * data[2][2]
+                    - data[0][2] * data[1][1] * data[2][0];
+        }
+        throw new UnsupportedOperationException("Not supported yet. n must equal m and 0 < n < 4");
+    }
+
+    /**
+     * Convert the MatrixF to a String
+     * @return String MatrixF as String
+     */
+    @Override
+    public String toString() {
+        String dataString = "{";
+        for (int i = 0; i < m; i++) {
+            dataString += "{";
+            for (int j = 0; j < n; j++) {
+                dataString += data[i][j] + ((j < n - 1) ? "," : "");
+            }
+            dataString += "}" + ((i < m - 1) ? "," : "");
+        }
+        dataString += "}";
+        return String.format("%s %s", super.toString(), dataString);
+    }
+
+    /**
+     * Create an empty m by n MatrixF. All values are set to zero. Returns a
+     * MutableMatrixF instance.
+     * @param m row count for the MatrixF.
+     * @param n column count for the MatrixF.
+     * @return MatrixD the constructed MatrixF.
+     */
+    public static MatrixF empty(int m, int n) {
+        MatrixF e = new MutableMatrixF(m, n);
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                e.data[i][j] = 0F;
+            }
+        }
+        return e;
+    }
+
+    /**
+     * Create a MatrixF for the specified Data. Returns an Immutable MatrixF.
+     * @param data datum for the MatrixF.
+     * @return MatrixF the constructed MatrixF.
+     */
+    public static MatrixF create(Float[][] data) {
+        MatrixF c = new ImmutableMatrixF(data);
+        return c;
+    }
+
+    /**
+     * Create a MatrixD for the specified Data. Allows the construction of
+     * a Mutable MatrixD.
+     * @param data datum for the MatrixF.
+     * @param mutable flag when true a mutable MatrixD is created. Otherwise
+     * creates an immutable MatrixF.
+     * @return MatrixD the constructed MatrixD.
+     */
+    public static MatrixF create(Float[][] data, boolean mutable) {
+        MatrixF c = null;
+        if (!mutable) {
+            c = new ImmutableMatrixF(data);
+        } else {
+            c = new MutableMatrixF(data);
+        }
+        return c;
+    }
+
+    /**
+     * Returns the transpose of this instance. MatrixF A' = transpose(MatrixF A)
+     * @param a MatrixF A to be transposed.
+     * @return MatrixF A' which is a transpose of this instance.
+     */
+    public static MatrixF transpose(MatrixF a) {
+        MatrixF t = new ImmutableMatrixF(a.n, a.m);
+        for (int i = 0; i < a.m; i++) {
+            for (int j = 0; j < a.n; j++) {
+                t.data[j][i] = a.data[i][j];
+            }
+        }
+        return t;
+    }
+
+    /**
+     * Creates an identity n by n MatrixF
+     * @param n dimension of square MatrixF.
+     * @return MatrixF constructed identity MatrixF.
+     */
+    public static MatrixF identity(int n) {
+        MatrixF i = new ImmutableMatrixF(n, n);
+        for (int j = 0; j < n; j++) {
+            i.data[j][j] = 1F;
+        }
+        return i;
+    }
+
+    /**
+     * Creates a random m by n MatrixF R with all values 0 <= r[i,j] < 1 where
+     * 0 <= i < m and 0 <= j < n.
+     * @param m row count for MatrixF.
+     * @param n column count for MatrixF.
+     * @return MatrixF R.
+     */
+    public static MatrixF random(int m, int n) {
+        MatrixF r = new ImmutableMatrixF(m, n);
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                r.data[i][j] = (float) Math.random();
+            }
+        }
+        return r;
+    }
+
+    /**
+     * Creates a random m by n MatrixF R with all values 0 <= r[i,j] < 1 where
+     * 0 <= i < m and 0 <= j < n.
+     * @param m row count for MatrixF.
+     * @param n column count for MatrixF.
+     * @param lowerBound low bound for generated values
+     * @param higherBound high bound for generated values
+     * @return MatrixF R.
+     */
+    public static MatrixF random(int m, int n, float lowerBound, float higherBound) {
+        MatrixF r = new ImmutableMatrixF(m, n);
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                r.data[i][j] =  (float) (Math.random() * (higherBound - lowerBound)) + lowerBound;
+            }
+        }
+        return r;
+    }
+
+    /**
+     * Creates a random m by n MatrixF G with all values 0 <= g[i,j] < 1 where
+     * 0 <= i < m and 0 <= j < n.
+     * @param m row count for MatrixF.
+     * @param n column count for MatrixF.
+     * @param v value for cell entries
+     * @return MatrixF G.
+     */
+    public static MatrixF generate(int m, int n, float v) {
+        MatrixF g = new ImmutableMatrixF(m, n);
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                g.data[i][j] = v;
+            }
+        }
+        return g;
+    }
+
+    /**
+     * Creates a random m by n MatrixF A with all values 0 <= a[i,j] < 1 where
+     * 0 <= i < m and 0 <= j < n.
+     * @param m row count for MatrixF.
+     * @param n column count for MatrixF.
+     * @return MatrixF A.
+     */
+    public static MatrixF oneMatrix(int m, int n) {
+        return generate(m, n, 1F);
+    }
 }

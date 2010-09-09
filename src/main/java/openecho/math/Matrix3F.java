@@ -15,8 +15,6 @@
  **/
 package openecho.math;
 
-import java.security.InvalidParameterException;
-
 /**
  *
  * @author openecho
@@ -25,6 +23,21 @@ public class Matrix3F extends MatrixF {
     float m00, m01, m02,
           m10, m11, m12,
           m20, m21, m22 = 0;
+    
+    public Matrix3F(float m00, float m01, float m02,
+            float m10, float m11, float m12, 
+            float m20, float m21, float m22) {
+        super(3, 3, false);
+        this.m00 = m00;
+        this.m01 = m01;
+        this.m02 = m02;
+        this.m10 = m10;
+        this.m11 = m11;
+        this.m12 = m12;
+        this.m20 = m20;
+        this.m21 = m21;
+        this.m22 = m22;
+    }
 
     public Matrix3F(Float[][] data) {
         this(data, false);
@@ -107,12 +120,36 @@ public class Matrix3F extends MatrixF {
 
     @Override
     public void setData(int i, int j, Number data) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        if(i > 2 || j > 2) {
+            throw new IllegalArgumentException("i and j must be <= 2");
+        }
+        if(i == 0 && j == 0) {
+            m00 = data.floatValue();
+        } else if(i == 0 && j == 1) {
+            m01 = data.floatValue();
+        } else if(i == 0 && j == 2) {
+            m02 = data.floatValue();
+        } else if(i == 1 && j == 0) {
+            m10 = data.floatValue();
+        } else if(i == 1 && j == 1) {
+            m11 = data.floatValue();
+        } else if(i == 1 && j == 2) {
+            m12 = data.floatValue();
+        } else if(i == 2 && j == 0) {
+            m20 = data.floatValue();
+        } else if(i == 2 && j == 1) {
+            m21 = data.floatValue();
+        } else if(i == 2 && j == 2) {
+            m22 = data.floatValue();
+        }
     }
 
     @Override
     public Float[] getRow(int i) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        if(i > 2) {
+            throw new IllegalArgumentException("i must be <= 2");
+        }
+        return getData()[i];
     }
 
     @Override
@@ -131,27 +168,132 @@ public class Matrix3F extends MatrixF {
     }
 
     @Override
-    public MatrixF transpose() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public Matrix3F transpose() {
+        if(mutable) {
+            /**
+             * TODO: Figure out transpose.
+             */
+            Matrix3F t = new Matrix3F();
+            for (int i = 0; i < m; i++) {
+                for (int j = 0; j < n; j++) {
+                    t.setData(j, i, getData(i,j));
+                }
+            }
+            return t;
+        } else {
+            Matrix3F t = new Matrix3F();
+            for (int i = 0; i < m; i++) {
+                for (int j = 0; j < n; j++) {
+                    t.setData(j, i, getData(i,j));
+                }
+            }
+            return t;
+        }
     }
 
     @Override
-    public MatrixF addScalar(Number v) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public final Matrix3F addScalar(Number v) {
+        float f = v.floatValue();
+        return addScalar3F(f);
+    }
+
+    public final Matrix3F addScalar3F(float f) {
+        if (mutable) {
+            m00 = m00+f;
+            m01 = m01+f;
+            m02 = m02+f;
+            m10 = m10+f;
+            m11 = m11+f;
+            m12 = m12+f;
+            m20 = m20+f;
+            m21 = m21+f;
+            m22 = m22+f;
+            return this;
+        } else {
+            return new Matrix3F(m00+f,m01+f,m02+f,
+                    m10+f,m11+f,m12+f,
+                    m20+f,m21+f,m22+f);
+        }
     }
 
     @Override
-    public MatrixF subtractScalar(Number v) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public final Matrix3F subtractScalar(Number v) {
+        float f = v.floatValue();
+        return subtractScalar3F(f);
+    }
+
+    public final Matrix3F subtractScalar3F(float f) {
+        if (mutable) {
+            m00 = m00-f;
+            m01 = m01-f;
+            m02 = m02-f;
+            m10 = m10-f;
+            m11 = m11-f;
+            m12 = m12-f;
+            m20 = m20-f;
+            m21 = m21-f;
+            m22 = m22-f;
+            return this;
+        } else {
+            return new Matrix3F(m00-f,m01-f,m02-f,
+                    m10-f,m11-f,m12-f,
+                    m20-f,m21-f,m22-f);
+        }
     }
 
     @Override
-    public MatrixF multiplyScalar(Number v) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public final Matrix3F multiplyScalar(Number v) {
+        float f = v.floatValue();
+        return multiplyScalar3F(f);
+    }
+
+    public Matrix3F multiplyScalar3F(float f) {
+        if (mutable) {
+            m00 = m00*f;
+            m01 = m01*f;
+            m02 = m02*f;
+            m10 = m10*f;
+            m11 = m11*f;
+            m12 = m12*f;
+            m20 = m20*f;
+            m21 = m21*f;
+            m22 = m22*f;
+            return this;
+        } else {
+            return new Matrix3F(m00*f,m01*f,m02*f,
+                    m10*f,m11*f,m12*f,
+                    m20*f,m21*f,m22*f);
+        }
     }
 
     @Override
-    public MatrixF divideScalar(Number v) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public final Matrix3F divideScalar(Number v) {
+        if (v.intValue() == 0) {
+            throw new RuntimeException("Divide By Zero.");
+        }
+        float f = v.floatValue();
+        return divideScalar3F(f);
+    }
+
+    public final Matrix3F divideScalar3F(float f) {
+        if (f == 0F) {
+            throw new RuntimeException("Divide By Zero.");
+        }
+        if (mutable) {
+            m00 = m00/f;
+            m01 = m01/f;
+            m02 = m02/f;
+            m10 = m10/f;
+            m11 = m11/f;
+            m12 = m12/f;
+            m20 = m20/f;
+            m21 = m21/f;
+            m22 = m22/f;
+            return this;
+        } else {
+            return new Matrix3F(m00/f,m01/f,m02/f,
+                    m10/f,m11/f,m12/f,
+                    m20/f,m21/f,m22/f);
+        }
     }
 }

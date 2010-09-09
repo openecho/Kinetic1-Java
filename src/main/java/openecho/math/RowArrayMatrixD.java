@@ -38,7 +38,7 @@ public class RowArrayMatrixD extends MatrixD {
     Double[][] data;
 
     public RowArrayMatrixD(int m, int n) {
-        super(m,n);
+        super(m, n);
         data = new Double[m][n];
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
@@ -104,10 +104,10 @@ public class RowArrayMatrixD extends MatrixD {
 
     @Override
     public final Double getData(int i, int j) {
-        if(!(i < m)) {
+        if (!(i < m)) {
             throw new IndexOutOfBoundsException(String.format("i value of %s is not < then m of %s", i, m));
         }
-        if(!(j < n)) {
+        if (!(j < n)) {
             throw new IndexOutOfBoundsException(String.format("j value of %s is not < then n of %s", j, n));
         }
         if (mutable) {
@@ -217,10 +217,10 @@ public class RowArrayMatrixD extends MatrixD {
             throw new RuntimeException("Matrix dimensions are not incorrect.");
         }
         RowArrayMatrixD c = new RowArrayMatrixD(a.m, b.n);
-        for(int i=0;i<c.m;i++) {
-            for(int j=0;j<c.n;j++) {
-                for(int k=0;k<a.n;k++) {
-                    c.data[i][j] += (a.data[i][k]*b.getData(k, j).doubleValue());
+        for (int i = 0; i < c.m; i++) {
+            for (int j = 0; j < c.n; j++) {
+                for (int k = 0; k < a.n; k++) {
+                    c.data[i][j] += (a.data[i][k] * b.getData(k, j).doubleValue());
                 }
             }
         }
@@ -229,14 +229,28 @@ public class RowArrayMatrixD extends MatrixD {
 
     @Override
     public MatrixD transpose() {
-        RowArrayMatrixD a = this;
-        RowArrayMatrixD t = new RowArrayMatrixD(a.n, a.m);
-        for (int i = 0; i < a.m; i++) {
-            for (int j = 0; j < a.n; j++) {
-                t.data[j][i] = a.data[i][j];
+        if (mutable) {
+            /**
+             * TODO: Figure this out
+             */
+            RowArrayMatrixD a = this;
+            RowArrayMatrixD t = new RowArrayMatrixD(a.n, a.m);
+            for (int i = 0; i < a.m; i++) {
+                for (int j = 0; j < a.n; j++) {
+                    t.data[j][i] = a.data[i][j];
+                }
             }
+            return t;
+        } else {
+            RowArrayMatrixD a = this;
+            RowArrayMatrixD t = new RowArrayMatrixD(a.n, a.m);
+            for (int i = 0; i < a.m; i++) {
+                for (int j = 0; j < a.n; j++) {
+                    t.data[j][i] = a.data[i][j];
+                }
+            }
+            return t;
         }
-        return t;
     }
 
     @Override

@@ -144,42 +144,118 @@ public class Vector3F extends VectorF {
     }
 
     @Override
-    public VectorF normalise() {
-        throw new UnsupportedOperationException("Not supported yet.");
+   public final VectorF normalise() {
+        float m = magnitude();
+        if (m == 0) {
+            return VectorF.zero();
+        }
+        if(mutable) {
+            x = x/m;
+            y = y/m;
+            z = z/m;
+            return this;
+        } else {
+            return new Vector3F(x/m,y/m,z/m);
+        }
     }
 
     @Override
-    public VectorF add(Vector b) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public final VectorF add(Vector b) {
+        if (n != b.n) {
+            throw new RuntimeException("Vector dimensions are not equal.");
+        }
+        if(mutable) {
+            x += b.getData(X).floatValue();
+            y += b.getData(Y).floatValue();
+            z += b.getData(Z).floatValue();
+            return this;
+        } else {
+            return new Vector3F(x + b.getData(X).floatValue(), y + b.getData(Y).floatValue(), z + b.getData(Z).floatValue());
+        }
     }
 
     @Override
     public VectorF subtract(Vector b) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        if (n != b.n) {
+            throw new RuntimeException("Vector dimensions are not equal.");
+        }
+        if(mutable) {
+            x -= b.getData(X).floatValue();
+            y -= b.getData(Y).floatValue();
+            z -= b.getData(Z).floatValue();
+            return this;
+        } else {
+            return new Vector3F(x - b.getData(X).floatValue(), y - b.getData(Y).floatValue(), z - b.getData(Z).floatValue());
+        }
     }
 
     @Override
-    public VectorF cross(Vector b) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public final VectorF cross(Vector b) {
+        if (b.n != 3) {
+            throw new RuntimeException("Vector dimensions are not both equal to three.");
+        }
+        float xCross, yCross, zCross;
+                    xCross = y * b.getData(Z).floatValue() - z * b.getData(Y).floatValue();
+            yCross = z * b.getData(X).floatValue() - x * b.getData(Z).floatValue();
+            zCross = x * b.getData(Y).floatValue() - y * b.getData(X).floatValue();
+        if(mutable) {
+            x = xCross;
+            y = yCross;
+            z = zCross;
+            return this;
+        } else {
+            return new Vector3F(xCross, yCross, zCross);
+        }
     }
 
     @Override
     public VectorF addScalar(Number v) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        if(mutable) {
+            x += v.floatValue();
+            y += v.floatValue();
+            z += v.floatValue();
+            return this;
+        } else {
+            return new Vector3F(x + v.floatValue(), y + v.floatValue(), z + v.floatValue());
+        }
     }
 
     @Override
     public VectorF subtractScalar(Number v) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        if(mutable) {
+            x -= v.floatValue();
+            y -= v.floatValue();
+            z -= v.floatValue();
+            return this;
+        } else {
+            return new Vector3F(x - v.floatValue(), y - v.floatValue(), z - v.floatValue());
+        }
     }
 
     @Override
     public VectorF multiplyScalar(Number v) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        if(mutable) {
+            x *= v.floatValue();
+            y *= v.floatValue();
+            z *= v.floatValue();
+            return this;
+        } else {
+            return new Vector3F(x * v.floatValue(), y * v.floatValue(), z * v.floatValue());
+        }
     }
 
     @Override
     public VectorF divideScalar(Number v) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        if (v.intValue() == 0) {
+            throw new RuntimeException("Divide By Zero.");
+        }
+        if(mutable) {
+            x /= v.floatValue();
+            y /= v.floatValue();
+            z /= v.floatValue();
+            return this;
+        } else {
+            return new Vector3F(x / v.floatValue(), y / v.floatValue(), z / v.floatValue());
+        }
     }
 }

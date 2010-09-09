@@ -258,13 +258,11 @@ public class Vector3FTest {
     @Test
     public void testSubtract() {
         System.out.println("subtract");
-        Vector b = null;
-        Vector3F instance = null;
-        VectorF expResult = null;
+        Vector b = new Vector3F(3F,1F,2F);
+        Vector3F instance = new Vector3F(2F,4F,0.5F);
+        Vector3F expResult = new Vector3F(-1F,3.0F,-1.5F);
         VectorF result = instance.subtract(b);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -273,13 +271,11 @@ public class Vector3FTest {
     @Test
     public void testSubtract3F() {
         System.out.println("subtract3F");
-        Vector3F b = null;
-        Vector3F instance = null;
-        Vector3F expResult = null;
+        Vector3F b = new Vector3F(3F,1F,2F);
+        Vector3F instance = new Vector3F(2F,4F,0.5F);
+        Vector3F expResult = new Vector3F(-1F,3.0F,-1.5F);
         Vector3F result = instance.subtract3F(b);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**

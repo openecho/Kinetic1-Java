@@ -18,13 +18,25 @@ package openecho.math;
 import java.lang.reflect.Array;
 
 /**
+ * Performance optimised 3 dimensional float vector. This class can be mutable 
+ * or immutable.
  *
  * @author openecho
+ * @version 1.0.0
  */
-public class Vector3F extends VectorF {
+public final class Vector3F extends VectorF {
 
+    /**
+     * Instance variables for x, y and z components.
+     */
     float x, y, z;
 
+    /**
+     * Default constructor (defaults to not mutable).
+     * @param x component for x
+     * @param y component for y
+     * @param z component for z
+     */
     public Vector3F(float x, float y, float z) {
         super(3, false);
         this.x = x;
@@ -32,6 +44,13 @@ public class Vector3F extends VectorF {
         this.z = z;
     }
 
+    /**
+     * Default constructor with mutable flag.
+     * @param x component for x
+     * @param y component for y
+     * @param z component for z
+     * @param mutable flag to make this instance mutable
+     */
     public Vector3F(float x, float y, float z, boolean mutable) {
         super(3, mutable);
         this.x = x;
@@ -60,7 +79,7 @@ public class Vector3F extends VectorF {
     }
 
     @Override
-    protected void initData(Number[] data) {
+    protected final void initData(Number[] data) {
         if (Array.getLength(data) != 3) {
             throw new IllegalArgumentException("Number[] data does not have cardinality of three");
         }
@@ -70,7 +89,7 @@ public class Vector3F extends VectorF {
     }
 
     @Override
-    protected void initData(int i, Number data) {
+    protected final void initData(int i, Number data) {
         if (i == X) {
             x = data.floatValue();
         } else if (i == Y) {
@@ -82,46 +101,46 @@ public class Vector3F extends VectorF {
         }
     }
 
-    public float getX() {
+    public final float getX() {
         return x;
     }
 
-    public void setX(float x) {
+    public final void setX(float x) {
         if (!mutable) {
             throw new UnsupportedOperationException("Cannot Set Data on an Immutable Vector.");
         }
         this.x = x;
     }
 
-    public float getY() {
+    public final float getY() {
         return y;
     }
 
-    public void setY(float y) {
+    public final void setY(float y) {
         if (!mutable) {
             throw new UnsupportedOperationException("Cannot Set Data on an Immutable Vector.");
         }
         this.y = y;
     }
 
-    public float getZ() {
+    public final float getZ() {
         if (!mutable) {
             throw new UnsupportedOperationException("Cannot Set Data on an Immutable Vector.");
         }
         return z;
     }
 
-    public void setZ(float z) {
+    public final void setZ(float z) {
         this.z = z;
     }
 
     @Override
-    public Float[] getData() {
+    public final Float[] getData() {
         return new Float[]{x, y, z};
     }
 
     @Override
-    public Float getData(int i) {
+    public final Float getData(int i) {
         if (i == X) {
             return x;
         } else if (i == Y) {
@@ -134,7 +153,7 @@ public class Vector3F extends VectorF {
     }
 
     @Override
-    public void setData(Number[] data) {
+    public final void setData(Number[] data) {
         if (mutable) {
             if (Array.getLength(data) != 3) {
                 throw new IllegalArgumentException("Number[] data does not have cardinality of three");
@@ -148,7 +167,7 @@ public class Vector3F extends VectorF {
     }
 
     @Override
-    public void setData(int i, Number data) {
+    public final void setData(int i, Number data) {
         if (mutable) {
             if (i == X) {
                 x = data.floatValue();
@@ -165,7 +184,7 @@ public class Vector3F extends VectorF {
     }
 
     @Override
-    public Vector3F negative() {
+    public final Vector3F negative() {
         if (mutable) {
             x *= -1;
             y *= -1;

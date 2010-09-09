@@ -40,8 +40,8 @@ public class Vector3F extends VectorF {
     }
 
     public Vector3F(Number[] data) {
-        super(3,false);
-        if(Array.getLength(data) != 3) {
+        super(3, false);
+        if (Array.getLength(data) != 3) {
             throw new IllegalArgumentException("Number[] data does not have cardinality of three");
         }
         x = data[X].floatValue();
@@ -51,7 +51,7 @@ public class Vector3F extends VectorF {
 
     public Vector3F(Number[] data, boolean mutable) {
         super(3, mutable);
-        if(Array.getLength(data) != 3) {
+        if (Array.getLength(data) != 3) {
             throw new IllegalArgumentException("Number[] data does not have cardinality of three");
         }
         x = data[X].floatValue();
@@ -61,7 +61,7 @@ public class Vector3F extends VectorF {
 
     @Override
     protected void initData(Number[] data) {
-        if(Array.getLength(data) != 3) {
+        if (Array.getLength(data) != 3) {
             throw new IllegalArgumentException("Number[] data does not have cardinality of three");
         }
         x = data[X].floatValue();
@@ -71,29 +71,62 @@ public class Vector3F extends VectorF {
 
     @Override
     protected void initData(int i, Number data) {
-        if(i == X) {
+        if (i == X) {
             x = data.floatValue();
-        } else if(i == Y) {
+        } else if (i == Y) {
             y = data.floatValue();
-        } else if(i == Z) {
+        } else if (i == Z) {
             z = data.floatValue();
         } else {
             throw new IllegalArgumentException("index i must be 0 <= i < 3");
         }
     }
 
+    public float getX() {
+        return x;
+    }
+
+    public void setX(float x) {
+        if (!mutable) {
+            throw new UnsupportedOperationException("Cannot Set Data on an Immutable Vector.");
+        }
+        this.x = x;
+    }
+
+    public float getY() {
+        return y;
+    }
+
+    public void setY(float y) {
+        if (!mutable) {
+            throw new UnsupportedOperationException("Cannot Set Data on an Immutable Vector.");
+        }
+        this.y = y;
+    }
+
+    public float getZ() {
+        if (!mutable) {
+            throw new UnsupportedOperationException("Cannot Set Data on an Immutable Vector.");
+        }
+        return z;
+    }
+
+    public void setZ(float z) {
+        this.z = z;
+    }
+
     @Override
     public Float[] getData() {
-        return new Float[] {x,y,z};
+        return new Float[]{x, y, z};
     }
 
     @Override
     public Float getData(int i) {
-        if(i == X) {
+        if (i == X) {
             return x;
-        } else if(i == Y) {
+        } else if (i == Y) {
             return y;
-        } else if(i == Z) {
+        } else if (i == Z) {
             return z;
         } else {
             throw new IllegalArgumentException("index i must be 0 <= i < 3");
@@ -102,8 +135,8 @@ public class Vector3F extends VectorF {
 
     @Override
     public void setData(Number[] data) {
-        if(mutable) {
-            if(Array.getLength(data) != 3) {
+        if (mutable) {
+            if (Array.getLength(data) != 3) {
                 throw new IllegalArgumentException("Number[] data does not have cardinality of three");
             }
             x = data[X].floatValue();
@@ -116,12 +149,12 @@ public class Vector3F extends VectorF {
 
     @Override
     public void setData(int i, Number data) {
-        if(mutable) {
-            if(i == X) {
+        if (mutable) {
+            if (i == X) {
                 x = data.floatValue();
-            } else if(i == Y) {
+            } else if (i == Y) {
                 y = data.floatValue();
-            } else if(i == Z) {
+            } else if (i == Z) {
                 z = data.floatValue();
             } else {
                 throw new IllegalArgumentException("index i must be 0 <= i < 3");
@@ -133,29 +166,29 @@ public class Vector3F extends VectorF {
 
     @Override
     public Vector3F negative() {
-        if(mutable) {
+        if (mutable) {
             x *= -1;
             y *= -1;
             z *= -1;
             return this;
         } else {
-            return new Vector3F(x*-1,y*-1,z*-1);
+            return new Vector3F(x * -1, y * -1, z * -1);
         }
     }
 
     @Override
-   public final VectorF normalise() {
+    public final VectorF normalise() {
         float m = magnitude();
         if (m == 0) {
             return VectorF.zero();
         }
-        if(mutable) {
-            x = x/m;
-            y = y/m;
-            z = z/m;
+        if (mutable) {
+            x = x / m;
+            y = y / m;
+            z = z / m;
             return this;
         } else {
-            return new Vector3F(x/m,y/m,z/m);
+            return new Vector3F(x / m, y / m, z / m);
         }
     }
 
@@ -164,7 +197,7 @@ public class Vector3F extends VectorF {
         if (n != b.n) {
             throw new RuntimeException("Vector dimensions are not equal.");
         }
-        if(mutable) {
+        if (mutable) {
             x += b.getData(X).floatValue();
             y += b.getData(Y).floatValue();
             z += b.getData(Z).floatValue();
@@ -174,12 +207,23 @@ public class Vector3F extends VectorF {
         }
     }
 
+    public final Vector3F add3F(Vector3F b) {
+        if (mutable) {
+            x += b.x;
+            y += b.y;
+            z += b.y;
+            return this;
+        } else {
+            return new Vector3F(x + b.x, y + b.y, z + b.z);
+        }
+    }
+
     @Override
-    public VectorF subtract(Vector b) {
+    public final VectorF subtract(Vector b) {
         if (n != b.n) {
             throw new RuntimeException("Vector dimensions are not equal.");
         }
-        if(mutable) {
+        if (mutable) {
             x -= b.getData(X).floatValue();
             y -= b.getData(Y).floatValue();
             z -= b.getData(Z).floatValue();
@@ -189,16 +233,42 @@ public class Vector3F extends VectorF {
         }
     }
 
+    public final Vector3F subtract3F(Vector3F b) {
+        if (mutable) {
+            x -= b.x;
+            y -= b.y;
+            z -= b.y;
+            return this;
+        } else {
+            return new Vector3F(x - b.x, y - b.y, z - b.z);
+        }
+    }
+
     @Override
     public final VectorF cross(Vector b) {
         if (b.n != 3) {
             throw new RuntimeException("Vector dimensions are not both equal to three.");
         }
         float xCross, yCross, zCross;
-                    xCross = y * b.getData(Z).floatValue() - z * b.getData(Y).floatValue();
-            yCross = z * b.getData(X).floatValue() - x * b.getData(Z).floatValue();
-            zCross = x * b.getData(Y).floatValue() - y * b.getData(X).floatValue();
-        if(mutable) {
+        xCross = y * b.getData(Z).floatValue() - z * b.getData(Y).floatValue();
+        yCross = z * b.getData(X).floatValue() - x * b.getData(Z).floatValue();
+        zCross = x * b.getData(Y).floatValue() - y * b.getData(X).floatValue();
+        if (mutable) {
+            x = xCross;
+            y = yCross;
+            z = zCross;
+            return this;
+        } else {
+            return new Vector3F(xCross, yCross, zCross);
+        }
+    }
+
+    public final Vector3F cross(Vector3F b) {
+        float xCross, yCross, zCross;
+        xCross = y * b.z - z * b.y;
+        yCross = z * b.x - x * b.z;
+        zCross = x * b.y - y * b.x;
+        if (mutable) {
             x = xCross;
             y = yCross;
             z = zCross;
@@ -209,8 +279,8 @@ public class Vector3F extends VectorF {
     }
 
     @Override
-    public VectorF addScalar(Number v) {
-        if(mutable) {
+    public final VectorF addScalar(Number v) {
+        if (mutable) {
             x += v.floatValue();
             y += v.floatValue();
             z += v.floatValue();
@@ -220,9 +290,20 @@ public class Vector3F extends VectorF {
         }
     }
 
+    public final Vector3F addScalar3F(float v) {
+        if (mutable) {
+            x += v;
+            y += v;
+            z += v;
+            return this;
+        } else {
+            return new Vector3F(x + v, y + v, z + v);
+        }
+    }
+
     @Override
-    public VectorF subtractScalar(Number v) {
-        if(mutable) {
+    public final VectorF subtractScalar(Number v) {
+        if (mutable) {
             x -= v.floatValue();
             y -= v.floatValue();
             z -= v.floatValue();
@@ -232,9 +313,20 @@ public class Vector3F extends VectorF {
         }
     }
 
+    public final Vector3F subtractScalar3F(float v) {
+        if (mutable) {
+            x -= v;
+            y -= v;
+            z -= v;
+            return this;
+        } else {
+            return new Vector3F(x - v, y - v, z - v);
+        }
+    }
+
     @Override
-    public VectorF multiplyScalar(Number v) {
-        if(mutable) {
+    public final VectorF multiplyScalar(Number v) {
+        if (mutable) {
             x *= v.floatValue();
             y *= v.floatValue();
             z *= v.floatValue();
@@ -244,18 +336,43 @@ public class Vector3F extends VectorF {
         }
     }
 
+    public final Vector3F multiplyScalar3F(float v) {
+        if (mutable) {
+            x *= v;
+            y *= v;
+            z *= v;
+            return this;
+        } else {
+            return new Vector3F(x * v, y * v, z * v);
+        }
+    }
+
     @Override
-    public VectorF divideScalar(Number v) {
+    public final VectorF divideScalar(Number v) {
         if (v.intValue() == 0) {
             throw new RuntimeException("Divide By Zero.");
         }
-        if(mutable) {
+        if (mutable) {
             x /= v.floatValue();
             y /= v.floatValue();
             z /= v.floatValue();
             return this;
         } else {
             return new Vector3F(x / v.floatValue(), y / v.floatValue(), z / v.floatValue());
+        }
+    }
+
+    public final Vector3F divideScalar3F(float v) {
+        if (v == 0F) {
+            throw new RuntimeException("Divide By Zero.");
+        }
+        if (mutable) {
+            x /= v;
+            y /= v;
+            z /= v;
+            return this;
+        } else {
+            return new Vector3F(x / v, y / v, z / v);
         }
     }
 }

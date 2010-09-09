@@ -31,6 +31,12 @@ public final class Vector3F extends VectorF {
      */
     float x, y, z;
 
+    public static final Vector3F ZERO;
+
+    static {
+        ZERO = new Vector3F(0F, 0F, 0F);
+    }
+
     /**
      * Default constructor (defaults to not mutable).
      * @param x component for x
@@ -124,13 +130,13 @@ public final class Vector3F extends VectorF {
     }
 
     public final float getZ() {
-        if (!mutable) {
-            throw new UnsupportedOperationException("Cannot Set Data on an Immutable Vector.");
-        }
         return z;
     }
 
     public final void setZ(float z) {
+        if (!mutable) {
+            throw new UnsupportedOperationException("Cannot Set Data on an Immutable Vector.");
+        }
         this.z = z;
     }
 
@@ -196,10 +202,10 @@ public final class Vector3F extends VectorF {
     }
 
     @Override
-    public final VectorF normalise() {
+    public final Vector3F normalise() {
         float m = magnitude();
         if (m == 0) {
-            return VectorF.zero();
+            return Vector3F.zero();
         }
         if (mutable) {
             x = x / m;
@@ -212,7 +218,7 @@ public final class Vector3F extends VectorF {
     }
 
     @Override
-    public final VectorF add(Vector b) {
+    public final Vector3F add(Vector b) {
         if (n != b.n) {
             throw new RuntimeException("Vector dimensions are not equal.");
         }
@@ -393,5 +399,9 @@ public final class Vector3F extends VectorF {
         } else {
             return new Vector3F(x / v, y / v, z / v);
         }
+    }
+
+    public static Vector3F zero() {
+        return ZERO;
     }
 }

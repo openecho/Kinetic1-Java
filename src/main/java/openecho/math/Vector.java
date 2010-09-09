@@ -71,7 +71,26 @@ public abstract class Vector {
 
     public abstract Vector normalise();
 
-    public abstract boolean equals(Vector b);
+    @Override
+    public boolean equals(Object b) {
+        if(b instanceof Vector) {
+            Number[] bData = ((Vector)b).getData();
+            for (int i = 0; i < n; i++) {
+                if (!getData(i).equals(bData[i])) {
+                    return false;
+                }
+            }
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 67 * hash + getData().hashCode();
+        return hash;
+    }
 
     public abstract Vector add(Vector b);
 

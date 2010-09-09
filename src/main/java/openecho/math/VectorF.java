@@ -70,19 +70,6 @@ public abstract class VectorF extends Vector {
 
     public abstract VectorF normalise();
 
-    /**
-     * TODO: move to Vector
-     */
-    public final boolean equals(Vector b) {
-        Vector a = this;
-        for (int i = 0; i < n; i++) {
-            if (!a.getData(i).equals(b.getData(i))) {
-                return false;
-            }
-        }
-        return true;
-    }
-
     public abstract VectorF add(Vector b);
 
     public abstract VectorF subtract(Vector b);

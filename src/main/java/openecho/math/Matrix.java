@@ -89,8 +89,24 @@ public abstract class Matrix {
 
     public abstract void setData(int i, int j, Number data);
 
-    public abstract boolean equals(Matrix b);
-
+    /**
+     * Matrix equality check. True when A = B, (a[i,j]) = (b[i,j]) where
+     * 0 <= i < m and 0 <= j < n.
+     * @param b Matrix B.
+     * @return boolean true when equal otherwise false.
+     */
+    public boolean equals(Matrix b) {
+        Number[][] bData = b.getData();
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (!getData(i,j).equals(bData[i][j])) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+    
     public abstract Number[] getRow(int i);
 
     public abstract Number[] getColumn(int i);

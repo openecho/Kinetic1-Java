@@ -153,18 +153,130 @@ public class Matrix3F extends MatrixF {
     }
 
     @Override
-    public MatrixF add(Matrix b) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public final Matrix3F add(Matrix b) {
+        if (m != b.m || n != b.n) {
+            throw new RuntimeException("Matrix dimensions are not equal.");
+        }
+        if(mutable) {
+            m00 += b.getData(0, 0).floatValue();
+            m01 += b.getData(0, 1).floatValue();
+            m02 += b.getData(0, 2).floatValue();
+            m10 += b.getData(1, 0).floatValue();
+            m11 += b.getData(1, 1).floatValue();
+            m12 += b.getData(1, 2).floatValue();
+            m20 += b.getData(2, 0).floatValue();
+            m21 += b.getData(2, 1).floatValue();
+            m22 += b.getData(2, 2).floatValue();
+            return this;
+        } else {
+            return new Matrix3F(m00 + b.getData(0, 0).floatValue(), m01 + b.getData(0, 1).floatValue(), m02 + b.getData(0, 2).floatValue(),
+                    m10 + b.getData(1, 0).floatValue(), m11 + b.getData(1, 1).floatValue(), m12 + b.getData(1, 2).floatValue(),
+                    m20 + b.getData(2, 0).floatValue(), m21 + b.getData(2, 1).floatValue(), m22 + b.getData(2, 2).floatValue());
+        }
+    }
+
+    public final Matrix3F add3F(Matrix3F b) {
+        if (m != b.m || n != b.n) {
+            throw new RuntimeException("Matrix dimensions are not equal.");
+        }
+        if(mutable) {
+            m00 += b.m00;
+            m01 += b.m01;
+            m02 += b.m02;
+            m10 += b.m10;
+            m11 += b.m11;
+            m12 += b.m12;
+            m20 += b.m20;
+            m21 += b.m21;
+            m22 += b.m22;
+            return this;
+        } else {
+            return new Matrix3F(m00 + b.m00, m01 + b.m01, m02 + b.m02,
+                    m10 + b.m10, m11 + b.m11, m12 + b.m12,
+                    m20 + b.m20, m21 + b.m21, m22 + b.m22);
+        }
     }
 
     @Override
-    public MatrixF subtract(Matrix b) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public final Matrix3F subtract(Matrix b) {
+        if (m != b.m || n != b.n) {
+            throw new RuntimeException("Matrix dimensions are not equal.");
+        }
+        if(mutable) {
+            m00 -= b.getData(0, 0).floatValue();
+            m01 -= b.getData(0, 1).floatValue();
+            m02 -= b.getData(0, 2).floatValue();
+            m10 -= b.getData(1, 0).floatValue();
+            m11 -= b.getData(1, 1).floatValue();
+            m12 -= b.getData(1, 2).floatValue();
+            m20 -= b.getData(2, 0).floatValue();
+            m21 -= b.getData(2, 1).floatValue();
+            m22 -= b.getData(2, 2).floatValue();
+            return this;
+        } else {
+            return new Matrix3F(m00 - b.getData(0, 0).floatValue(), m01 - b.getData(0, 1).floatValue(), m02 - b.getData(0, 2).floatValue(),
+                    m10 - b.getData(1, 0).floatValue(), m11 - b.getData(1, 1).floatValue(), m12 - b.getData(1, 2).floatValue(),
+                    m20 - b.getData(2, 0).floatValue(), m21 - b.getData(2, 1).floatValue(), m22 - b.getData(2, 2).floatValue());
+        }
+    }
+
+    public final Matrix3F subtract3F(Matrix3F b) {
+        if (m != b.m || n != b.n) {
+            throw new RuntimeException("Matrix dimensions are not equal.");
+        }
+        if(mutable) {
+            m00 -= b.m00;
+            m01 -= b.m01;
+            m02 -= b.m02;
+            m10 -= b.m10;
+            m11 -= b.m11;
+            m12 -= b.m12;
+            m20 -= b.m20;
+            m21 -= b.m21;
+            m22 -= b.m22;
+            return this;
+        } else {
+            return new Matrix3F(m00 - b.m00, m01 - b.m01, m02 - b.m02,
+                    m10 - b.m10, m11 - b.m11, m12 - b.m12,
+                    m20 - b.m20, m21 - b.m21, m22 - b.m22);
+        }
     }
 
     @Override
     public MatrixF multiply(Matrix b) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        /**
+         * TODO: Optimise
+         */
+        if (n != b.m) {
+            throw new RuntimeException("Matrix dimensions are incorrect.");
+        }
+        RowArrayMatrixF c = new RowArrayMatrixF(m, b.n);
+        for(int i=0;i<c.m;i++) {
+            for(int j=0;j<c.n;j++) {
+                for(int k=0;k<n;k++) {
+                    c.data[i][j] += (getData(i, j)*b.getData(k, j).floatValue());
+                }
+            }
+        }
+        return c;
+    }
+
+    public Matrix3F multiply3F(Matrix3F b) {
+        /**
+         * TODO: Optimise
+         */
+        if (n != b.m) {
+            throw new RuntimeException("Matrix dimensions are incorrect.");
+        }
+        Matrix3F c = new Matrix3F();
+        for(int i=0;i<c.m;i++) {
+            for(int j=0;j<c.n;j++) {
+                for(int k=0;k<n;k++) {
+                    c.setData(i, j, getData(i, j) * b.getData(k, j).floatValue());
+                }
+            }
+        }
+        return c;
     }
 
     @Override

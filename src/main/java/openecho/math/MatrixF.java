@@ -112,25 +112,6 @@ public abstract class MatrixF extends Matrix {
         return result;
     }
 
-    /**
-     * Matrix equality check. True when A = B, (a[i,j]) = (b[i,j]) where
-     * 0 <= i < m and 0 <= j < n.
-     * @param b Matrix B.
-     * @return boolean true when equal otherwise false.
-     */
-    public boolean equals(Matrix b) {
-        MatrixF a = this;
-        Number[][] bData = b.getData();
-        for (int i = 0; i < m; i++) {
-            for (int j = 0; j < n; j++) {
-                if (!a.getData(i,j).equals(bData[i][j])) {
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
-
   /**
      * Adds a Matrix to this instance. Matrix A + Matrix B = Matrix C.
      * @param b Matrix B.

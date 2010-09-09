@@ -131,16 +131,6 @@ public class RowArrayMatrixF extends MatrixF {
     }
 
     @Override
-    final void setMutable(boolean mutable) {
-        this.mutable = mutable;
-    }
-
-    @Override
-    public final boolean isMutable() {
-        return mutable;
-    }
-
-    @Override
     public final Float[] getRow(int i) {
         if (i >= m) {
             throw new IndexOutOfBoundsException();
@@ -209,14 +199,28 @@ public class RowArrayMatrixF extends MatrixF {
 
     @Override
     public MatrixF transpose() {
-        RowArrayMatrixF a = this;
-        RowArrayMatrixF t = new RowArrayMatrixF(a.n, a.m);
-        for (int i = 0; i < a.m; i++) {
-            for (int j = 0; j < a.n; j++) {
-                t.data[j][i] = a.data[i][j];
+        if(mutable) {
+            /**
+             * TODO: Transpose!
+             */
+            RowArrayMatrixF a = this;
+            RowArrayMatrixF t = new RowArrayMatrixF(a.n, a.m);
+            for (int i = 0; i < a.m; i++) {
+                for (int j = 0; j < a.n; j++) {
+                    t.data[j][i] = a.data[i][j];
+                }
             }
+            return t;
+        } else {
+            RowArrayMatrixF a = this;
+            RowArrayMatrixF t = new RowArrayMatrixF(a.n, a.m);
+            for (int i = 0; i < a.m; i++) {
+                for (int j = 0; j < a.n; j++) {
+                    t.data[j][i] = a.data[i][j];
+                }
+            }
+            return t;
         }
-        return t;
     }
 
     @Override

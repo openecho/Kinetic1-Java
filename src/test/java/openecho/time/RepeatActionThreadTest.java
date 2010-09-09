@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package openecho.time;
 
 import java.util.logging.Level;
@@ -14,7 +13,7 @@ import junit.framework.TestCase;
  * @author jmarsden
  */
 public class RepeatActionThreadTest extends TestCase {
-    
+
     public RepeatActionThreadTest(String testName) {
         super(testName);
     }
@@ -37,7 +36,7 @@ public class RepeatActionThreadTest extends TestCase {
         RepeatActionThread instance = new RepeatActionThread(1);
         instance.registerAction(new TestRepeatableAction());
         instance.start();
-        for(int i=0;i<4;i++) {
+        for (int i = 0; i < 4; i++) {
             try {
                 Thread.sleep(500);
             } catch (InterruptedException ex) {
@@ -49,22 +48,20 @@ public class RepeatActionThreadTest extends TestCase {
 
     public class TestRepeatableAction extends RepeatedAction {
 
-    Timer timer = Timer.getInstance();
-    StopWatch stopWatch = new StopWatch(timer);
+        Timer timer = Timer.getInstance();
+        StopWatch stopWatch = new StopWatch(timer);
 
-    @Override
-    public String getName() {
-        return "TestRepeatableAction";
+        @Override
+        public String getName() {
+            return "TestRepeatableAction";
 
+        }
+
+        @Override
+        protected void handleExecute(long tick) throws ActionException {
+            stopWatch.stop();
+            System.out.println(this.getClass().getName() + " - tick " + tick + ":\t" + Timer.nanoSecondsToReadableMilliSeconds(stopWatch.getDeltaNanoTime()));
+            stopWatch.start();
+        }
     }
-
-    @Override
-    protected void handleExecute(long tick) throws ActionException {
-        stopWatch.stop();
-        System.out.println(this.getClass().getName() + " - tick " + tick + ":\t" + Timer.nanoSecondsToReadableMilliSeconds(stopWatch.getDeltaNanoTime()));
-        stopWatch.start();
-    }
-
-    
-}
 }

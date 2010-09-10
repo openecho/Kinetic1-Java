@@ -49,7 +49,7 @@ public abstract class Vector {
         return mutable;
     }
 
-    void setMutable(boolean mutable) {
+    public void setMutable(boolean mutable) {
         this.mutable = mutable;
     }
 

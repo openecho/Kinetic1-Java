@@ -3,25 +3,27 @@
  * and open the template in the editor.
  */
 
-package openecho.math.random;
+package openecho.math;
+
+import openecho.math.random.MersenneTwisterFast;
 
 /**
  *
  * @author jmarsden
  */
-public class FastRandom {
+public class QuickMath {
 
     MersenneTwisterFast mtf = null;
 
-    static FastRandom random = null;
+    static QuickMath random = null;
 
-    public FastRandom() {
+    private QuickMath() {
         mtf = new MersenneTwisterFast();
     }
 
-    public static FastRandom getInstance() {
+    public static QuickMath getInstance() {
         if(random == null) {
-            random = new FastRandom();
+            random = new QuickMath();
         }
         return random;
     }

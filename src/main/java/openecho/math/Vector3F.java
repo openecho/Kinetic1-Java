@@ -31,10 +31,13 @@ public final class Vector3F extends VectorF {
      */
     float x, y, z;
 
-    public static final Vector3F ZERO;
+    public static final Vector3F ZERO, X_AXIS, Y_AXIS, Z_AXIS;
 
     static {
         ZERO = new Vector3F(0F, 0F, 0F);
+        X_AXIS = new Vector3F(1F, 0F, 0F);
+        Y_AXIS = new Vector3F(0F, 1F, 0F);
+        Z_AXIS = new Vector3F(0F, 0F, 1F);
     }
 
     /**
@@ -232,6 +235,10 @@ public final class Vector3F extends VectorF {
         }
     }
 
+    public final Vector3F add(Vector3F b) {
+        return add3F(b);
+    }
+
     public final Vector3F add3F(Vector3F b) {
         if (mutable) {
             x += b.x;
@@ -244,7 +251,7 @@ public final class Vector3F extends VectorF {
     }
 
     @Override
-    public final VectorF subtract(Vector b) {
+    public final Vector3F subtract(Vector b) {
         if (n != b.n) {
             throw new RuntimeException("Vector dimensions are not equal.");
         }
@@ -256,6 +263,10 @@ public final class Vector3F extends VectorF {
         } else {
             return new Vector3F(x - b.getData(X).floatValue(), y - b.getData(Y).floatValue(), z - b.getData(Z).floatValue());
         }
+    }
+
+    public final Vector3F subtract(Vector3F b) {
+        return subtract3F(b);
     }
 
     public final Vector3F subtract3F(Vector3F b) {
@@ -270,7 +281,7 @@ public final class Vector3F extends VectorF {
     }
 
     @Override
-    public final VectorF cross(Vector b) {
+    public final Vector3F cross(Vector b) {
         if (b.n != 3) {
             throw new RuntimeException("Vector dimensions are not both equal to three.");
         }
@@ -289,6 +300,10 @@ public final class Vector3F extends VectorF {
     }
 
     public final Vector3F cross(Vector3F b) {
+        return cross3F(b);
+    }
+
+    public final Vector3F cross3F(Vector3F b) {
         float xCross, yCross, zCross;
         xCross = y * b.z - z * b.y;
         yCross = z * b.x - x * b.z;
@@ -304,7 +319,7 @@ public final class Vector3F extends VectorF {
     }
 
     @Override
-    public final VectorF addScalar(Number v) {
+    public final Vector3F addScalar(Number v) {
         if (mutable) {
             x += v.floatValue();
             y += v.floatValue();
@@ -313,6 +328,10 @@ public final class Vector3F extends VectorF {
         } else {
             return new Vector3F(x + v.floatValue(), y + v.floatValue(), z + v.floatValue());
         }
+    }
+
+    public final Vector3F addScalar(float v) {
+        return addScalar3F(v);
     }
 
     public final Vector3F addScalar3F(float v) {
@@ -338,6 +357,10 @@ public final class Vector3F extends VectorF {
         }
     }
 
+    public final Vector3F subtractScalar(float v) {
+        return subtractScalar3F(v);
+    }
+
     public final Vector3F subtractScalar3F(float v) {
         if (mutable) {
             x -= v;
@@ -359,6 +382,10 @@ public final class Vector3F extends VectorF {
         } else {
             return new Vector3F(x * v.floatValue(), y * v.floatValue(), z * v.floatValue());
         }
+    }
+
+    public final Vector3F multiplyScalar(float v) {
+        return multiplyScalar3F(v);
     }
 
     public final Vector3F multiplyScalar3F(float v) {
@@ -385,6 +412,10 @@ public final class Vector3F extends VectorF {
         } else {
             return new Vector3F(x / v.floatValue(), y / v.floatValue(), z / v.floatValue());
         }
+    }
+
+    public final Vector3F divideScalar(float v) {
+        return divideScalar3F(v);
     }
 
     public final Vector3F divideScalar3F(float v) {

@@ -98,15 +98,15 @@ public class RowArrayMatrixDTest extends TestCase {
         Double[][] data = new Double[][]{{1D, 2D, 3D}, {3D, 2D, 1D}, {1D, 2D, 3D}};
         RowArrayMatrixD instance = new RowArrayMatrixD(data);
         boolean expResult = false;
-        boolean result = instance.isMutable();
+        boolean result = instance.willMutate();
         assertEquals(expResult, result);
         instance = new RowArrayMatrixD(data, true);
         expResult = true;
-        result = instance.isMutable();
+        result = instance.willMutate();
         assertEquals(expResult, result);
         instance = new RowArrayMatrixD(data, false);
         expResult = false;
-        result = instance.isMutable();
+        result = instance.willMutate();
         assertEquals(expResult, result);
     }
 

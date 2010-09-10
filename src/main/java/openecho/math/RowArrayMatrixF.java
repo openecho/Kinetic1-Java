@@ -71,7 +71,7 @@ public class RowArrayMatrixF extends MatrixF {
 
     @Override
     public final Float[][] getData() {
-        if (mutable) {
+        if (mutate) {
             return data;
         } else {
             Float[][] output = new Float[m][n];
@@ -90,7 +90,7 @@ public class RowArrayMatrixF extends MatrixF {
         if(!(j < n)) {
             throw new IndexOutOfBoundsException(String.format("j value of %s is not < then n of %s", j, n));
         }
-        if (mutable) {
+        if (mutate) {
             return data[i][j];
         } else {
             Float output = new Float(data[i][j]);
@@ -100,7 +100,7 @@ public class RowArrayMatrixF extends MatrixF {
 
     @Override
     public final void setData(int i, int j, Number data) {
-        if (mutable) {
+        if (mutate) {
             if (data instanceof Float) {
                 this.data[i][j] = (Float) data;
             } else {
@@ -113,7 +113,7 @@ public class RowArrayMatrixF extends MatrixF {
 
     @Override
     public final void setData(Number[][] data) {
-        if (mutable) {
+        if (mutate) {
             m = data.length;
             n = data[0].length;
             if (data instanceof Float[][]) {
@@ -147,7 +147,7 @@ public class RowArrayMatrixF extends MatrixF {
             throw new RuntimeException("Matrix dimensions are not equal.");
         }
         RowArrayMatrixF c;
-        if (mutable) {
+        if (mutate) {
             c = this;
         } else {
             c = new RowArrayMatrixF(m, n);
@@ -167,7 +167,7 @@ public class RowArrayMatrixF extends MatrixF {
             throw new RuntimeException("Matrix dimensions are not equal.");
         }
         RowArrayMatrixF c;
-        if (mutable) {
+        if (mutate) {
             c = this;
         } else {
             c = new RowArrayMatrixF(m, n);
@@ -199,7 +199,7 @@ public class RowArrayMatrixF extends MatrixF {
 
     @Override
     public MatrixF transpose() {
-        if(mutable) {
+        if(mutate) {
             /**
              * TODO: Transpose!
              */

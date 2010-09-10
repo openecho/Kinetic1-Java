@@ -46,7 +46,7 @@ public abstract class MatrixF extends Matrix {
     public MatrixF(int m, int n, boolean mutable) {
         this.m = m;
         this.n = n;
-        this.mutable = mutable;
+        this.mutate = mutable;
     }
 
     /**
@@ -61,7 +61,7 @@ public abstract class MatrixF extends Matrix {
     public MatrixF(Float[][] data, boolean mutable) {
         m = data.length;
         n = data[0].length;
-        this.mutable = mutable;
+        this.mutate = mutable;
         this.initData(data);
     }
 

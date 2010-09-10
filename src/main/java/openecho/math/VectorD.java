@@ -33,7 +33,7 @@ public abstract class VectorD extends Vector {
 
     public VectorD(int n, boolean mutable) {
         this.n = n;
-        this.mutable = mutable;
+        this.mutate = mutable;
     }
 
     public VectorD(Number[] data) {
@@ -42,7 +42,7 @@ public abstract class VectorD extends Vector {
 
     public VectorD(Number[] data, boolean mutable) {
         n = data.length;
-        this.mutable = mutable;
+        this.mutate = mutable;
     }
 
     protected abstract void initData(Number[] data);

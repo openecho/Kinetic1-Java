@@ -160,7 +160,7 @@ public class Matrix3F extends MatrixF {
         if (m != b.m || n != b.n) {
             throw new RuntimeException("Matrix dimensions are not equal.");
         }
-        if(mutable) {
+        if(mutate) {
             m00 += b.getData(0, 0).floatValue();
             m01 += b.getData(0, 1).floatValue();
             m02 += b.getData(0, 2).floatValue();
@@ -182,7 +182,7 @@ public class Matrix3F extends MatrixF {
         if (m != b.m || n != b.n) {
             throw new RuntimeException("Matrix dimensions are not equal.");
         }
-        if(mutable) {
+        if(mutate) {
             m00 += b.m00;
             m01 += b.m01;
             m02 += b.m02;
@@ -205,7 +205,7 @@ public class Matrix3F extends MatrixF {
         if (m != b.m || n != b.n) {
             throw new RuntimeException("Matrix dimensions are not equal.");
         }
-        if(mutable) {
+        if(mutate) {
             m00 -= b.getData(0, 0).floatValue();
             m01 -= b.getData(0, 1).floatValue();
             m02 -= b.getData(0, 2).floatValue();
@@ -227,7 +227,7 @@ public class Matrix3F extends MatrixF {
         if (m != b.m || n != b.n) {
             throw new RuntimeException("Matrix dimensions are not equal.");
         }
-        if(mutable) {
+        if(mutate) {
             m00 -= b.m00;
             m01 -= b.m01;
             m02 -= b.m02;
@@ -284,7 +284,7 @@ public class Matrix3F extends MatrixF {
 
     @Override
     public Matrix3F transpose() {
-        if(mutable) {
+        if(mutate) {
             /**
              * TODO: Figure out transpose.
              */
@@ -313,7 +313,7 @@ public class Matrix3F extends MatrixF {
     }
 
     public final Matrix3F addScalar3F(float f) {
-        if (mutable) {
+        if (mutate) {
             m00 = m00+f;
             m01 = m01+f;
             m02 = m02+f;
@@ -338,7 +338,7 @@ public class Matrix3F extends MatrixF {
     }
 
     public final Matrix3F subtractScalar3F(float f) {
-        if (mutable) {
+        if (mutate) {
             m00 = m00-f;
             m01 = m01-f;
             m02 = m02-f;
@@ -363,7 +363,7 @@ public class Matrix3F extends MatrixF {
     }
 
     public Matrix3F multiplyScalar3F(float f) {
-        if (mutable) {
+        if (mutate) {
             m00 = m00*f;
             m01 = m01*f;
             m02 = m02*f;
@@ -394,7 +394,7 @@ public class Matrix3F extends MatrixF {
         if (f == 0F) {
             throw new RuntimeException("Divide By Zero.");
         }
-        if (mutable) {
+        if (mutate) {
             m00 = m00/f;
             m01 = m01/f;
             m02 = m02/f;

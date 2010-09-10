@@ -122,7 +122,7 @@ public class Vector2F extends VectorF {
     }
 
     public final void setX(float x) {
-        if (!mutable) {
+        if (!mutate) {
             throw new UnsupportedOperationException("Cannot Set Data on an Immutable Vector.");
         }
         this.x = x;
@@ -133,7 +133,7 @@ public class Vector2F extends VectorF {
     }
 
     public final void setY(float y) {
-        if (!mutable) {
+        if (!mutate) {
             throw new UnsupportedOperationException("Cannot Set Data on an Immutable Vector.");
         }
         this.y = y;
@@ -158,7 +158,7 @@ public class Vector2F extends VectorF {
 
     @Override
     public final void setData(Number[] data) {
-        if (mutable) {
+        if (mutate) {
             if (Array.getLength(data) != 2) {
                 throw new IllegalArgumentException("Number[] data does not have cardinality of three");
             }
@@ -171,7 +171,7 @@ public class Vector2F extends VectorF {
 
     @Override
     public final void setData(int i, Number data) {
-        if (mutable) {
+        if (mutate) {
             if (i == X) {
                 x = data.floatValue();
             } else if (i == Y) {
@@ -186,7 +186,7 @@ public class Vector2F extends VectorF {
 
     @Override
     public final Vector2F negative() {
-        if (mutable) {
+        if (mutate) {
             x *= -1;
             y *= -1;
             return this;
@@ -201,7 +201,7 @@ public class Vector2F extends VectorF {
         if (m == 0) {
             return Vector2F.zero();
         }
-        if (mutable) {
+        if (mutate) {
             x = x / m;
             y = y / m;
             return this;
@@ -215,7 +215,7 @@ public class Vector2F extends VectorF {
         if (n != b.n) {
             throw new RuntimeException("Vector dimensions are not equal.");
         }
-        if (mutable) {
+        if (mutate) {
             x += b.getData(X).floatValue();
             y += b.getData(Y).floatValue();
             return this;
@@ -229,7 +229,7 @@ public class Vector2F extends VectorF {
     }
 
     public final Vector2F add2F(Vector2F b) {
-        if (mutable) {
+        if (mutate) {
             x += b.x;
             y += b.y;
             return this;
@@ -243,7 +243,7 @@ public class Vector2F extends VectorF {
         if (n != b.n) {
             throw new RuntimeException("Vector dimensions are not equal.");
         }
-        if (mutable) {
+        if (mutate) {
             x -= b.getData(X).floatValue();
             y -= b.getData(Y).floatValue();
             return this;
@@ -257,7 +257,7 @@ public class Vector2F extends VectorF {
     }
 
     public final Vector2F subtract2F(Vector2F b) {
-        if (mutable) {
+        if (mutate) {
             x -= b.x;
             y -= b.y;
             return this;
@@ -273,7 +273,7 @@ public class Vector2F extends VectorF {
 
     @Override
     public final Vector2F addScalar(Number v) {
-        if (mutable) {
+        if (mutate) {
             x += v.floatValue();
             y += v.floatValue();
             return this;
@@ -287,7 +287,7 @@ public class Vector2F extends VectorF {
     }
 
     public final Vector2F addScalar2F(float v) {
-        if (mutable) {
+        if (mutate) {
             x += v;
             y += v;
             return this;
@@ -298,7 +298,7 @@ public class Vector2F extends VectorF {
 
     @Override
     public final Vector2F subtractScalar(Number v) {
-        if (mutable) {
+        if (mutate) {
             x -= v.floatValue();
             y -= v.floatValue();
             return this;
@@ -312,7 +312,7 @@ public class Vector2F extends VectorF {
     }
 
     public final Vector2F subtractScalar2F(float v) {
-        if (mutable) {
+        if (mutate) {
             x -= v;
             y -= v;
             return this;
@@ -323,7 +323,7 @@ public class Vector2F extends VectorF {
 
     @Override
     public final Vector2F multiplyScalar(Number v) {
-        if (mutable) {
+        if (mutate) {
             x *= v.floatValue();
             y *= v.floatValue();
             return this;
@@ -337,7 +337,7 @@ public class Vector2F extends VectorF {
     }
 
     public final Vector2F multiplyScalar2F(float v) {
-        if (mutable) {
+        if (mutate) {
             x *= v;
             y *= v;
             return this;
@@ -351,7 +351,7 @@ public class Vector2F extends VectorF {
         if (v.intValue() == 0) {
             throw new RuntimeException("Divide By Zero.");
         }
-        if (mutable) {
+        if (mutate) {
             x /= v.floatValue();
             y /= v.floatValue();
             return this;
@@ -368,7 +368,7 @@ public class Vector2F extends VectorF {
         if (v == 0F) {
             throw new RuntimeException("Divide By Zero.");
         }
-        if (mutable) {
+        if (mutate) {
             x /= v;
             y /= v;
             return this;

@@ -29,7 +29,7 @@ public abstract class Vector {
      */
     int n;
 
-    boolean mutable = false;
+    boolean mutate = false;
     
     public static final int X, Y, Z;
 
@@ -48,12 +48,12 @@ public abstract class Vector {
      * Flag indicating if this version of the Vector is mutable.
      * @return boolean Vector mutable when true otherwise not mutable.
      */
-    public boolean isMutable() {
-        return mutable;
+    public boolean willMutate() {
+        return mutate;
     }
 
-    public void setMutable(boolean mutable) {
-        this.mutable = mutable;
+    public void setMutate(boolean mutate) {
+        this.mutate = mutate;
     }
 
     public abstract Number[] getData();
@@ -91,7 +91,9 @@ public abstract class Vector {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 67 * hash + getData().hashCode();
+        for(int i=0;i<n;i++) {
+            hash = 67 * hash + getData(i).hashCode();
+        }
         return hash;
     }
 

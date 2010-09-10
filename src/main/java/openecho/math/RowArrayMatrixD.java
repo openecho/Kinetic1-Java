@@ -91,7 +91,7 @@ public class RowArrayMatrixD extends MatrixD {
 
     @Override
     public final Double[][] getData() {
-        if (mutable) {
+        if (mutate) {
             return data;
         } else {
             Double[][] output = new Double[m][n];
@@ -110,7 +110,7 @@ public class RowArrayMatrixD extends MatrixD {
         if (!(j < n)) {
             throw new IndexOutOfBoundsException(String.format("j value of %s is not < then n of %s", j, n));
         }
-        if (mutable) {
+        if (mutate) {
             return data[i][j];
         } else {
             Double output = new Double(data[i][j]);
@@ -120,7 +120,7 @@ public class RowArrayMatrixD extends MatrixD {
 
     @Override
     public final void setData(int i, int j, Number data) {
-        if (mutable) {
+        if (mutate) {
             if (data instanceof Double) {
                 this.data[i][j] = (Double) data;
             } else {
@@ -133,7 +133,7 @@ public class RowArrayMatrixD extends MatrixD {
 
     @Override
     public final void setData(Number[][] data) {
-        if (mutable) {
+        if (mutate) {
             m = data.length;
             n = data[0].length;
             if (data instanceof Double[][]) {
@@ -151,13 +151,13 @@ public class RowArrayMatrixD extends MatrixD {
     }
 
     @Override
-    final void setMutable(boolean mutable) {
-        this.mutable = mutable;
+    final void setMutate(boolean mutable) {
+        this.mutate = mutable;
     }
 
     @Override
-    public final boolean isMutable() {
-        return mutable;
+    public final boolean willMutate() {
+        return mutate;
     }
 
     @Override
@@ -177,7 +177,7 @@ public class RowArrayMatrixD extends MatrixD {
             throw new RuntimeException("Matrix dimensions are not equal.");
         }
         RowArrayMatrixD c;
-        if (mutable) {
+        if (mutate) {
             c = this;
         } else {
             c = new RowArrayMatrixD(m, n);
@@ -197,7 +197,7 @@ public class RowArrayMatrixD extends MatrixD {
             throw new RuntimeException("Matrix dimensions are not equal.");
         }
         RowArrayMatrixD c;
-        if (mutable) {
+        if (mutate) {
             c = this;
         } else {
             c = new RowArrayMatrixD(m, n);
@@ -229,7 +229,7 @@ public class RowArrayMatrixD extends MatrixD {
 
     @Override
     public MatrixD transpose() {
-        if (mutable) {
+        if (mutate) {
             /**
              * TODO: Figure this out
              */

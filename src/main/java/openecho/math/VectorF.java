@@ -22,6 +22,7 @@ import openecho.math.random.FastRandom;
  * @author openecho
  */
 public abstract class VectorF extends Vector {
+
      public VectorF(int n) {
         this(n, false);
     }
@@ -74,11 +75,11 @@ public abstract class VectorF extends Vector {
 
     public abstract VectorF subtract(Vector b);
 
-    public Double dot(Vector b) {
+    public Float dot(Vector b) {
         if (n != b.n) {
             throw new RuntimeException("Vector dimensions are not equal.");
         }
-        double dotProduct = 0;
+        float dotProduct = 0;
         for (int i = 0; i < n; i++) {
             dotProduct += getData(i) * b.getData(i).doubleValue();
         }
@@ -116,7 +117,7 @@ public abstract class VectorF extends Vector {
     public static VectorF random(int i) {
         VectorD r = new ArrayVectorD(i);
         for(int j=0;j<i;j++) {
-            r.setData(i, FastRandom.getInstance().random());
+            r.setData(i, FastRandom.random());
         }
         return null;
     }

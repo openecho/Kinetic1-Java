@@ -15,8 +15,6 @@
  **/
 package openecho.math;
 
-import openecho.math.random.FastRandom;
-
 /**
  * Abstract m by n Float Matrix in the following form.
  * <pre>
@@ -296,7 +294,7 @@ public abstract class MatrixF extends Matrix {
         MatrixF r = new RowArrayMatrixF(m, n);
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
-                r.initData(i, j, FastRandom.random());
+                r.initData(i, j, QuickMath.random());
             }
         }
         return r;
@@ -315,7 +313,7 @@ public abstract class MatrixF extends Matrix {
         MatrixF r = new RowArrayMatrixF(m, n);
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
-                r.initData(i, j, (FastRandom.random() * (higherBound - lowerBound)) + lowerBound);
+                r.initData(i, j, (QuickMath.random() * (higherBound - lowerBound)) + lowerBound);
             }
         }
         return r;

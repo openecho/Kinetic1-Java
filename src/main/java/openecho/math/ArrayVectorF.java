@@ -142,8 +142,8 @@ public class ArrayVectorF extends VectorF {
     public final VectorF normalise() {
         float m = magnitude();
         if(m == 0) {
-            // TODO: What does one do here? Error?
-            return null;
+            // What does one do here? This must be a Zero already;
+            return this;
         }
         if(mutate) {
             for(int i=0;i<n;i++) {

@@ -46,7 +46,7 @@ public abstract class MatrixD extends Matrix {
     public MatrixD(int m, int n, boolean mutable) {
         this.m = m;
         this.n = n;
-        this.mutable = mutable;
+        this.mutate = mutable;
     }
 
     /**
@@ -61,7 +61,7 @@ public abstract class MatrixD extends Matrix {
     public MatrixD(Double[][] data, boolean mutable) {
         m = data.length;
         n = data[0].length;
-        this.mutable = mutable;
+        this.mutate = mutable;
         this.initData(data);
     }
 

@@ -70,7 +70,7 @@ public class ArrayVectorD extends VectorD {
 
     @Override
     public final Double[] getData() {
-        if (mutable) {
+        if (mutate) {
             return data;
         } else {
             Double[] output = new Double[n];
@@ -84,7 +84,7 @@ public class ArrayVectorD extends VectorD {
         if (!(i < n)) {
             throw new IndexOutOfBoundsException(String.format("i value of %s is not < then n of %s", i, n));
         }
-        if (mutable) {
+        if (mutate) {
             return data[i];
         } else {
             Double output = new Double(data[i]);
@@ -94,7 +94,7 @@ public class ArrayVectorD extends VectorD {
 
     @Override
     public void setData(Number[] data) {
-        if (mutable) {
+        if (mutate) {
             n = data.length;
             if (data instanceof Double[]) {
                 this.data = (Double[]) data;
@@ -111,7 +111,7 @@ public class ArrayVectorD extends VectorD {
 
     @Override
     public void setData(int i, Number data) {
-        if (mutable) {
+        if (mutate) {
             if (data instanceof Double) {
                 this.data[i] = (Double) data;
             } else {
@@ -125,7 +125,7 @@ public class ArrayVectorD extends VectorD {
     @Override
     public final VectorD negative() {
         ArrayVectorD c;
-        if(mutable) {
+        if(mutate) {
             c = this;
         } else {
             c = new ArrayVectorD(n);
@@ -139,7 +139,7 @@ public class ArrayVectorD extends VectorD {
     @Override
     public final VectorD normalise() {
         ArrayVectorD c;
-        if(mutable) {
+        if(mutate) {
             c = this;
         } else {
             c = new ArrayVectorD(n);
@@ -157,7 +157,7 @@ public class ArrayVectorD extends VectorD {
     @Override
     public final VectorD add(Vector b) {
         ArrayVectorD c;
-        if(mutable) {
+        if(mutate) {
             c = this;
         } else {
             c = new ArrayVectorD(n);
@@ -174,7 +174,7 @@ public class ArrayVectorD extends VectorD {
     @Override
     public final VectorD subtract(Vector b) {
         ArrayVectorD a;
-        if(mutable) {
+        if(mutate) {
             a = this;
         } else {
             a = new ArrayVectorD(n);
@@ -191,7 +191,7 @@ public class ArrayVectorD extends VectorD {
     @Override
     public synchronized final VectorD cross(Vector b) {
         ArrayVectorD c;
-        if(mutable) {
+        if(mutate) {
             c = this;
         } else {
             c = new ArrayVectorD(n);
@@ -211,7 +211,7 @@ public class ArrayVectorD extends VectorD {
     @Override
     public final VectorD addScalar(Number v) {
         ArrayVectorD c;
-        if(mutable) {
+        if(mutate) {
             c = this;
         } else {
             c = new ArrayVectorD(n);
@@ -225,7 +225,7 @@ public class ArrayVectorD extends VectorD {
     @Override
     public final VectorD subtractScalar(Number v) {
         ArrayVectorD c;
-        if(mutable) {
+        if(mutate) {
             c = this;
         } else {
             c = new ArrayVectorD(n);
@@ -239,7 +239,7 @@ public class ArrayVectorD extends VectorD {
     @Override
     public final VectorD multiplyScalar(Number v) {
         ArrayVectorD c;
-        if(mutable) {
+        if(mutate) {
             c = this;
         } else {
             c = new ArrayVectorD(n);
@@ -256,7 +256,7 @@ public class ArrayVectorD extends VectorD {
             throw new RuntimeException("Divide By Zero.");
         }
         ArrayVectorD c;
-        if(mutable) {
+        if(mutate) {
             c = this;
         } else {
             c = new ArrayVectorD(n);

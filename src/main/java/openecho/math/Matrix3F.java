@@ -54,7 +54,7 @@ public class Matrix3F extends MatrixF {
         } else {
             throw new IllegalArgumentException("data dimensions must be > 0");
         }
-        if(m != 2 || n != 2) {
+        if(m != 3 || n != 3) {
             throw new IllegalArgumentException("data dimensions must be = 3");
         }
         m00 = data[0][0];

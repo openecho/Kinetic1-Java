@@ -15,11 +15,12 @@
  **/
 package openecho.math;
 
-import openecho.math.random.FastRandom;
-
 /**
+ * Generic float Vector Instance. Provides all the functionality shared float
+ * based Vector classes.
  *
  * @author openecho
+ * @version 1.0.0
  */
 public abstract class VectorF extends Vector {
 
@@ -107,22 +108,27 @@ public abstract class VectorF extends Vector {
     }
 
     public static VectorF empty(int i) {
-        VectorD e = new ArrayVectorD(i);
+        VectorF e = null;
+        switch(i) {
+            case 2:
+                e = new Vector2F(true);
+            case 3:
+                e = new Vector3F(true);
+            default:
+                // TODO: Make Array Vector F
+                //e = new ArrayVectorF(i,true);
+        }
         for(int j=0;j<i;j++) {
             e.setData(i, 0D);
         }
-        return null;
+        return e;
     }
 
     public static VectorF random(int i) {
-        VectorD r = new ArrayVectorD(i);
+        VectorF r = empty(i);
         for(int j=0;j<i;j++) {
-            r.setData(i, FastRandom.random());
+            r.setData(i, QuickMath.random());
         }
-        return null;
-    }
-
-    public static VectorF zero() {
         return null;
     }
 }

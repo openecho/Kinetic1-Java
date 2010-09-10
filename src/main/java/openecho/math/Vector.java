@@ -16,8 +16,11 @@
 package openecho.math;
 
 /**
+ * Generic Vector Instance. Provides all the functionality shared by all
+ * Vector classes.
  *
  * @author openecho
+ * @version 1.0.0
  */
 public abstract class Vector {
 

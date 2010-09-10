@@ -31,13 +31,34 @@ public final class Vector3F extends VectorF {
      */
     float x, y, z;
 
-    public static final Vector3F ZERO, X_AXIS, Y_AXIS, Z_AXIS;
+    public static final Vector3F ZERO, X_UNIT, Y_UNIT, Z_UNIT;
 
     static {
         ZERO = new Vector3F(0F, 0F, 0F);
-        X_AXIS = new Vector3F(1F, 0F, 0F);
-        Y_AXIS = new Vector3F(0F, 1F, 0F);
-        Z_AXIS = new Vector3F(0F, 0F, 1F);
+        X_UNIT = new Vector3F(1F, 0F, 0F);
+        Y_UNIT = new Vector3F(0F, 1F, 0F);
+        Z_UNIT = new Vector3F(0F, 0F, 1F);
+    }
+
+    /**
+     * Default constructor (defaults to mutable 0,0,0).
+     */
+    public Vector3F() {
+        super(3, true);
+        this.x = 0;
+        this.y = 0;
+        this.z = 0;
+    }
+
+    /**
+     * Constructor allowing mutable flag (defaults to 0,0,0).
+     * @param mutable mutable flag
+     */
+    public Vector3F(boolean mutable) {
+        super(3, mutable);
+        this.x = 0;
+        this.y = 0;
+        this.z = 0;
     }
 
     /**
@@ -346,7 +367,7 @@ public final class Vector3F extends VectorF {
     }
 
     @Override
-    public final VectorF subtractScalar(Number v) {
+    public final Vector3F subtractScalar(Number v) {
         if (mutable) {
             x -= v.floatValue();
             y -= v.floatValue();
@@ -373,7 +394,7 @@ public final class Vector3F extends VectorF {
     }
 
     @Override
-    public final VectorF multiplyScalar(Number v) {
+    public final Vector3F multiplyScalar(Number v) {
         if (mutable) {
             x *= v.floatValue();
             y *= v.floatValue();
@@ -400,7 +421,7 @@ public final class Vector3F extends VectorF {
     }
 
     @Override
-    public final VectorF divideScalar(Number v) {
+    public final Vector3F divideScalar(Number v) {
         if (v.intValue() == 0) {
             throw new RuntimeException("Divide By Zero.");
         }

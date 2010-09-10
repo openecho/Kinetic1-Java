@@ -15,8 +15,6 @@
  **/
 package openecho.math;
 
-import openecho.math.random.FastRandom;
-
 /**
  *
  * @author openecho
@@ -133,7 +131,7 @@ public abstract class VectorD extends Vector {
     public static VectorD random(int i) {
         VectorD r = new ArrayVectorD(i);
         for(int j=0;j<i;j++) {
-            r.setData(i, FastRandom.getInstance().random());
+            r.setData(i, QuickMath.random());
         }
         return r;
     }

@@ -284,13 +284,11 @@ public class Vector3FTest {
     @Test
     public void testCross_Vector() {
         System.out.println("cross");
-        Vector b = null;
-        Vector3F instance = null;
-        VectorF expResult = null;
+        Vector3F b = new Vector3F(3F,1F,2F);
+        Vector3F instance = new Vector3F(2F,4F,0.5F);
+        Vector3F expResult = new Vector3F(7.5F,-2.5F,-10F);
         VectorF result = instance.cross(b);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -298,14 +296,11 @@ public class Vector3FTest {
      */
     @Test
     public void testCross_Vector3F() {
-        System.out.println("cross");
-        Vector3F b = null;
-        Vector3F instance = null;
-        Vector3F expResult = null;
-        Vector3F result = instance.cross(b);
+        Vector3F b = new Vector3F(4F, 9F, 2F);
+        Vector3F instance = new Vector3F(3F,-3F, 1F);
+        Vector3F expResult = new Vector3F(-15F,-2F,39F);
+        VectorF result = instance.cross3F(b);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -314,13 +309,13 @@ public class Vector3FTest {
     @Test
     public void testAddScalar() {
         System.out.println("addScalar");
-        Number v = null;
-        Vector3F instance = null;
-        VectorF expResult = null;
-        VectorF result = instance.addScalar(v);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        Number v = 0.1D;
+        Vector3F instance = new Vector3F(1.2F,2.3F,3.4F);
+        Vector3F expResult = new Vector3F(1.3F,2.4F,3.5F);
+        Vector3F result = (Vector3F) instance.addScalar(v);
+        assertEquals(expResult.x, result.x, 0.001);
+        assertEquals(expResult.y, result.y, 0.001);
+        assertEquals(expResult.z, result.z, 0.001);
     }
 
     /**
@@ -329,13 +324,13 @@ public class Vector3FTest {
     @Test
     public void testAddScalar3F() {
         System.out.println("addScalar3F");
-        float v = 0.0F;
-        Vector3F instance = null;
-        Vector3F expResult = null;
+        float v = 0.1F;
+        Vector3F instance = new Vector3F(1.2F,2.3F,3.4F);
+        Vector3F expResult = new Vector3F(1.3F,2.4F,3.5F);
         Vector3F result = instance.addScalar3F(v);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals(expResult.x, result.x, 0.001);
+        assertEquals(expResult.y, result.y, 0.001);
+        assertEquals(expResult.z, result.z, 0.001);
     }
 
     /**
@@ -344,13 +339,13 @@ public class Vector3FTest {
     @Test
     public void testSubtractScalar() {
         System.out.println("subtractScalar");
-        Number v = null;
-        Vector3F instance = null;
-        VectorF expResult = null;
-        VectorF result = instance.subtractScalar(v);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        float v = 0.1F;
+        Vector3F instance = new Vector3F(1.2F,2.3F,3.4F);
+        Vector3F expResult = new Vector3F(1.1F,2.2F,3.3F);
+        Vector3F result = (Vector3F) instance.subtractScalar(v);
+        assertEquals(expResult.x, result.x, 0.001);
+        assertEquals(expResult.y, result.y, 0.001);
+        assertEquals(expResult.z, result.z, 0.001);
     }
 
     /**
@@ -359,13 +354,13 @@ public class Vector3FTest {
     @Test
     public void testSubtractScalar3F() {
         System.out.println("subtractScalar3F");
-        float v = 0.0F;
-        Vector3F instance = null;
-        Vector3F expResult = null;
+        float v = 0.1F;
+        Vector3F instance = new Vector3F(-1.2F,-2.3F,-3.4F);
+        Vector3F expResult = new Vector3F(-1.3F,-2.4F,-3.5F);
         Vector3F result = instance.subtractScalar3F(v);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals(expResult.x, result.x, 0.001);
+        assertEquals(expResult.y, result.y, 0.001);
+        assertEquals(expResult.z, result.z, 0.001);
     }
 
     /**
@@ -374,13 +369,13 @@ public class Vector3FTest {
     @Test
     public void testMultiplyScalar() {
         System.out.println("multiplyScalar");
-        Number v = null;
-        Vector3F instance = null;
-        VectorF expResult = null;
-        VectorF result = instance.multiplyScalar(v);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        float v = 10.0F;
+        Vector3F instance = new Vector3F(-1.2F,-2.3F,-3.4F);
+        Vector3F expResult = new Vector3F(-12F,-23F,-34F);
+        Vector3F result = (Vector3F) instance.multiplyScalar(v);
+        assertEquals(expResult.x, result.x, 0.001);
+        assertEquals(expResult.y, result.y, 0.001);
+        assertEquals(expResult.z, result.z, 0.001);
     }
 
     /**
@@ -389,13 +384,13 @@ public class Vector3FTest {
     @Test
     public void testMultiplyScalar3F() {
         System.out.println("multiplyScalar3F");
-        float v = 0.0F;
-        Vector3F instance = null;
-        Vector3F expResult = null;
+        float v = -10.0F;
+        Vector3F instance = new Vector3F(-1.2F,-2.3F,-3.4F);
+        Vector3F expResult = new Vector3F(12F,23F,34F);
         Vector3F result = instance.multiplyScalar3F(v);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals(expResult.x, result.x, 0.001);
+        assertEquals(expResult.y, result.y, 0.001);
+        assertEquals(expResult.z, result.z, 0.001);
     }
 
     /**
@@ -404,13 +399,13 @@ public class Vector3FTest {
     @Test
     public void testDivideScalar() {
         System.out.println("divideScalar");
-        Number v = null;
-        Vector3F instance = null;
-        VectorF expResult = null;
-        VectorF result = instance.divideScalar(v);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        float v = 2.0F;
+        Vector3F instance = new Vector3F(44F,-30F,1F);
+        Vector3F expResult = new Vector3F(22F,-15F,0.5F);
+        Vector3F result = (Vector3F) instance.divideScalar(v);
+        assertEquals(expResult.x, result.x, 0.001);
+        assertEquals(expResult.y, result.y, 0.001);
+        assertEquals(expResult.z, result.z, 0.001);
     }
 
     /**
@@ -419,13 +414,13 @@ public class Vector3FTest {
     @Test
     public void testDivideScalar3F() {
         System.out.println("divideScalar3F");
-        float v = 0.0F;
-        Vector3F instance = null;
-        Vector3F expResult = null;
+        float v = -100.0F;
+        Vector3F instance = new Vector3F(44F,-30F,1F);
+        Vector3F expResult = new Vector3F(-0.44F,0.30F,-0.01F);
         Vector3F result = instance.divideScalar3F(v);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals(expResult.x, result.x, 0.001);
+        assertEquals(expResult.y, result.y, 0.001);
+        assertEquals(expResult.z, result.z, 0.001);
     }
 
 }

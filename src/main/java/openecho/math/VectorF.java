@@ -115,8 +115,7 @@ public abstract class VectorF extends Vector {
             case 3:
                 e = new Vector3F(true);
             default:
-                // TODO: Make Array Vector F
-                //e = new ArrayVectorF(i,true);
+                e = new ArrayVectorF(i,true);
         }
         for(int j=0;j<i;j++) {
             e.setData(i, 0D);

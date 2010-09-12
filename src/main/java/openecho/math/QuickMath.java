@@ -9,7 +9,7 @@ import openecho.math.random.MersenneTwisterFast;
 
 /**
  *
- * @author jmarsden
+ * @author openecho
  */
 public class QuickMath {
 

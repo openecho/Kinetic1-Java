@@ -411,4 +411,13 @@ public class Matrix3F extends MatrixF {
                     m20/f,m21/f,m22/f);
         }
     }
+
+    /**
+     * Creates an identity n by n Matrix4F
+     * @return Matrix4F constructed identity Matrix4F.
+     */
+    public static Matrix3F identity() {
+        Matrix3F i = new Matrix3F(1F,0,0,0,1F,0,0,0,1F);
+        return i;
+    }
 }

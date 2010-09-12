@@ -1,6 +1,6 @@
-h1. Java Pack
+h1. Kinetic
 
-Java Pack is a random assortment of Java packages that I find interesting. Its is mainly concerned with mathematical modeling and two and three dimensional physics and graphics.
+Kinetic is a random assortment of Java packages that I find interesting. Its is mainly concerned with mathematical modeling and two and three dimensional physics and graphics.
 
 h2. Management
 
@@ -13,10 +13,10 @@ h3. Source Code
 Source code is managed in git and the home repository can be found at github.com. If you have git installed you can simply type,
 
 <pre>
-git clone git://github.com/openecho/Java-Pack.git
+git clone git://github.com/openecho/kinetic.git
 </pre>
 
-The source code can be browsed at "github":http://github.com/openecho/Java-Pack or in my personal "Redmine":http://jwm.slavitica.net/p/projects/java-pack/repository mirror.
+The source code can be browsed at "github":http://github.com/openecho/kinetic or in my personal "Redmine":http://jwm.slavitica.net/p/projects/java-pack/repository mirror.
 
 h3. Compiling
 

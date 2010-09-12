@@ -19,7 +19,7 @@ package openecho.math;
  *
  * @author openecho
  */
-public class Transformation2 {
+public class Transformation2F {
 
     Matrix3F rotation;
     Matrix3F scale, translation;
@@ -31,7 +31,7 @@ public class Transformation2 {
         Y_UNIT = Vector2F.Y_UNIT;
     }
 
-    public Transformation2() {
+    public Transformation2F() {
         rotation = new Matrix3F();
         scale = new Matrix3F();
         translation = new Matrix3F();

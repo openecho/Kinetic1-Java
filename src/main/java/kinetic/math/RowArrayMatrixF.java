@@ -25,6 +25,12 @@ public class RowArrayMatrixF extends MatrixF {
 
     public RowArrayMatrixF(int m, int n) {
         super(m,n);
+        data = new Float[m][n];
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                data[i][j] = 0F;
+            }
+        }
     }
 
     public RowArrayMatrixF(int m, int n, boolean mutable) {
@@ -49,9 +55,10 @@ public class RowArrayMatrixF extends MatrixF {
     protected final void initData(Number[][] data) {
         m = data.length;
         n = data[0].length;
-        if (data instanceof Double[][]) {
+        if (data instanceof Float[][]) {
             this.data = (Float[][]) data;
         } else {
+
             for (int i = 0; i < m; i++) {
                 for (int j = 0; j < n; j++) {
                     this.data[i][j] = data[i][j].floatValue();
@@ -184,13 +191,13 @@ public class RowArrayMatrixF extends MatrixF {
     public MatrixF multiply(Matrix b) {
         RowArrayMatrixF a = this;
         if (a.n != b.m) {
-            throw new RuntimeException("Matrix dimensions are not incorrect.");
+            throw new RuntimeException("Matrix dimensions are incorrect.");
         }
         RowArrayMatrixF c = new RowArrayMatrixF(a.m, b.n);
-        for(int i=0;i<c.m;i++) {
-            for(int j=0;j<c.n;j++) {
-                for(int k=0;k<a.n;k++) {
-                    c.data[i][j] += (a.data[i][k]*b.getData(k, j).floatValue());
+        for (int i = 0; i < c.m; i++) {
+            for (int j = 0; j < c.n; j++) {
+                for (int k = 0; k < a.n; k++) {
+                    c.data[i][j] += (float) (a.data[i][k] * b.getData(k, j).doubleValue());
                 }
             }
         }

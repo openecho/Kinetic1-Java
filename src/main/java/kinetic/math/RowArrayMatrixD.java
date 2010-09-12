@@ -214,7 +214,7 @@ public class RowArrayMatrixD extends MatrixD {
     public MatrixD multiply(Matrix b) {
         RowArrayMatrixD a = this;
         if (a.n != b.m) {
-            throw new RuntimeException("Matrix dimensions are not incorrect.");
+            throw new RuntimeException("Matrix dimensions are incorrect.");
         }
         RowArrayMatrixD c = new RowArrayMatrixD(a.m, b.n);
         for (int i = 0; i < c.m; i++) {

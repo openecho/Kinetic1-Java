@@ -177,15 +177,30 @@ public class RowArrayMatrixDTest extends TestCase {
         System.out.println("multiply");
         Double[][] data = new Double[][]{{1D, 2D, 3D}};
         RowArrayMatrixD b = new RowArrayMatrixD(data);
-        System.out.println(b);
         data = new Double[][]{{4D}, {5D}, {6D}};
         RowArrayMatrixD instance = new RowArrayMatrixD(data);
-        System.out.println(instance);
         data = new Double[][]{{32D}};
         RowArrayMatrixD expResult = new RowArrayMatrixD(data);
-        System.out.println(expResult);
         MatrixD result = b.multiply(instance);
+        assertTrue(expResult.equals(result));
+
+        data = new Double[][]{{1D, 2D, 3D},{4D, 5D, 6D}};
+        b = new RowArrayMatrixD(data);
+        data = new Double[][]{{7D,1D}, {8D,2D}, {9D,3D}};
+        instance = new RowArrayMatrixD(data);
+        data = new Double[][]{{50D, 14D}, {122D, 32D}};
+        expResult = new RowArrayMatrixD(data);
+        System.out.println(expResult);
+        result = b.multiply(instance);
         System.out.println(result);
+        assertTrue(expResult.equals(result));
+
+        b = (RowArrayMatrixD) MatrixD.create(new Double[][] {{-1.0D},{-1.0D},{0.0D},{1.0D}});
+        instance = (RowArrayMatrixD) MatrixD.create(new Double[][] {{1.0D,0.0D,0.0D,0.0D},{0.0D,0.6468713D,-0.7625992D,0.0D},{0.0D,0.7625992D,0.6468713D,0.0D},{0.0D,0.0D,0.0D,1.0D}});
+        // -1.0, -0.6468713, -0.7625992, 1.0
+
+        expResult = (RowArrayMatrixD) MatrixD.create(new Double[][] {{-1.0D},{-0.6468713D},{-0.7625992D},{1.0D}});
+        result = instance.multiply(b);
         assertTrue(expResult.equals(result));
     }
 

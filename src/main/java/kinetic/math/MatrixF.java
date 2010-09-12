@@ -40,7 +40,7 @@ public abstract class MatrixF extends Matrix {
      * @param n columns in the MatrixF.
      */
     public MatrixF(int m, int n) {
-        this(m,n,false);
+        this(m,n,true);
     }
 
     public MatrixF(int m, int n, boolean mutable) {
@@ -202,7 +202,7 @@ public abstract class MatrixF extends Matrix {
         for (int i = 0; i < m; i++) {
             dataString += "{";
             for (int j = 0; j < n; j++) {
-                dataString += getData(i,j) + ((j < n - 1) ? "," : "");
+                dataString += getData(i,j) + ((j < n - 1) ? "F," : "F");
             }
             dataString += "}" + ((i < m - 1) ? "," : "");
         }

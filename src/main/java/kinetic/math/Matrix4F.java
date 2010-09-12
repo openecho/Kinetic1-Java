@@ -30,7 +30,7 @@ public class Matrix4F extends MatrixF {
             float m10, float m11, float m12, float m13,
             float m20, float m21, float m22, float m23,
             float m30, float m31, float m32, float m33) {
-        super(3, 3, false);
+        super(4, 4, false);
         this.m00 = m00;
         this.m01 = m01;
         this.m02 = m02;
@@ -494,17 +494,14 @@ public class Matrix4F extends MatrixF {
 
     @Override
     public MatrixF multiply(Matrix b) {
-        /**
-         * TODO: Optimise and move to MatrixF
-         */
-        if (n != b.m) {
+        if (b.m != 4) {
             throw new RuntimeException("Matrix dimensions are incorrect.");
         }
         RowArrayMatrixF c = new RowArrayMatrixF(m, b.n);
         for (int i = 0; i < c.m; i++) {
             for (int j = 0; j < c.n; j++) {
                 for (int k = 0; k < n; k++) {
-                    c.data[i][j] += (getData(i, j) * b.getData(k, j).floatValue());
+                    c.data[i][j] += (float) (getData(i,k) * b.getData(k, j).doubleValue());
                 }
             }
         }

@@ -19,7 +19,7 @@ package openecho.math;
  *
  * @author openecho
  */
-public class Transformation3 {
+public class Transformation3F {
 
     Matrix4F rotation;
     Matrix4F scale, translation;
@@ -32,7 +32,7 @@ public class Transformation3 {
         Z_UNIT = Vector3F.Z_UNIT;
     }
 
-    public Transformation3() {
+    public Transformation3F() {
         rotation = new Matrix4F();
         scale = new Matrix4F();
         translation = new Matrix4F();
@@ -43,7 +43,26 @@ public class Transformation3 {
     }
         
     public static Matrix4F createRotationMatrix(float rotation, Vector3F unit) {
-        return null;
+        Matrix4F rot = Matrix4F.identity();
+        if(unit == X_UNIT) {
+            rot = createXAxisRoationMatrix(rotation);
+        } else if(unit == Y_UNIT) {
+            rot = createYAxisRoationMatrix(rotation);
+        } else if(unit == Z_UNIT) {
+            rot = createZAxisRoationMatrix(rotation);
+        } else if(unit.equals(X_UNIT)) {
+            rot = createXAxisRoationMatrix(rotation);
+        } else if(unit.equals(Y_UNIT)) {
+            rot = createYAxisRoationMatrix(rotation);
+        } else if(unit.equals(Z_UNIT)) {
+            rot = createZAxisRoationMatrix(rotation);
+        } else {
+            /**
+             * TODO: Implement this.
+             */
+            throw new UnsupportedOperationException();
+        }
+        return rot;
     }
 
     public static Matrix4F createScaleMatrix(float xFactor, float yFactor, float zFactor) {
@@ -74,7 +93,7 @@ public class Transformation3 {
             trans.m03 = translation;
         } else if(unit.equals(Y_UNIT)) {
             trans.m13 = translation;
-        } else if(unit.equals(Y_UNIT)) {
+        } else if(unit.equals(Z_UNIT)) {
             trans.m23 = translation;
         } else {
             /**
@@ -87,24 +106,25 @@ public class Transformation3 {
 
     public static Matrix4F createXAxisRoationMatrix(float angle) {
         Matrix4F xRot = Matrix4F.identity();
-        xRot.m11 = QuickMath.cos(angle);
+        xRot.m11 = xRot.m22 = QuickMath.cos(angle);
         xRot.m21 = QuickMath.sin(angle);
-        xRot.m12 = -xRot.m21; // -sin(a)
-        xRot.m22 = xRot.m11; // cos(a)
+        xRot.m12 = -xRot.m21;
         return xRot;
     }
 
     public static Matrix4F createYAxisRoationMatrix(float angle) {
         Matrix4F yRot = Matrix4F.identity();
-
-        return null;
+        yRot.m00 = yRot.m22 = QuickMath.cos(angle);
+        yRot.m02 = QuickMath.sin(angle);
+        yRot.m20 = -yRot.m02;
+        return yRot;
     }
 
     public static Matrix4F createZAxisRoationMatrix(float angle) {
-        Matrix4F Rot = Matrix4F.identity();
-
-        return null;
+        Matrix4F zRot = Matrix4F.identity();
+        zRot.m00 = zRot.m11 = QuickMath.cos(angle);
+        zRot.m10 = QuickMath.sin(angle);
+        zRot.m01 = -zRot.m10;
+        return zRot;
     }
-
-
 }

@@ -26,6 +26,12 @@ Install maven2 and make sure your JAVA_HOME is correct then from the Java Pack d
 mvn compile
 </pre>
 
+Test the packages with,
+
+<pre>
+mvn test
+</pre>
+
 h3. Issue Management
 
 Issues are controlled in my personal "Redmine":http://jwm.slavitica.net/p/projects/java-pack/issues.

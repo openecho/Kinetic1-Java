@@ -42,7 +42,7 @@ public class Transformation3 {
         return null;
     }
         
-    public static Matrix4F createRotationMatrix(float rotation, Vector3F axis) {
+    public static Matrix4F createRotationMatrix(float rotation, Vector3F unit) {
         return null;
     }
 
@@ -50,15 +50,61 @@ public class Transformation3 {
         return null;
     }
 
-    public static Matrix4F createScaleMatrix(float factor, Vector3F axis) {
+    public static Matrix4F createScaleMatrix(float factor, Vector3F unit) {
         return null;
     }
 
     public static Matrix4F createTranslationMatrix(float xTranslation, float yTranslation, float zTranslation) {
+        Matrix4F trans = Matrix4F.identity();
+        trans.m03 = xTranslation;
+        trans.m13 = yTranslation;
+        trans.m23 = zTranslation;
+        return trans;
+    }
+
+    public static Matrix4F createTranslationMatrix(float translation, Vector3F unit) {
+        Matrix4F trans = Matrix4F.identity();
+        if(unit == X_UNIT) {
+            trans.m03 = translation;
+        } else if(unit == Y_UNIT) {
+            trans.m13 = translation;
+        } else if(unit == Y_UNIT) {
+            trans.m23 = translation;
+        } else if(unit.equals(X_UNIT)) {
+            trans.m03 = translation;
+        } else if(unit.equals(Y_UNIT)) {
+            trans.m13 = translation;
+        } else if(unit.equals(Y_UNIT)) {
+            trans.m23 = translation;
+        } else {
+            /**
+             * TODO: Implement this.
+             */
+            throw new UnsupportedOperationException();
+        }
+        return trans;
+    }
+
+    public static Matrix4F createXAxisRoationMatrix(float angle) {
+        Matrix4F xRot = Matrix4F.identity();
+        xRot.m11 = QuickMath.cos(angle);
+        xRot.m21 = QuickMath.sin(angle);
+        xRot.m12 = -xRot.m21; // -sin(a)
+        xRot.m22 = xRot.m11; // cos(a)
+        return xRot;
+    }
+
+    public static Matrix4F createYAxisRoationMatrix(float angle) {
+        Matrix4F yRot = Matrix4F.identity();
+
         return null;
     }
 
-    public static Matrix4F createTranslationMatrix(float translation, Vector3F axis) {
+    public static Matrix4F createZAxisRoationMatrix(float angle) {
+        Matrix4F Rot = Matrix4F.identity();
+
         return null;
     }
+
+
 }

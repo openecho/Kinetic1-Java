@@ -1,34 +1,26 @@
 h1. Java Pack
 
-Java Pack is a random assortment of Java packages that I find interesting. Its is
-mainly concerned with mathematical modeling and two and three dimensional physics
-and graphics.
+Java Pack is a random assortment of Java packages that I find interesting. Its is mainly concerned with mathematical modeling and two and three dimensional physics and graphics.
 
 h2. Management
 
 h3. License
 
-This code is licensed under version 2.0 of the Apache License. See the COPYING
-file in the same location as this README for more information.
+This code is licensed under version 2.0 of the Apache License. See the COPYING file in the same location as this README for more information.
 
 h3. Source Code
 
-Source code is managed in git and the home repository can be found at github.com.
+Source code is managed in git and the home repository can be found at github.com. If you have git installed you can simply type,
 
 <pre>
 git clone git://github.com/openecho/Java-Pack.git
 </pre>
 
-The source code can be browsed at "github":http://github.com/openecho/Java-Pack or
-in my personal "Redmine":http://jwm.slavitica.net/p/projects/java-pack/repository
-mirror.
+The source code can be browsed at "github":http://github.com/openecho/Java-Pack or in my personal "Redmine":http://jwm.slavitica.net/p/projects/java-pack/repository mirror.
 
 h3. Issue Management
 
-Issues are controlled in my personal "Redmine":http://jwm.slavitica.net/p/projects/java-pack/issues.
-Patches can be created by cloning the repository on github and making changes and
-notifying me of a pull request or simply notify me of the url that holds the changes
-and give me some details.
+Issues are controlled in my personal "Redmine":http://jwm.slavitica.net/p/projects/java-pack/issues. Patches can be created by cloning the repository on github and making changes and notifying me of a pull request or simply notify me of the url that holds the changes and give me some details.
 
 h2. Packages
 

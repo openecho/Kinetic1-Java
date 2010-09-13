@@ -13,9 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  **/
-package kinetic.geometry;
-
-import kinetic.math.Vector;
+package kinetic.shape;
 
 /**
  *
@@ -23,19 +21,4 @@ import kinetic.math.Vector;
  */
 public class Shape {
 
-    Vector origin;
-
-    double mass;
-
-    Vector centroid;
-
-    double rotation;
-
-    // Get Radius
-
-    // Get Bounding Box
-
-    // Get Convex Hull
-
-    // Get Axis Aligned Bounding Box
 }

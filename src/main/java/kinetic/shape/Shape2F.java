@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  **/
-package kinetic.geometry;
+package kinetic.shape;
 
 import kinetic.math.Vector;
 
@@ -21,39 +21,21 @@ import kinetic.math.Vector;
  *
  * @author openecho
  */
-public class Edge extends Shape {
-    /**
-     * The value of the vector with respect to the origin.
-     */
-    Vector value;
+public class Shape2F {
 
-    // Radius
+    Vector origin;
 
-    // Bounding Box
+    double mass;
 
-    // Bounding Hull
-    
-    public Edge(Vector origin, Vector value) {
-        this.origin = origin;
-        this.value = value;
-    }
+    Vector centroid;
 
-    public Vector getOrigin() {
-        return origin;
-    }
+    double rotation;
 
-    public void setOrigin(Vector origin) {
-        this.origin = origin;
-    }
+    // Get Radius
 
-    public Vector getValue() {
-        return value;
-    }
+    // Get Bounding Box
 
-    public void setValue(Vector value) {
-        this.value = value;
-    }
+    // Get Convex Hull
 
-    
-    
+    // Get Axis Aligned Bounding Box
 }

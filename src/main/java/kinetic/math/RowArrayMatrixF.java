@@ -280,4 +280,14 @@ public class RowArrayMatrixF extends MatrixF {
         }
         return c;
     }
+
+    public VectorF multiplyVectorAsColumnMatrix(VectorF column) {
+        // TODO: calculation.
+        return null;
+    }
+
+    public RowArrayMatrixF multiplyVectorAsColumnMatrix(RowArrayMatrixF column) {
+        // TODO: calculation.
+        return null;
+    }
 }

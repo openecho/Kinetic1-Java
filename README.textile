@@ -20,7 +20,7 @@ The source code can be browsed at "github":http://github.com/openecho/kinetic or
 
 h3. Compiling
 
-Install maven2 and make sure your JAVA_HOME is correct then from the Java Pack directory simply type,
+Install maven2 and make sure your JAVA_HOME is correct and the maven bin on your path then from the kinetic-base directory simply type,
 
 <pre>
 mvn compile

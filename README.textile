@@ -16,7 +16,7 @@ Source code is managed in git and the home repository can be found at github.com
 git clone git://github.com/openecho/kinetic.git
 </pre>
 
-The source code can be browsed at "github":http://github.com/openecho/kinetic or in my personal "Redmine":http://jwm.slavitica.net/p/projects/java-pack/repository mirror.
+The source code can be browsed at "github":http://github.com/openecho/kinetic or in my personal "Redmine":http://jwm.slavitica.net/p/projects/kinetic-base/repository mirror.
 
 h3. Compiling
 
@@ -34,7 +34,7 @@ mvn test
 
 h3. Issue Management
 
-Issues are controlled in my personal "Redmine":http://jwm.slavitica.net/p/projects/java-pack/issues.
+Issues are controlled in my personal "Redmine":http://jwm.slavitica.net/p/projects/kinetic/issues.
 
 h3. Patches
 
@@ -42,7 +42,7 @@ Patches can be created by cloning the repository on github and making changes an
 
 h2. Packages
 
-h3. openecho.math
+h3. kinetic.math
 
 Implementation of mathematical objects. 
 

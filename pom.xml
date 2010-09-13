@@ -6,7 +6,7 @@
     <packaging>jar</packaging>
     <version>0.0-DEV</version>
     <name>kinetic-base</name>
-    <url>http://jwm.slavitica.net/p/projects/java-pack</url>
+    <url>http://jwm.slavitica.net/p/projects/kinetic-base</url>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>

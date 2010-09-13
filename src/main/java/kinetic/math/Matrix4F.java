@@ -508,7 +508,7 @@ public class Matrix4F extends MatrixF {
         return c;
     }
 
-    public Matrix4F multiply3F(Matrix4F b) {
+    public Matrix4F multiply4F(Matrix4F b) {
         /**
          * TODO: Optimise
          */
@@ -679,6 +679,24 @@ public class Matrix4F extends MatrixF {
                     m20 / f, m21 / f, m22 / f, m23 / f,
                     m30 / f, m31 / f, m32 / f, m33 / f);
         }
+    }
+
+    public VectorF multiplyVectorAsColumnMatrix(VectorF column) {
+        if(column instanceof Vector3F) {
+            return multiplyVectorAsColumnMatrix((Vector3F) column);
+        }
+        // TODO: calculation.
+        return null;
+    }
+
+    public Vector3F multiplyVectorAsColumnMatrix(Vector3F column) {
+        Vector3F result = new Vector3F();
+        for (int i = 0; i < n; i++) {
+            for (int k = 0; k < n; k++) {
+                result.setData(i, getData(i, 1) * ((k != 3) ? column.getData(k).floatValue() :  1F));
+            }
+        }
+        return result;
     }
 
     /**

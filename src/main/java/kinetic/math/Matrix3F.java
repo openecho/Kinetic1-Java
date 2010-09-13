@@ -412,6 +412,16 @@ public class Matrix3F extends MatrixF {
         }
     }
 
+    public VectorF multiplyVectorAsColumnMatrix(VectorF column) {
+        // TODO: calculation.
+        return null;
+    }
+
+    public Vector2F multiplyVectorAsColumnMatrix(Vector2F column) {
+        // TODO: calculation.
+        return null;
+    }
+
     /**
      * Creates an identity n by n Matrix4F
      * @return Matrix4F constructed identity Matrix4F.

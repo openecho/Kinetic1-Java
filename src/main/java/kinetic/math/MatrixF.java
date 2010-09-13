@@ -166,6 +166,8 @@ public abstract class MatrixF extends Matrix {
     public abstract MatrixF divideScalar(Number v);
     
 
+    public abstract VectorF multiplyVectorAsColumnMatrix(VectorF column);
+
       /**
      * Calculates the determinant of the MatrixF if it is square (n=m). Currently
      * this supports cases where n < 3.

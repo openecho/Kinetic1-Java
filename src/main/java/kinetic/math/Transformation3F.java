@@ -42,7 +42,7 @@ public class Transformation3F {
         return null;
     }
         
-    public static Matrix4F createRotationMatrix(float rotation, Vector3F unit) {
+    public static Matrix4F createRotationMatrix(Vector3F unit, float rotation) {
         Matrix4F rot = Matrix4F.identity();
         if(unit == X_UNIT) {
             rot = createXAxisRoationMatrix(rotation);
@@ -69,7 +69,7 @@ public class Transformation3F {
         return null;
     }
 
-    public static Matrix4F createScaleMatrix(float factor, Vector3F unit) {
+    public static Matrix4F createScaleMatrix(Vector3F unit, float factor) {
         return null;
     }
 
@@ -81,7 +81,7 @@ public class Transformation3F {
         return trans;
     }
 
-    public static Matrix4F createTranslationMatrix(float translation, Vector3F unit) {
+    public static Matrix4F createTranslationMatrix(Vector3F unit, float translation) {
         Matrix4F trans = Matrix4F.identity();
         if(unit == X_UNIT) {
             trans.m03 = translation;

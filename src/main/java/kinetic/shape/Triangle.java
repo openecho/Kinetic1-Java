@@ -19,6 +19,14 @@ package kinetic.shape;
  *
  * @author openecho
  */
-public abstract class Shape {
+public class Triangle {
+    float base;
+    float extend;
+    float angle;
 
+    public Triangle(float base, float extend, float angle) {
+        this.base = base;
+        this.extend = extend;
+        this.angle = angle;
+    }
 }

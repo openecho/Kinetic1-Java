@@ -19,6 +19,9 @@ package kinetic.shape;
  *
  * @author openecho
  */
-public abstract class Shape {
+public class Quad extends Rectangle {
 
+    public Quad(float height, float width) {
+        super(height, width);
+    }
 }

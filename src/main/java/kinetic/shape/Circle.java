@@ -15,27 +15,14 @@
  **/
 package kinetic.shape;
 
-import kinetic.math.Vector;
-
 /**
  *
  * @author openecho
  */
-public class Shape2F {
+public class Circle extends Shape {
+    float radius;
 
-    Vector origin;
-
-    double mass;
-
-    Vector centroid;
-
-    double rotation;
-
-    // Get Radius
-
-    // Get Bounding Box
-
-    // Get Convex Hull
-
-    // Get Axis Aligned Bounding Box
+    public Circle(float radius) {
+        this.radius = radius;
+    }
 }

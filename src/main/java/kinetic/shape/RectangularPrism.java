@@ -17,8 +17,16 @@ package kinetic.shape;
 
 /**
  *
- * @author jmarsden
+ * @author openecho
  */
-public class Shape3F {
+public class RectangularPrism extends Shape {
+    float height;
+    float width;
+    float depth;
 
+    public RectangularPrism(float height, float width, float depth) {
+        this.height = height;
+        this.width = width;
+        this.depth = depth;
+    }
 }

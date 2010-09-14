@@ -19,6 +19,10 @@ package kinetic.shape;
  *
  * @author openecho
  */
-public abstract class Shape {
+public class Cube extends Shape {
+    float length;
 
+    public Cube(float length) {
+        this.length = length;
+    }
 }

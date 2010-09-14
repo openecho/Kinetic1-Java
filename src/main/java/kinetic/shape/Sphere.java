@@ -19,6 +19,10 @@ package kinetic.shape;
  *
  * @author openecho
  */
-public abstract class Shape {
+public class Sphere extends Shape {
+    float radius;
 
+    public Sphere(float radius) {
+        this.radius = radius;
+    }
 }

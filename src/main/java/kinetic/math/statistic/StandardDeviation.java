@@ -24,7 +24,12 @@ import java.lang.reflect.Array;
  * @version 1.0.1
  */
 public class StandardDeviation {
+
     public static Double evaluate(Double[] data) {
+        return StandardDeviation.evaluate(data, true);
+    }
+
+    public static Double evaluate(Double[] data, boolean partialPopulation) {
         if(data==null) {
             throw new NullPointerException();
         }
@@ -37,6 +42,6 @@ public class StandardDeviation {
         for(int i=0;i<length;i++) {
             sumDifferenceSquared += Math.pow(data[i]-mean,2);
         }
-        return Math.sqrt(sumDifferenceSquared/(length-1));
+        return Math.sqrt(sumDifferenceSquared/((partialPopulation) ? (length-1) : (length)));
     }
 }

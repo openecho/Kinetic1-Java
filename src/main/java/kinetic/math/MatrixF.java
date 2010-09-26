@@ -62,12 +62,8 @@ public abstract class MatrixF extends Matrix {
         m = data.length;
         n = data[0].length;
         this.mutate = mutable;
-        this.initData(data);
+        this.setData(data);
     }
-
-    protected abstract void initData(Number[][] data);
-
-    protected abstract void initData(int i, int j, Number data);
 
     /**
      * Retrieve the data from the MatrixF. This will be unsupported on some
@@ -266,7 +262,7 @@ public abstract class MatrixF extends Matrix {
         MatrixF t = new RowArrayMatrixF(a.n, a.m);
         for (int i = 0; i < a.m; i++) {
             for (int j = 0; j < a.n; j++) {
-                t.initData(j, i, a.getData(i, j));
+                t.setData(j, i, a.getData(i, j));
             }
         }
         return t;
@@ -280,7 +276,7 @@ public abstract class MatrixF extends Matrix {
     public static MatrixF identity(int n) {
         MatrixF i = new RowArrayMatrixF(n, n);
         for (int j = 0; j < n; j++) {
-            i.initData(j,j,1F);
+            i.setData(j,j,1F);
         }
         return i;
     }
@@ -296,7 +292,7 @@ public abstract class MatrixF extends Matrix {
         MatrixF r = new RowArrayMatrixF(m, n);
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
-                r.initData(i, j, QuickMath.random());
+                r.setData(i, j, QuickMath.random());
             }
         }
         return r;
@@ -315,7 +311,7 @@ public abstract class MatrixF extends Matrix {
         MatrixF r = new RowArrayMatrixF(m, n);
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
-                r.initData(i, j, (QuickMath.random() * (higherBound - lowerBound)) + lowerBound);
+                r.setData(i, j, (QuickMath.random() * (higherBound - lowerBound)) + lowerBound);
             }
         }
         return r;
@@ -333,7 +329,7 @@ public abstract class MatrixF extends Matrix {
         MatrixF g = new RowArrayMatrixF(m, n);
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
-                g.initData(i, j, v);
+                g.setData(i, j, v);
             }
         }
         return g;

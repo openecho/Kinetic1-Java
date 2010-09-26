@@ -94,31 +94,23 @@ public class ArrayVectorD extends VectorD {
 
     @Override
     public void setData(Number[] data) {
-        if (mutate) {
-            n = data.length;
-            if (data instanceof Double[]) {
-                this.data = (Double[]) data;
-            } else {
-                for (int i = 0; i < n; i++) {
-                    this.data[i] = data[i].doubleValue();
-
-                }
-            }
+        n = data.length;
+        if (data instanceof Double[]) {
+            this.data = (Double[]) data;
         } else {
-            throw new UnsupportedOperationException("Cannot Set Data on an Immutable Vector.");
+            for (int i = 0; i < n; i++) {
+                this.data[i] = data[i].doubleValue();
+
+            }
         }
     }
 
     @Override
     public void setData(int i, Number data) {
-        if (mutate) {
-            if (data instanceof Double) {
-                this.data[i] = (Double) data;
-            } else {
-                this.data[i] = data.doubleValue();
-            }
+        if (data instanceof Double) {
+            this.data[i] = (Double) data;
         } else {
-            throw new UnsupportedOperationException("Cannot Set Data on an Immutable Vector.");
+            this.data[i] = data.doubleValue();
         }
     }
 

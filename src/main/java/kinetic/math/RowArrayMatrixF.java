@@ -24,7 +24,7 @@ public class RowArrayMatrixF extends MatrixF {
     Float[][] data;
 
     public RowArrayMatrixF(int m, int n) {
-        super(m,n);
+        super(m, n);
         data = new Float[m][n];
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
@@ -52,31 +52,6 @@ public class RowArrayMatrixF extends MatrixF {
     }
 
     @Override
-    protected final void initData(Number[][] data) {
-        m = data.length;
-        n = data[0].length;
-        if (data instanceof Float[][]) {
-            this.data = (Float[][]) data;
-        } else {
-
-            for (int i = 0; i < m; i++) {
-                for (int j = 0; j < n; j++) {
-                    this.data[i][j] = data[i][j].floatValue();
-                }
-            }
-        }
-    }
-
-    @Override
-    protected final void initData(int i, int j, Number data) {
-        if (data instanceof Float) {
-            this.data[i][j] = (Float) data;
-        } else {
-            this.data[i][j] = data.floatValue();
-        }
-    }
-
-    @Override
     public final Float[][] getData() {
         if (mutate) {
             return data;
@@ -91,10 +66,10 @@ public class RowArrayMatrixF extends MatrixF {
 
     @Override
     public final Float getData(int i, int j) {
-        if(!(i < m)) {
+        if (!(i < m)) {
             throw new IndexOutOfBoundsException(String.format("i value of %s is not < then m of %s", i, m));
         }
-        if(!(j < n)) {
+        if (!(j < n)) {
             throw new IndexOutOfBoundsException(String.format("j value of %s is not < then n of %s", j, n));
         }
         if (mutate) {
@@ -107,33 +82,25 @@ public class RowArrayMatrixF extends MatrixF {
 
     @Override
     public final void setData(int i, int j, Number data) {
-        if (mutate) {
-            if (data instanceof Float) {
-                this.data[i][j] = (Float) data;
-            } else {
-                this.data[i][j] = data.floatValue();
-            }
+        if (data instanceof Float) {
+            this.data[i][j] = (Float) data;
         } else {
-            throw new UnsupportedOperationException("Cannot Set Data on an ImmutableMatrix.");
+            this.data[i][j] = data.floatValue();
         }
     }
 
     @Override
     public final void setData(Number[][] data) {
-        if (mutate) {
-            m = data.length;
-            n = data[0].length;
-            if (data instanceof Float[][]) {
-                this.data = (Float[][]) data;
-            } else {
-                for (int i = 0; i < m; i++) {
-                    for (int j = 0; j < n; j++) {
-                        this.data[i][j] = data[i][j].floatValue();
-                    }
+        m = data.length;
+        n = data[0].length;
+        if (data instanceof Float[][]) {
+            this.data = (Float[][]) data;
+        } else {
+            for (int i = 0; i < m; i++) {
+                for (int j = 0; j < n; j++) {
+                    this.data[i][j] = data[i][j].floatValue();
                 }
             }
-        } else {
-            throw new UnsupportedOperationException("Cannot Set Data on an ImmutableMatrix.");
         }
     }
 
@@ -206,7 +173,7 @@ public class RowArrayMatrixF extends MatrixF {
 
     @Override
     public MatrixF transpose() {
-        if(mutate) {
+        if (mutate) {
             /**
              * TODO: Transpose!
              */

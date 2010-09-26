@@ -120,33 +120,25 @@ public class RowArrayMatrixD extends MatrixD {
 
     @Override
     public final void setData(int i, int j, Number data) {
-        if (mutate) {
-            if (data instanceof Double) {
-                this.data[i][j] = (Double) data;
-            } else {
-                this.data[i][j] = data.doubleValue();
-            }
+        if (data instanceof Double) {
+            this.data[i][j] = (Double) data;
         } else {
-            throw new UnsupportedOperationException("Cannot Set Data on an ImmutableMatrix.");
+            this.data[i][j] = data.doubleValue();
         }
     }
 
     @Override
     public final void setData(Number[][] data) {
-        if (mutate) {
-            m = data.length;
-            n = data[0].length;
-            if (data instanceof Double[][]) {
-                this.data = (Double[][]) data;
-            } else {
-                for (int i = 0; i < m; i++) {
-                    for (int j = 0; j < n; j++) {
-                        this.data[i][j] = data[i][j].doubleValue();
-                    }
+        m = data.length;
+        n = data[0].length;
+        if (data instanceof Double[][]) {
+            this.data = (Double[][]) data;
+        } else {
+            for (int i = 0; i < m; i++) {
+                for (int j = 0; j < n; j++) {
+                    this.data[i][j] = data[i][j].doubleValue();
                 }
             }
-        } else {
-            throw new UnsupportedOperationException("Cannot Set Data on an ImmutableMatrix.");
         }
     }
 

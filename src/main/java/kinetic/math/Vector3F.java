@@ -30,7 +30,6 @@ public final class Vector3F extends VectorF {
      * Instance variables for x, y and z components.
      */
     float x, y, z;
-
     public static final Vector3F ZERO, X_UNIT, Y_UNIT, Z_UNIT;
 
     static {
@@ -108,37 +107,11 @@ public final class Vector3F extends VectorF {
         z = data[Z].floatValue();
     }
 
-    @Override
-    protected final void initData(Number[] data) {
-        if (Array.getLength(data) != 3) {
-            throw new IllegalArgumentException("Number[] data does not have cardinality of three");
-        }
-        x = data[X].floatValue();
-        y = data[Y].floatValue();
-        z = data[Z].floatValue();
-    }
-
-    @Override
-    protected final void initData(int i, Number data) {
-        if (i == X) {
-            x = data.floatValue();
-        } else if (i == Y) {
-            y = data.floatValue();
-        } else if (i == Z) {
-            z = data.floatValue();
-        } else {
-            throw new IllegalArgumentException("index i must be 0 <= i < 3");
-        }
-    }
-
     public final float getX() {
         return x;
     }
 
     public final void setX(float x) {
-        if (!mutate) {
-            throw new UnsupportedOperationException("Cannot Set Data on an Immutable Vector.");
-        }
         this.x = x;
     }
 
@@ -147,9 +120,6 @@ public final class Vector3F extends VectorF {
     }
 
     public final void setY(float y) {
-        if (!mutate) {
-            throw new UnsupportedOperationException("Cannot Set Data on an Immutable Vector.");
-        }
         this.y = y;
     }
 
@@ -158,9 +128,6 @@ public final class Vector3F extends VectorF {
     }
 
     public final void setZ(float z) {
-        if (!mutate) {
-            throw new UnsupportedOperationException("Cannot Set Data on an Immutable Vector.");
-        }
         this.z = z;
     }
 
@@ -184,32 +151,24 @@ public final class Vector3F extends VectorF {
 
     @Override
     public final void setData(Number[] data) {
-        if (mutate) {
-            if (Array.getLength(data) != 3) {
-                throw new IllegalArgumentException("Number[] data does not have cardinality of three");
-            }
-            x = data[X].floatValue();
-            y = data[Y].floatValue();
-            z = data[Z].floatValue();
-        } else {
-            throw new UnsupportedOperationException("Cannot Set Data on an Immutable Vector.");
+        if (Array.getLength(data) != 3) {
+            throw new IllegalArgumentException("Number[] data does not have cardinality of three");
         }
+        x = data[X].floatValue();
+        y = data[Y].floatValue();
+        z = data[Z].floatValue();
     }
 
     @Override
     public final void setData(int i, Number data) {
-        if (mutate) {
-            if (i == X) {
-                x = data.floatValue();
-            } else if (i == Y) {
-                y = data.floatValue();
-            } else if (i == Z) {
-                z = data.floatValue();
-            } else {
-                throw new IllegalArgumentException("index i must be 0 <= i < 3");
-            }
+        if (i == X) {
+            x = data.floatValue();
+        } else if (i == Y) {
+            y = data.floatValue();
+        } else if (i == Z) {
+            z = data.floatValue();
         } else {
-            throw new UnsupportedOperationException("Cannot Set Data on an Immutable Vector.");
+            throw new IllegalArgumentException("index i must be 0 <= i < 3");
         }
     }
 

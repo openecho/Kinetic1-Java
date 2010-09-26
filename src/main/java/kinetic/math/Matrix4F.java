@@ -91,95 +91,6 @@ public class Matrix4F extends MatrixF {
     }
 
     @Override
-    protected void initData(Number[][] data) {
-        m = data.length;
-        if (m > 0) {
-            n = data[0].length;
-        } else {
-            throw new IllegalArgumentException("data dimensions must be > 0");
-        }
-        if (m != 4 || n != 4) {
-            throw new IllegalArgumentException("data dimensions must be = 3");
-        }
-        m00 = data[0][0].floatValue();
-        m01 = data[0][1].floatValue();
-        m02 = data[0][2].floatValue();
-        m03 = data[0][3].floatValue();
-        m10 = data[1][0].floatValue();
-        m11 = data[1][1].floatValue();
-        m12 = data[1][2].floatValue();
-        m13 = data[1][3].floatValue();
-        m20 = data[2][0].floatValue();
-        m21 = data[2][1].floatValue();
-        m22 = data[2][2].floatValue();
-        m23 = data[2][3].floatValue();
-        m30 = data[3][0].floatValue();
-        m31 = data[3][1].floatValue();
-        m32 = data[3][2].floatValue();
-        m33 = data[3][3].floatValue();
-    }
-
-    @Override
-    protected void initData(int i, int j, Number data) {
-        switch (i) {
-            case 0:
-                switch (j) {
-                    case 0:
-                        m00 = data.floatValue();
-                    case 1:
-                        m01 = data.floatValue();
-                    case 2:
-                        m02 = data.floatValue();
-                    case 3:
-                        m03 = data.floatValue();
-                    default:
-                        throw new IllegalArgumentException("j must be < 4");
-                }
-            case 1:
-                switch (j) {
-                    case 0:
-                        m10 = data.floatValue();
-                    case 1:
-                        m11 = data.floatValue();
-                    case 2:
-                        m12 = data.floatValue();
-                    case 3:
-                        m13 = data.floatValue();
-                    default:
-                        throw new IllegalArgumentException("j must be < 4");
-                }
-            case 2:
-                switch (j) {
-                    case 0:
-                        m20 = data.floatValue();
-                    case 1:
-                        m21 = data.floatValue();
-                    case 2:
-                        m22 = data.floatValue();
-                    case 3:
-                        m23 = data.floatValue();
-                    default:
-                        throw new IllegalArgumentException("j must be < 4");
-                }
-            case 3:
-                switch (j) {
-                    case 0:
-                        m30 = data.floatValue();
-                    case 1:
-                        m31 = data.floatValue();
-                    case 2:
-                        m32 = data.floatValue();
-                    case 3:
-                        m33 = data.floatValue();
-                    default:
-                        throw new IllegalArgumentException("j must be < 4");
-                }
-            default:
-                throw new IllegalArgumentException("i must be < 4");
-        }
-    }
-
-    @Override
     public Float[][] getData() {
         return new Float[][]{{m00, m01, m02, m03}, {m10, m11, m12, m13},
                     {m20, m21, m22, m23}, {m30, m31, m32, m33}};
@@ -247,9 +158,6 @@ public class Matrix4F extends MatrixF {
 
     @Override
     public void setData(Number[][] data) {
-        if(!mutate) {
-            throw new UnsupportedOperationException("Matrix not mutable");
-        }
         m = data.length;
         if (m > 0) {
             n = data[0].length;
@@ -279,9 +187,6 @@ public class Matrix4F extends MatrixF {
 
     @Override
     public void setData(int i, int j, Number data) {
-        if(!mutate) {
-            throw new UnsupportedOperationException("Matrix not mutable");
-        }
         switch (i) {
             case 0:
                 switch (j) {

@@ -49,25 +49,6 @@ public class ArrayVectorF extends VectorF {
         super(data, mutable);
     }
 
-    protected void initData(Number[] data) {
-        n = data.length;
-        if (data instanceof Float[]) {
-            this.data = (Float[]) data;
-        } else {
-            for (int i = 0; i < n; i++) {
-                this.data[i] = data[i].floatValue();
-            }
-        }
-    }
-
-    protected void initData(int i, Number data) {
-        if (data instanceof Float) {
-            this.data[i] = (Float) data;
-        } else {
-            this.data[i] = data.floatValue();
-        }
-    }
-
     @Override
     public final Float[] getData() {
         if (mutate) {
@@ -94,31 +75,23 @@ public class ArrayVectorF extends VectorF {
 
     @Override
     public void setData(Number[] data) {
-        if (mutate) {
-            n = data.length;
-            if (data instanceof Float[]) {
-                this.data = (Float[]) data;
-            } else {
-                for (int i = 0; i < n; i++) {
-                    this.data[i] = data[i].floatValue();
-
-                }
-            }
+        n = data.length;
+        if (data instanceof Float[]) {
+            this.data = (Float[]) data;
         } else {
-            throw new UnsupportedOperationException("Cannot Set Data on an Immutable Vector.");
+            for (int i = 0; i < n; i++) {
+                this.data[i] = data[i].floatValue();
+
+            }
         }
     }
 
     @Override
     public void setData(int i, Number data) {
-        if (mutate) {
-            if (data instanceof Float) {
-                this.data[i] = (Float) data;
-            } else {
-                this.data[i] = data.floatValue();
-            }
+        if (data instanceof Float) {
+            this.data[i] = (Float) data;
         } else {
-            throw new UnsupportedOperationException("Cannot Set Data on an Immutable Vector.");
+            this.data[i] = data.floatValue();
         }
     }
 

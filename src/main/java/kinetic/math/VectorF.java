@@ -42,10 +42,6 @@ public abstract class VectorF extends Vector {
         this.mutate = mutable;
     }
 
-    protected abstract void initData(Number[] data);
-
-    protected abstract void initData(int i, Number data);
-
     public abstract Float[] getData();
 
     public abstract Float getData(int i);

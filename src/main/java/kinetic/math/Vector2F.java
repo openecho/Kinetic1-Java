@@ -24,11 +24,11 @@ import java.lang.reflect.Array;
  * @author openecho
  */
 public class Vector2F extends VectorF {
+
     /**
      * Instance variables for x and y components.
      */
     float x, y;
-
     public static final Vector2F ZERO, X_UNIT, Y_UNIT;
 
     static {
@@ -97,34 +97,11 @@ public class Vector2F extends VectorF {
         y = data[Y].floatValue();
     }
 
-    @Override
-    protected final void initData(Number[] data) {
-        if (Array.getLength(data) != 2) {
-            throw new IllegalArgumentException("Number[] data does not have cardinality of three");
-        }
-        x = data[X].floatValue();
-        y = data[Y].floatValue();
-    }
-
-    @Override
-    protected final void initData(int i, Number data) {
-        if (i == X) {
-            x = data.floatValue();
-        } else if (i == Y) {
-            y = data.floatValue();
-        } else {
-            throw new IllegalArgumentException("index i must be 0 <= i < 2");
-        }
-    }
-
     public final float getX() {
         return x;
     }
 
     public final void setX(float x) {
-        if (!mutate) {
-            throw new UnsupportedOperationException("Cannot Set Data on an Immutable Vector.");
-        }
         this.x = x;
     }
 
@@ -133,12 +110,8 @@ public class Vector2F extends VectorF {
     }
 
     public final void setY(float y) {
-        if (!mutate) {
-            throw new UnsupportedOperationException("Cannot Set Data on an Immutable Vector.");
-        }
         this.y = y;
     }
-
 
     @Override
     public final Float[] getData() {
@@ -158,29 +131,21 @@ public class Vector2F extends VectorF {
 
     @Override
     public final void setData(Number[] data) {
-        if (mutate) {
-            if (Array.getLength(data) != 2) {
-                throw new IllegalArgumentException("Number[] data does not have cardinality of three");
-            }
-            x = data[X].floatValue();
-            y = data[Y].floatValue();
-        } else {
-            throw new UnsupportedOperationException("Cannot Set Data on an Immutable Vector.");
+        if (Array.getLength(data) != 2) {
+            throw new IllegalArgumentException("Number[] data does not have cardinality of three");
         }
+        x = data[X].floatValue();
+        y = data[Y].floatValue();
     }
 
     @Override
     public final void setData(int i, Number data) {
-        if (mutate) {
-            if (i == X) {
-                x = data.floatValue();
-            } else if (i == Y) {
-                y = data.floatValue();
-            } else {
-                throw new IllegalArgumentException("index i must be 0 <= i < 2");
-            }
+        if (i == X) {
+            x = data.floatValue();
+        } else if (i == Y) {
+            y = data.floatValue();
         } else {
-            throw new UnsupportedOperationException("Cannot Set Data on an Immutable Vector.");
+            throw new IllegalArgumentException("index i must be 0 <= i < 2");
         }
     }
 

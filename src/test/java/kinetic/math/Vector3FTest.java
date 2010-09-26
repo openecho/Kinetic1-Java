@@ -41,27 +41,27 @@ public class Vector3FTest {
     }
 
     /**
-     * Test of initData method, of class Vector3F.
+     * Test of setData method, of class Vector3F.
      */
     @Test
-    public void testInitData_NumberArr() {
-        System.out.println("initData");
+    public void testsetData_NumberArr() {
+        System.out.println("setData");
         Number[] data = new Float[] {1F,2F,5F};
         Vector3F instance = new Vector3F(data);
-        instance.initData(data);
+        instance.setData(data);
         assertEquals(instance.y, 2F, 0);
     }
 
     /**
-     * Test of initData method, of class Vector3F.
+     * Test of setData method, of class Vector3F.
      */
     @Test
-    public void testInitData_int_Number() {
-        System.out.println("initData");
+    public void testsetData_int_Number() {
+        System.out.println("setData");
         int i = 1;
         Number[] data = new Float[] {1F,2F,5F};
         Vector3F instance = new Vector3F(data);
-        instance.initData(i, 3F);
+        instance.setData(i, 3F);
         assertEquals(instance.y, 3F, 0);
     }
 

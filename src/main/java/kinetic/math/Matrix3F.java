@@ -77,16 +77,6 @@ public class Matrix3F extends MatrixF {
     }
 
     @Override
-    protected void initData(Number[][] data) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    protected void initData(int i, int j, Number data) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
     public Float[][] getData() {
         return new Float[][] {{m00, m01, m02}, {m10, m11, m12}, {m20, m21, m22}};
     }

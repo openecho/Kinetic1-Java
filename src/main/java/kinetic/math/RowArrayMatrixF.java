@@ -18,6 +18,7 @@ package kinetic.math;
 /**
  *
  * @author openecho
+ * @version 2.0.0
  */
 public class RowArrayMatrixF extends MatrixF {
 
@@ -115,7 +116,12 @@ public class RowArrayMatrixF extends MatrixF {
     }
 
     @Override
-    public final MatrixF add(Matrix b) {
+    public final RowArrayMatrixF add(Matrix b) {
+        return add(b, mutate);
+    }
+
+    @Override
+    public final RowArrayMatrixF add(Matrix b, boolean mutate) {
         RowArrayMatrixF a = this;
         if (a.m != b.m || a.n != b.n) {
             throw new RuntimeException("Matrix dimensions are not equal.");
@@ -135,7 +141,12 @@ public class RowArrayMatrixF extends MatrixF {
     }
 
     @Override
-    public final MatrixF subtract(Matrix b) {
+    public final RowArrayMatrixF subtract(Matrix b) {
+        return subtract(b, mutate);
+    }
+
+    @Override
+    public final RowArrayMatrixF subtract(Matrix b, boolean mutate) {
         RowArrayMatrixF a = this;
         if (a.m != b.m || a.n != b.n) {
             throw new RuntimeException("Matrix dimensions are not equal.");
@@ -155,7 +166,7 @@ public class RowArrayMatrixF extends MatrixF {
     }
 
     @Override
-    public MatrixF multiply(Matrix b) {
+    public RowArrayMatrixF multiply(Matrix b) {
         RowArrayMatrixF a = this;
         if (a.n != b.m) {
             throw new RuntimeException("Matrix dimensions are incorrect.");
@@ -172,7 +183,12 @@ public class RowArrayMatrixF extends MatrixF {
     }
 
     @Override
-    public MatrixF transpose() {
+    public RowArrayMatrixF multiply(Matrix b, boolean mutate) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public RowArrayMatrixF transpose() {
         if (mutate) {
             /**
              * TODO: Transpose!
@@ -198,7 +214,12 @@ public class RowArrayMatrixF extends MatrixF {
     }
 
     @Override
-    public MatrixF addScalar(Number v) {
+    public final RowArrayMatrixF addScalar(Number v) {
+        return addScalar(v, mutate);
+    }
+
+    @Override
+    public final RowArrayMatrixF addScalar(Number v, boolean mutate) {
         RowArrayMatrixF a = this;
         RowArrayMatrixF c = new RowArrayMatrixF(m, n);
         for (int i = 0; i < m; i++) {
@@ -210,7 +231,12 @@ public class RowArrayMatrixF extends MatrixF {
     }
 
     @Override
-    public MatrixF subtractScalar(Number v) {
+    public final RowArrayMatrixF subtractScalar(Number v) {
+        return subtractScalar(v, mutate);
+    }
+
+    @Override
+    public final RowArrayMatrixF subtractScalar(Number v, boolean mutate) {
         RowArrayMatrixF a = this;
         RowArrayMatrixF c = new RowArrayMatrixF(m, n);
         for (int i = 0; i < m; i++) {
@@ -222,7 +248,12 @@ public class RowArrayMatrixF extends MatrixF {
     }
 
     @Override
-    public MatrixF multiplyScalar(Number v) {
+    public final RowArrayMatrixF multiplyScalar(Number v) {
+        return multiplyScalar(v, mutate);
+    }
+
+    @Override
+    public final RowArrayMatrixF multiplyScalar(Number v, boolean mutate) {
         RowArrayMatrixF a = this;
         RowArrayMatrixF c = new RowArrayMatrixF(m, n);
         for (int i = 0; i < m; i++) {
@@ -234,7 +265,12 @@ public class RowArrayMatrixF extends MatrixF {
     }
 
     @Override
-    public MatrixF divideScalar(Number v) {
+    public final RowArrayMatrixF divideScalar(Number v) {
+        return divideScalar(v, mutate);
+    }
+
+    @Override
+    public final RowArrayMatrixF divideScalar(Number v, boolean mutate) {
         if (v.doubleValue() == 0) {
             throw new RuntimeException("Divide by Zero");
         }
@@ -248,13 +284,19 @@ public class RowArrayMatrixF extends MatrixF {
         return c;
     }
 
-    public VectorF multiplyVectorAsColumnMatrix(VectorF column) {
-        // TODO: calculation.
-        return null;
+    @Override
+    public RowArrayMatrixF invert() {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    public RowArrayMatrixF multiplyVectorAsColumnMatrix(RowArrayMatrixF column) {
-        // TODO: calculation.
-        return null;
+    @Override
+    public RowArrayMatrixF solve(Matrix b) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
+
+    @Override
+    public VectorF transformVector(VectorF v) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
 }

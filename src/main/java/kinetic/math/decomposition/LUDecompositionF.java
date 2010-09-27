@@ -138,7 +138,7 @@ public class LUDecompositionF extends MatrixDecomposition {
         return p;
     }
 
-    public double determinant() {
+    public float determinant() {
         if (!isDecomposed()) {
             decompose();
         }

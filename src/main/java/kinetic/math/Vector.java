@@ -20,7 +20,7 @@ package kinetic.math;
  * Vector classes.
  *
  * @author openecho
- * @version 1.0.0
+ * @version 2.0.0
  */
 public abstract class Vector {
 
@@ -72,7 +72,18 @@ public abstract class Vector {
 
     public abstract Vector negative();
 
+    public abstract Vector negative(boolean mutate);
+
+    public boolean isUnit() {
+        /**
+         * TODO: Test if this is accurate enough and could be optimised to store.
+         */
+        return length().intValue() == 1;
+    }
+
     public abstract Vector normalise();
+
+    public abstract Vector normalise(boolean mutate);
 
     @Override
     public boolean equals(Object b) {
@@ -99,7 +110,11 @@ public abstract class Vector {
 
     public abstract Vector add(Vector b);
 
+    public abstract Vector add(Vector b, boolean mutate);
+
     public abstract Vector subtract(Vector b);
+
+    public abstract Vector subtract(Vector b, boolean mutate);
 
     public abstract Number dot(Vector b);
 
@@ -107,9 +122,17 @@ public abstract class Vector {
 
     public abstract Vector addScalar(Number v);
 
+    public abstract Vector addScalar(Number v, boolean mutate);
+
     public abstract Vector subtractScalar(Number v);
+
+    public abstract Vector subtractScalar(Number v, boolean mutate);
 
     public abstract Vector multiplyScalar(Number v);
 
+    public abstract Vector multiplyScalar(Number v, boolean mutate);
+
     public abstract Vector divideScalar(Number v);
+
+    public abstract Vector divideScalar(Number v, boolean mutate);
 }

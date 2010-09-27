@@ -5,9 +5,6 @@
 
 package kinetic.math;
 
-import kinetic.math.VectorF;
-import kinetic.math.Vector3F;
-import kinetic.math.Vector;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;

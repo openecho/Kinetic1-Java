@@ -15,6 +15,8 @@
  **/
 package kinetic.math;
 
+import kinetic.math.decomposition.LUDecompositionD;
+
 /**
  * Abstract m by n Double Matrix in the following form.
  * <pre>
@@ -209,7 +211,8 @@ public abstract class MatrixD extends Matrix {
 
     /**
      * Calculates the determinant of the MatrixD if it is square (n=m). Currently
-     * this supports cases where n < 3.
+     * this handles cases where n < 3 internally and utilises LUDecompositionD
+     * for bigger instances.
      * @return double detminant of the MatrixD.
      */
     public Double determinant() {
@@ -229,8 +232,9 @@ public abstract class MatrixD extends Matrix {
                     - data[0][0] * data[1][2] * data[2][1]
                     - data[0][1] * data[1][0] * data[2][2]
                     - data[0][2] * data[1][1] * data[2][0];
+        } else {
+            return (new LUDecompositionD(this)).determinant();
         }
-        throw new UnsupportedOperationException("Not supported yet. n must equal m and 0 < n < 4");
     }
 
     /**

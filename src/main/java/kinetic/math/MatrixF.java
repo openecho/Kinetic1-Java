@@ -15,6 +15,8 @@
  **/
 package kinetic.math;
 
+import kinetic.math.decomposition.LUDecompositionF;
+
 /**
  * Abstract m by n Float Matrix in the following form.
  * <pre>
@@ -192,7 +194,8 @@ public abstract class MatrixF extends Matrix {
 
     /**
      * Calculates the determinant of the MatrixF if it is square (n=m). Currently
-     * this supports cases where n < 3.
+     * this handles cases where n < 3 internally and uses LUDecompositionF for
+     * larger instances.
      * @return double detminant of the MatrixF.
      */
     public Float determinant() {
@@ -212,8 +215,9 @@ public abstract class MatrixF extends Matrix {
                     - data[0][0] * data[1][2] * data[2][1]
                     - data[0][1] * data[1][0] * data[2][2]
                     - data[0][2] * data[1][1] * data[2][0];
+        } else {
+            return (new LUDecompositionF(this)).determinant();
         }
-        throw new UnsupportedOperationException("Not supported yet. n must equal m and 0 < n < 4");
     }
 
     /**

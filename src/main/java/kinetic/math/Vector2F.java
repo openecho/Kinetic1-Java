@@ -345,4 +345,44 @@ public class Vector2F extends VectorF {
     public static Vector2F zero() {
         return ZERO;
     }
+
+    @Override
+    public Vector negative(boolean mutate) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public Vector normalise(boolean mutate) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public Vector add(Vector b, boolean mutate) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public Vector subtract(Vector b, boolean mutate) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public Vector addScalar(Number v, boolean mutate) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public Vector subtractScalar(Number v, boolean mutate) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public Vector multiplyScalar(Number v, boolean mutate) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public Vector divideScalar(Number v, boolean mutate) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

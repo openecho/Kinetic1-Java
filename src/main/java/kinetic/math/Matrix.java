@@ -30,7 +30,7 @@ package kinetic.math;
  * that are both mutable and immutable.
  *
  * @author openecho
- * @version 1.0.0
+ * @version 1.1.0
  */
 public abstract class Matrix {
 
@@ -42,7 +42,9 @@ public abstract class Matrix {
      * n dimension
      */
     int n;
-
+    /**
+     * mutate flag
+     */
     boolean mutate = false;
 
     /**
@@ -65,13 +67,17 @@ public abstract class Matrix {
     }
 
     /**
-     * Flag indicating if this version of the Matrix is mutable.
-     * @return boolean Matrix mutable when true otherwise not mutable.
+     * Flag indicating if this version of the Matrix will mutate or create new objects.
+     * @return boolean Matrix will mutate when true otherwise it will create new objects.
      */
     public boolean willMutate() {
         return mutate;
     }
 
+    /**
+     * Mutator for mutate behavior
+     * @param mutate mutate flag
+     */
     void setMutate(boolean mutate) {
         this.mutate = mutate;
     }
@@ -83,10 +89,27 @@ public abstract class Matrix {
      */
     public abstract Number[][] getData();
 
+    /**
+     * Retrieve data from the Matrix. This should work on all implementations.
+     * @param i The row to extract the data from.
+     * @param j The column to extract the data from.
+     * @return The data
+     */
     public abstract Number getData(int i, int j);
 
+    /**
+     * Set Data into the Matrix. This method will be unavailable on sparse
+     * implementations.
+     * @param data The data to set
+     */
     public abstract void setData(Number[][] data);
 
+    /**
+     * Set Data into the Matrix. This should work on all implementations.
+     * @param i The row to set the data to.
+     * @param j The column to set the data to.
+     * @param data The data to set.
+     */
     public abstract void setData(int i, int j, Number data);
 
     /**
@@ -99,25 +122,42 @@ public abstract class Matrix {
         Number[][] bData = b.getData();
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
-                if (!getData(i,j).equals(bData[i][j])) {
+                if (!getData(i, j).equals(bData[i][j])) {
                     return false;
                 }
             }
         }
         return true;
     }
-    
+
+    /**
+     * Extract a row from the Matrix
+     * @param i The row number to extract where i < m
+     * @return The Row
+     */
     public abstract Number[] getRow(int i);
 
+    /**
+     * Extract a column from the Matrix
+     * @param i The column number to extract where i < n
+     * @return The Column
+     */
     public abstract Number[] getColumn(int i);
 
-
-     /**
+    /**
      * Adds a Matrix to this instance. Matrix A + Matrix B = Matrix C.
      * @param b Matrix B.
      * @return Matrix Matrix C.
      */
     public abstract Matrix add(Matrix b);
+
+    /**
+     * Adds a Matrix to this instance. Matrix A + Matrix B = Matrix C.
+     * @param b Matrix B.
+     * @param mutate flag to specify mutation.
+     * @return Matrix Matrix C.
+     */
+    public abstract Matrix add(Matrix b, boolean mutate);
 
     /**
      * Subtracts a Matrix from this instance. Matrix A - Matrix B = Matrix C.
@@ -127,12 +167,28 @@ public abstract class Matrix {
     public abstract Matrix subtract(Matrix b);
 
     /**
+     * Subtracts a Matrix from this instance. Matrix A - Matrix B = Matrix C.
+     * @param b Matrix B.
+     * @param mutate flag to specify mutation.
+     * @return Matrix Matrix C.
+     */
+    public abstract Matrix subtract(Matrix b, boolean mutate);
+
+    /**
      * Multiplies a Matrix to this instance. Matrix A * Matrix B = Matrix C.
      * @param b Matrix B.
      * @return Matrix Matrix C.
      */
     public abstract Matrix multiply(Matrix b);
 
+    /**
+     * Multiplies a Matrix to this instance. Matrix A * Matrix B = Matrix C.
+     * @param b Matrix B.
+     * @param mutate flag to specify mutation.
+     * @return Matrix Matrix C.
+     */
+    public abstract Matrix multiply(Matrix b, boolean mutate);
+    
     /**
      * Returns the transpose of this instance. Matrix A' = transpose(Matrix A)
      * @return Matrix A' which is a transpose of this instance.
@@ -167,6 +223,23 @@ public abstract class Matrix {
      */
     public abstract Matrix divideScalar(Number v);
 
+    /**
+     * Return the invert of the Matrix A.
+     * @return Matrix A^-1
+     */
+    public abstract Matrix invert();
 
+    /**
+     * Matrix Solver in the form A*X=B where A is this Matrix and X is the
+     * solutions.
+     * @param b Matrix B
+     * @return Solution Matrix X
+     */
+    public abstract Matrix solve(Matrix b);
+
+    /**
+     * Find the determinant of this Matrix. Must be a square Matrix (n=m)
+     * @return The determinant of the Matrix.
+     */
     public abstract Number determinant();
 }

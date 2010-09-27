@@ -30,7 +30,7 @@ package kinetic.math;
  * that are both mutable and immutable.
  *
  * @author openecho
- * @version 1.1.0
+ * @version 2.1.0
  */
 public abstract class Matrix {
 
@@ -188,7 +188,7 @@ public abstract class Matrix {
      * @return Matrix Matrix C.
      */
     public abstract Matrix multiply(Matrix b, boolean mutate);
-    
+
     /**
      * Returns the transpose of this instance. Matrix A' = transpose(Matrix A)
      * @return Matrix A' which is a transpose of this instance.
@@ -203,11 +203,27 @@ public abstract class Matrix {
     public abstract Matrix addScalar(Number v);
 
     /**
+     * Adds a scalar value to this Matrix instance. Matrix C = C(c[i,j]) = a[i,j]+v
+     * @param v Value to add
+     * @param mutate flag to specify mutation.
+     * @return Matrix Matrix C
+     */
+    public abstract Matrix addScalar(Number v, boolean mutate);
+
+    /**
      * Adds a scalar value to this Matrix instance. Matrix C = C(c[i,j]) = a[i,j]-v
      * @param v Value to subtract
      * @return Matrix Matrix C
      */
     public abstract Matrix subtractScalar(Number v);
+
+    /**
+     * Adds a scalar value to this Matrix instance. Matrix C = C(c[i,j]) = a[i,j]-v
+     * @param v Value to subtract
+     * @param mutate flag to specify mutation.
+     * @return Matrix Matrix C
+     */
+    public abstract Matrix subtractScalar(Number v, boolean mutate);
 
     /**
      * Adds a scalar value to this Matrix instance. Matrix C = C(c[i,j]) = a[i,j]*v
@@ -217,11 +233,27 @@ public abstract class Matrix {
     public abstract Matrix multiplyScalar(Number v);
 
     /**
+     * Adds a scalar value to this Matrix instance. Matrix C = C(c[i,j]) = a[i,j]*v
+     * @param v Value to multiply
+     * @param mutate flag to specify mutation.
+     * @return Matrix Matrix C
+     */
+    public abstract Matrix multiplyScalar(Number v, boolean mutate);
+
+    /**
      * Adds a scalar value to this Matrix instance. Matrix C = C(c[i,j]) = a[i,j]/v
      * @param v Value to divide
      * @return Matrix Matrix C
      */
     public abstract Matrix divideScalar(Number v);
+
+    /**
+     * Adds a scalar value to this Matrix instance. Matrix C = C(c[i,j]) = a[i,j]/v
+     * @param v Value to divide
+     * @param mutate flag to specify mutation.
+     * @return Matrix Matrix C
+     */
+    public abstract Matrix divideScalar(Number v, boolean mutate);
 
     /**
      * Return the invert of the Matrix A.

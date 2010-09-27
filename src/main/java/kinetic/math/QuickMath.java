@@ -53,4 +53,16 @@ public class QuickMath {
     public static float atan(float a) {
         return (float) Math.atan(a);
     }
+
+    public static float abs(float d) {
+        return Math.abs(d);
+    }
+
+    public static double abs(double d) {
+        return Math.abs(d);
+    }
+
+    public static int min(int i, int j) {
+        return Math.min(i, j);
+    }
 }

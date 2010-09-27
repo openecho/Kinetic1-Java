@@ -30,7 +30,7 @@ package kinetic.math;
  * that are both mutable and immutable.
  *
  * @author openecho
- * @version 1.0.0
+ * @version 2.0.0
  */
 public abstract class MatrixD extends Matrix {
 
@@ -40,7 +40,7 @@ public abstract class MatrixD extends Matrix {
      * @param n columns in the MatrixD.
      */
     public MatrixD(int m, int n) {
-        this(m,n,false);
+        this(m, n, false);
     }
 
     public MatrixD(int m, int n, boolean mutable) {
@@ -54,21 +54,16 @@ public abstract class MatrixD extends Matrix {
      * @param data datum for the matrix.
      */
     public MatrixD(Double[][] data) {
-        this(data,false);
+        this(data, false);
     }
-
 
     public MatrixD(Double[][] data, boolean mutable) {
         m = data.length;
         n = data[0].length;
         this.mutate = mutable;
-        this.initData(data);
+        this.setData(data);
     }
 
-    protected abstract void initData(Number[][] data);
-
-    protected abstract void initData(int i, int j, Number data);
-    
     /**
      * Retrieve the data from the MatrixD. This will be unsupported on some
      * implementations.
@@ -85,7 +80,6 @@ public abstract class MatrixD extends Matrix {
     public abstract void setData(Number[][] data);
 
     public abstract void setData(int i, int j, Number data);
-
 
     /**
      * Retrieve the data for a row from the MatrixD.
@@ -106,7 +100,7 @@ public abstract class MatrixD extends Matrix {
         }
         Double[] result = new Double[m];
         for (int j = 0; j < m; j++) {
-            result[j] = getData(j,i);
+            result[j] = getData(j, i);
         }
         return result;
     }
@@ -122,7 +116,7 @@ public abstract class MatrixD extends Matrix {
         Number[][] bData = b.getData();
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
-                if (!getData(i,j).equals(bData[i][j])) {
+                if (!getData(i, j).equals(bData[i][j])) {
                     return false;
                 }
             }
@@ -130,12 +124,14 @@ public abstract class MatrixD extends Matrix {
         return true;
     }
 
-  /**
+    /**
      * Adds a Matrix to this instance. Matrix A + Matrix B = Matrix C.
      * @param b Matrix B.
      * @return Matrix Matrix C.
      */
     public abstract MatrixD add(Matrix b);
+
+    public abstract MatrixD add(Matrix b, boolean mutate);
 
     /**
      * Subtracts a Matrix from this instance. Matrix A - Matrix B = Matrix C.
@@ -144,12 +140,16 @@ public abstract class MatrixD extends Matrix {
      */
     public abstract MatrixD subtract(Matrix b);
 
+    public abstract MatrixD subtract(Matrix b, boolean mutate);
+
     /**
      * Multiplies a Matrix to this instance. Matrix A * Matrix B = Matrix C.
      * @param b Matrix B.
      * @return Matrix Matrix C.
      */
     public abstract MatrixD multiply(Matrix b);
+
+    public abstract MatrixD multiply(Matrix b, boolean mutate);
 
     /**
      * Returns the transpose of this instance. Matrix A' = transpose(Matrix A)
@@ -164,12 +164,16 @@ public abstract class MatrixD extends Matrix {
      */
     public abstract MatrixD addScalar(Number v);
 
+    public abstract MatrixD addScalar(Number v, boolean mutate);
+
     /**
      * Adds a scalar value to this Matrix instance. Matrix C = C(c[i,j]) = a[i,j]-v
      * @param v Value to subtract
      * @return Matrix Matrix C
      */
     public abstract MatrixD subtractScalar(Number v);
+
+    public abstract MatrixD subtractScalar(Number v, boolean mutate);
 
     /**
      * Adds a scalar value to this Matrix instance. Matrix C = C(c[i,j]) = a[i,j]*v
@@ -178,15 +182,32 @@ public abstract class MatrixD extends Matrix {
      */
     public abstract MatrixD multiplyScalar(Number v);
 
+    public abstract MatrixD multiplyScalar(Number v, boolean mutate);
+
     /**
      * Adds a scalar value to this Matrix instance. Matrix C = C(c[i,j]) = a[i,j]/v
      * @param v Value to divide
      * @return Matrix Matrix C
      */
     public abstract MatrixD divideScalar(Number v);
-    
 
-      /**
+    public abstract MatrixD divideScalar(Number v, boolean mutate);
+
+    /**
+     * Return the invert of the MatrixD A.
+     * @return MatrixD A^-1
+     */
+    public abstract MatrixD invert();
+
+    /**
+     * MatrixD Solver in the form A*X=B where A is this MatrixD and X is the
+     * solutions.
+     * @param b MatrixD B
+     * @return Solution MatrixD X
+     */
+    public abstract Matrix solve(Matrix b);
+
+    /**
      * Calculates the determinant of the MatrixD if it is square (n=m). Currently
      * this supports cases where n < 3.
      * @return double detminant of the MatrixD.
@@ -241,7 +262,7 @@ public abstract class MatrixD extends Matrix {
         MatrixD e = new RowArrayMatrixD(m, n, true);
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
-                e.setData(i,j,0D);
+                e.setData(i, j, 0D);
             }
         }
         return e;
@@ -279,7 +300,7 @@ public abstract class MatrixD extends Matrix {
         MatrixD t = new RowArrayMatrixD(a.n, a.m);
         for (int i = 0; i < a.m; i++) {
             for (int j = 0; j < a.n; j++) {
-                t.initData(j, i, a.getData(i, j));
+                t.setData(j, i, a.getData(i, j));
             }
         }
         return t;
@@ -293,7 +314,7 @@ public abstract class MatrixD extends Matrix {
     public static MatrixD identity(int n) {
         MatrixD i = new RowArrayMatrixD(n, n);
         for (int j = 0; j < n; j++) {
-            i.initData(j,j,1D);
+            i.setData(j, j, 1D);
         }
         return i;
     }
@@ -309,7 +330,7 @@ public abstract class MatrixD extends Matrix {
         MatrixD r = new RowArrayMatrixD(m, n);
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
-                r.initData(i, j, QuickMath.random());
+                r.setData(i, j, QuickMath.random());
             }
         }
         return r;
@@ -328,7 +349,7 @@ public abstract class MatrixD extends Matrix {
         MatrixD r = new RowArrayMatrixD(m, n);
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
-                r.initData(i, j, (QuickMath.random() * (higherBound - lowerBound)) + lowerBound);
+                r.setData(i, j, (QuickMath.random() * (higherBound - lowerBound)) + lowerBound);
             }
         }
         return r;
@@ -346,7 +367,7 @@ public abstract class MatrixD extends Matrix {
         MatrixD g = new RowArrayMatrixD(m, n);
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
-                g.initData(i, j, v);
+                g.setData(i, j, v);
             }
         }
         return g;

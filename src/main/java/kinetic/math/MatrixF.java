@@ -15,7 +15,7 @@
  **/
 package kinetic.math;
 
-import kinetic.math.decomposition.LUDecompositionF;
+import kinetic.math.linear.LUDecompositionF;
 
 /**
  * Abstract m by n Float Matrix in the following form.

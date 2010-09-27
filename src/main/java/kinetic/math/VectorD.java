@@ -128,10 +128,19 @@ public abstract class VectorD extends Vector {
         return e;
     }
 
+    public static VectorD create(double[] data) {
+        int i = data.length;
+        VectorD e = new ArrayVectorD(i, true);
+        for(int j=0;j<i;j++) {
+            e.setData(j, data[j]);
+        }
+        return e;
+    }
+
     public static VectorD random(int i) {
         VectorD r = new ArrayVectorD(i);
         for(int j=0;j<i;j++) {
-            r.setData(i, QuickMath.random());
+            r.setData(j, QuickMath.random());
         }
         return r;
     }

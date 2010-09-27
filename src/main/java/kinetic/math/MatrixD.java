@@ -15,7 +15,7 @@
  **/
 package kinetic.math;
 
-import kinetic.math.decomposition.LUDecompositionD;
+import kinetic.math.linear.LUDecompositionD;
 
 /**
  * Abstract m by n Double Matrix in the following form.

@@ -663,11 +663,6 @@ public class Matrix4F extends MatrixF {
     }
 
     @Override
-    public Float determinant() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
     public VectorF transformVector(VectorF v) {
         throw new UnsupportedOperationException("Not supported yet.");
     }

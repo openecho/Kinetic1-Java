@@ -26,7 +26,7 @@ import kinetic.math.QuickMath;
 public class LUDecompositionD extends MatrixDecomposition {
 
     double[][] lu;
-    int m, n, pivsign;
+    int m, n, pivSign;
     private int[] piv;
 
     public LUDecompositionD(Matrix a) {
@@ -47,28 +47,28 @@ public class LUDecompositionD extends MatrixDecomposition {
         for (int i = 0; i < m; i++) {
             piv[i] = i;
         }
-        pivsign = 1;
-        double[] LUrowi;
-        double[] LUcolj = new double[m];
+        pivSign = 1;
+        double[] luRowI;
+        double[] luColJ = new double[m];
         for (int j = 0; j < n; j++) {
             // Make a copy of the j-th column to localize references.
             for (int i = 0; i < m; i++) {
-                LUcolj[i] = lu[i][j];
+                luColJ[i] = lu[i][j];
             }
             // Apply previous transformations.
             for (int i = 0; i < m; i++) {
-                LUrowi = lu[i];
-                int kmax = QuickMath.min(i, j);
+                luRowI = lu[i];
+                int kMax = QuickMath.min(i, j);
                 double s = 0.0;
-                for (int k = 0; k < kmax; k++) {
-                    s += LUrowi[k] * LUcolj[k];
+                for (int k = 0; k < kMax; k++) {
+                    s += luRowI[k] * luColJ[k];
                 }
-                LUrowi[j] = LUcolj[i] -= s;
+                luRowI[j] = luColJ[i] -= s;
             }
             // Find pivot and exchange if necessary.
             int p = j;
             for (int i = j + 1; i < m; i++) {
-                if (QuickMath.abs(LUcolj[i]) > Math.abs(LUcolj[p])) {
+                if (QuickMath.abs(luColJ[i]) > Math.abs(luColJ[p])) {
                     p = i;
                 }
             }
@@ -81,7 +81,7 @@ public class LUDecompositionD extends MatrixDecomposition {
                 int k = piv[p];
                 piv[p] = piv[j];
                 piv[j] = k;
-                pivsign = -pivsign;
+                pivSign = -pivSign;
             }
             // Compute multipliers.
             if (j < m & lu[j][j] != 0.0) {
@@ -145,7 +145,7 @@ public class LUDecompositionD extends MatrixDecomposition {
         if (m != n) {
             throw new IllegalArgumentException("Matrix must be square. m != n.");
         }
-        double d = (double) pivsign;
+        double d = (double) pivSign;
         for (int j = 0; j < n; j++) {
             d *= lu[j][j];
         }

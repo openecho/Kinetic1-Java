@@ -20,15 +20,16 @@ package kinetic.math;
  * or immutable.
  *
  * @author openecho
+ * @version 2.0.0
  */
 public class Matrix3F extends MatrixF {
-    float m00, m01, m02,
-          m10, m11, m12,
-          m20, m21, m22 = 0;
 
-    
+    float m00, m01, m02,
+            m10, m11, m12,
+            m20, m21, m22 = 0;
+
     public Matrix3F(float m00, float m01, float m02,
-            float m10, float m11, float m12, 
+            float m10, float m11, float m12,
             float m20, float m21, float m22) {
         super(3, 3, false);
         this.m00 = m00;
@@ -45,16 +46,16 @@ public class Matrix3F extends MatrixF {
     public Matrix3F(Float[][] data) {
         this(data, false);
     }
-    
+
     public Matrix3F(Float[][] data, boolean mutable) {
         super(data, mutable);
         m = data.length;
-        if(m > 0) {
+        if (m > 0) {
             n = data[0].length;
         } else {
             throw new IllegalArgumentException("data dimensions must be > 0");
         }
-        if(m != 3 || n != 3) {
+        if (m != 3 || n != 3) {
             throw new IllegalArgumentException("data dimensions must be = 3");
         }
         m00 = data[0][0];
@@ -70,20 +71,20 @@ public class Matrix3F extends MatrixF {
 
     public Matrix3F() {
         this(true);
-    } 
-        
+    }
+
     public Matrix3F(boolean mutable) {
         super(3, 3, mutable);
     }
 
     @Override
     public Float[][] getData() {
-        return new Float[][] {{m00, m01, m02}, {m10, m11, m12}, {m20, m21, m22}};
+        return new Float[][]{{m00, m01, m02}, {m10, m11, m12}, {m20, m21, m22}};
     }
 
     @Override
     public Float getData(int i, int j) {
-        if(i > 2 || j > 2) {
+        if (i > 2 || j > 2) {
             throw new IllegalArgumentException("i and j must be < 2");
         }
         return getData()[i][j];
@@ -92,12 +93,12 @@ public class Matrix3F extends MatrixF {
     @Override
     public void setData(Number[][] data) {
         m = data.length;
-        if(m > 0) {
+        if (m > 0) {
             n = data[0].length;
         } else {
             throw new IllegalArgumentException("data dimensions must be > 0");
         }
-        if(m != 2 || n != 2) {
+        if (m != 2 || n != 2) {
             throw new IllegalArgumentException("data dimensions must be = 3");
         }
         m00 = data[0][0].floatValue();
@@ -113,33 +114,33 @@ public class Matrix3F extends MatrixF {
 
     @Override
     public void setData(int i, int j, Number data) {
-        if(i > 2 || j > 2) {
+        if (i > 2 || j > 2) {
             throw new IllegalArgumentException("i and j must be <= 2");
         }
-        if(i == 0 && j == 0) {
+        if (i == 0 && j == 0) {
             m00 = data.floatValue();
-        } else if(i == 0 && j == 1) {
+        } else if (i == 0 && j == 1) {
             m01 = data.floatValue();
-        } else if(i == 0 && j == 2) {
+        } else if (i == 0 && j == 2) {
             m02 = data.floatValue();
-        } else if(i == 1 && j == 0) {
+        } else if (i == 1 && j == 0) {
             m10 = data.floatValue();
-        } else if(i == 1 && j == 1) {
+        } else if (i == 1 && j == 1) {
             m11 = data.floatValue();
-        } else if(i == 1 && j == 2) {
+        } else if (i == 1 && j == 2) {
             m12 = data.floatValue();
-        } else if(i == 2 && j == 0) {
+        } else if (i == 2 && j == 0) {
             m20 = data.floatValue();
-        } else if(i == 2 && j == 1) {
+        } else if (i == 2 && j == 1) {
             m21 = data.floatValue();
-        } else if(i == 2 && j == 2) {
+        } else if (i == 2 && j == 2) {
             m22 = data.floatValue();
         }
     }
 
     @Override
     public Float[] getRow(int i) {
-        if(i > 2) {
+        if (i > 2) {
             throw new IllegalArgumentException("i must be <= 2");
         }
         return getData()[i];
@@ -147,10 +148,15 @@ public class Matrix3F extends MatrixF {
 
     @Override
     public final Matrix3F add(Matrix b) {
+        return add(b, mutate);
+    }
+
+    @Override
+    public final Matrix3F add(Matrix b, boolean mutate) {
         if (m != b.m || n != b.n) {
             throw new RuntimeException("Matrix dimensions are not equal.");
         }
-        if(mutate) {
+        if (mutate) {
             m00 += b.getData(0, 0).floatValue();
             m01 += b.getData(0, 1).floatValue();
             m02 += b.getData(0, 2).floatValue();
@@ -169,10 +175,14 @@ public class Matrix3F extends MatrixF {
     }
 
     public final Matrix3F add3F(Matrix3F b) {
+        return add3F(b, mutate);
+    }
+
+    public final Matrix3F add3F(Matrix3F b, boolean mutate) {
         if (m != b.m || n != b.n) {
             throw new RuntimeException("Matrix dimensions are not equal.");
         }
-        if(mutate) {
+        if (mutate) {
             m00 += b.m00;
             m01 += b.m01;
             m02 += b.m02;
@@ -192,10 +202,15 @@ public class Matrix3F extends MatrixF {
 
     @Override
     public final Matrix3F subtract(Matrix b) {
+        return subtract(b, mutate);
+    }
+
+    @Override
+    public final Matrix3F subtract(Matrix b, boolean mutate) {
         if (m != b.m || n != b.n) {
             throw new RuntimeException("Matrix dimensions are not equal.");
         }
-        if(mutate) {
+        if (mutate) {
             m00 -= b.getData(0, 0).floatValue();
             m01 -= b.getData(0, 1).floatValue();
             m02 -= b.getData(0, 2).floatValue();
@@ -214,10 +229,14 @@ public class Matrix3F extends MatrixF {
     }
 
     public final Matrix3F subtract3F(Matrix3F b) {
+        return subtract3F(b, mutate);
+    }
+
+    public final Matrix3F subtract3F(Matrix3F b, boolean mutate) {
         if (m != b.m || n != b.n) {
             throw new RuntimeException("Matrix dimensions are not equal.");
         }
-        if(mutate) {
+        if (mutate) {
             m00 -= b.m00;
             m01 -= b.m01;
             m02 -= b.m02;
@@ -236,6 +255,11 @@ public class Matrix3F extends MatrixF {
     }
 
     @Override
+    public MatrixF multiply(Matrix b, boolean mutate) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
     public MatrixF multiply(Matrix b) {
         /**
          * TODO: Optimise
@@ -244,10 +268,10 @@ public class Matrix3F extends MatrixF {
             throw new RuntimeException("Matrix dimensions are incorrect.");
         }
         RowArrayMatrixF c = new RowArrayMatrixF(m, b.n);
-        for(int i=0;i<c.m;i++) {
-            for(int j=0;j<c.n;j++) {
-                for(int k=0;k<n;k++) {
-                    c.data[i][j] += (getData(i, j)*b.getData(k, j).floatValue());
+        for (int i = 0; i < c.m; i++) {
+            for (int j = 0; j < c.n; j++) {
+                for (int k = 0; k < n; k++) {
+                    c.data[i][j] += (getData(i, j) * b.getData(k, j).floatValue());
                 }
             }
         }
@@ -262,9 +286,9 @@ public class Matrix3F extends MatrixF {
             throw new RuntimeException("Matrix dimensions are incorrect.");
         }
         Matrix3F c = new Matrix3F();
-        for(int i=0;i<c.m;i++) {
-            for(int j=0;j<c.n;j++) {
-                for(int k=0;k<n;k++) {
+        for (int i = 0; i < c.m; i++) {
+            for (int j = 0; j < c.n; j++) {
+                for (int k = 0; k < n; k++) {
                     c.setData(i, j, getData(i, j) * b.getData(k, j).floatValue());
                 }
             }
@@ -274,14 +298,14 @@ public class Matrix3F extends MatrixF {
 
     @Override
     public Matrix3F transpose() {
-        if(mutate) {
+        if (mutate) {
             /**
              * TODO: Figure out transpose.
              */
             Matrix3F t = new Matrix3F();
             for (int i = 0; i < m; i++) {
                 for (int j = 0; j < n; j++) {
-                    t.setData(j, i, getData(i,j));
+                    t.setData(j, i, getData(i, j));
                 }
             }
             return t;
@@ -289,7 +313,7 @@ public class Matrix3F extends MatrixF {
             Matrix3F t = new Matrix3F();
             for (int i = 0; i < m; i++) {
                 for (int j = 0; j < n; j++) {
-                    t.setData(j, i, getData(i,j));
+                    t.setData(j, i, getData(i, j));
                 }
             }
             return t;
@@ -299,25 +323,35 @@ public class Matrix3F extends MatrixF {
     @Override
     public final Matrix3F addScalar(Number v) {
         float f = v.floatValue();
-        return addScalar3F(f);
+        return addScalar3F(f, mutate);
+    }
+
+    @Override
+    public final Matrix3F addScalar(Number v, boolean mutate) {
+        float f = v.floatValue();
+        return addScalar3F(f, mutate);
     }
 
     public final Matrix3F addScalar3F(float f) {
+        return addScalar3F(f, mutate);
+    }
+
+    public final Matrix3F addScalar3F(float f, boolean mutate) {
         if (mutate) {
-            m00 = m00+f;
-            m01 = m01+f;
-            m02 = m02+f;
-            m10 = m10+f;
-            m11 = m11+f;
-            m12 = m12+f;
-            m20 = m20+f;
-            m21 = m21+f;
-            m22 = m22+f;
+            m00 = m00 + f;
+            m01 = m01 + f;
+            m02 = m02 + f;
+            m10 = m10 + f;
+            m11 = m11 + f;
+            m12 = m12 + f;
+            m20 = m20 + f;
+            m21 = m21 + f;
+            m22 = m22 + f;
             return this;
         } else {
-            return new Matrix3F(m00+f,m01+f,m02+f,
-                    m10+f,m11+f,m12+f,
-                    m20+f,m21+f,m22+f);
+            return new Matrix3F(m00 + f, m01 + f, m02 + f,
+                    m10 + f, m11 + f, m12 + f,
+                    m20 + f, m21 + f, m22 + f);
         }
     }
 
@@ -327,22 +361,32 @@ public class Matrix3F extends MatrixF {
         return subtractScalar3F(f);
     }
 
+    @Override
+    public final Matrix3F subtractScalar(Number v, boolean mutate) {
+        float f = v.floatValue();
+        return subtractScalar3F(f);
+    }
+
     public final Matrix3F subtractScalar3F(float f) {
+        return subtractScalar3F(f, mutate);
+    }
+
+    public final Matrix3F subtractScalar3F(float f, boolean mutate) {
         if (mutate) {
-            m00 = m00-f;
-            m01 = m01-f;
-            m02 = m02-f;
-            m10 = m10-f;
-            m11 = m11-f;
-            m12 = m12-f;
-            m20 = m20-f;
-            m21 = m21-f;
-            m22 = m22-f;
+            m00 = m00 - f;
+            m01 = m01 - f;
+            m02 = m02 - f;
+            m10 = m10 - f;
+            m11 = m11 - f;
+            m12 = m12 - f;
+            m20 = m20 - f;
+            m21 = m21 - f;
+            m22 = m22 - f;
             return this;
         } else {
-            return new Matrix3F(m00-f,m01-f,m02-f,
-                    m10-f,m11-f,m12-f,
-                    m20-f,m21-f,m22-f);
+            return new Matrix3F(m00 - f, m01 - f, m02 - f,
+                    m10 - f, m11 - f, m12 - f,
+                    m20 - f, m21 - f, m22 - f);
         }
     }
 
@@ -352,22 +396,32 @@ public class Matrix3F extends MatrixF {
         return multiplyScalar3F(f);
     }
 
-    public Matrix3F multiplyScalar3F(float f) {
+    @Override
+    public final Matrix3F multiplyScalar(Number v, boolean mutate) {
+        float f = v.floatValue();
+        return multiplyScalar3F(f);
+    }
+
+    public final Matrix3F multiplyScalar3F(float f) {
+        return multiplyScalar3F(f, mutate);
+    }
+
+    public final Matrix3F multiplyScalar3F(float f, boolean mutate) {
         if (mutate) {
-            m00 = m00*f;
-            m01 = m01*f;
-            m02 = m02*f;
-            m10 = m10*f;
-            m11 = m11*f;
-            m12 = m12*f;
-            m20 = m20*f;
-            m21 = m21*f;
-            m22 = m22*f;
+            m00 = m00 * f;
+            m01 = m01 * f;
+            m02 = m02 * f;
+            m10 = m10 * f;
+            m11 = m11 * f;
+            m12 = m12 * f;
+            m20 = m20 * f;
+            m21 = m21 * f;
+            m22 = m22 * f;
             return this;
         } else {
-            return new Matrix3F(m00*f,m01*f,m02*f,
-                    m10*f,m11*f,m12*f,
-                    m20*f,m21*f,m22*f);
+            return new Matrix3F(m00 * f, m01 * f, m02 * f,
+                    m10 * f, m11 * f, m12 * f,
+                    m20 * f, m21 * f, m22 * f);
         }
     }
 
@@ -377,47 +431,79 @@ public class Matrix3F extends MatrixF {
             throw new RuntimeException("Divide By Zero.");
         }
         float f = v.floatValue();
-        return divideScalar3F(f);
+        return divideScalar3F(f, mutate);
+    }
+
+    @Override
+    public final Matrix3F divideScalar(Number v, boolean mutate) {
+        if (v.intValue() == 0) {
+            throw new RuntimeException("Divide By Zero.");
+        }
+        float f = v.floatValue();
+        return divideScalar3F(f, mutate);
     }
 
     public final Matrix3F divideScalar3F(float f) {
+        return divideScalar3F(f, mutate);
+    }
+
+    public final Matrix3F divideScalar3F(float f, boolean mutate) {
         if (f == 0F) {
             throw new RuntimeException("Divide By Zero.");
         }
         if (mutate) {
-            m00 = m00/f;
-            m01 = m01/f;
-            m02 = m02/f;
-            m10 = m10/f;
-            m11 = m11/f;
-            m12 = m12/f;
-            m20 = m20/f;
-            m21 = m21/f;
-            m22 = m22/f;
+            m00 = m00 / f;
+            m01 = m01 / f;
+            m02 = m02 / f;
+            m10 = m10 / f;
+            m11 = m11 / f;
+            m12 = m12 / f;
+            m20 = m20 / f;
+            m21 = m21 / f;
+            m22 = m22 / f;
             return this;
         } else {
-            return new Matrix3F(m00/f,m01/f,m02/f,
-                    m10/f,m11/f,m12/f,
-                    m20/f,m21/f,m22/f);
+            return new Matrix3F(m00 / f, m01 / f, m02 / f,
+                    m10 / f, m11 / f, m12 / f,
+                    m20 / f, m21 / f, m22 / f);
         }
     }
 
-    public VectorF multiplyVectorAsColumnMatrix(VectorF column) {
-        // TODO: calculation.
-        return null;
+    @Override
+    public MatrixF invert() {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    public Vector2F multiplyVectorAsColumnMatrix(Vector2F column) {
-        // TODO: calculation.
-        return null;
+    @Override
+    public MatrixF solve(Matrix b) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public final Float determinant() {
+        return determinant3F();
+    }
+
+    public final float determinant3F() {
+        return m00 * m11 * m22
+                + m01 * m12 * m20
+                + m02 * m10 * m21
+                - m00 * m12 * m21
+                - m01 * m10 * m22
+                - m02 * m11 * m20;
+    }
+
+    @Override
+    public VectorF transformVector(VectorF v) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     /**
-     * Creates an identity n by n Matrix4F
-     * @return Matrix4F constructed identity Matrix4F.
+     * Creates an identity n by n Matrix3F
+     * @return Matrix4F constructed identity Matrix3F.
      */
     public static Matrix3F identity() {
-        Matrix3F i = new Matrix3F(1F,0,0,0,1F,0,0,0,1F);
+        Matrix3F i = new Matrix3F(1F, 0, 0, 0, 1F, 0, 0, 0, 1F);
         return i;
     }
 }

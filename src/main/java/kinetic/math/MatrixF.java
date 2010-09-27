@@ -174,7 +174,7 @@ public abstract class MatrixF extends Matrix {
 
     public abstract MatrixF divideScalar(Number v, boolean mutate);
 
-    public abstract VectorF multiplyVectorAsColumnMatrix(VectorF column);
+    public abstract VectorF transformVector(VectorF v);
 
     /**
      * Return the invert of the Matrix A.

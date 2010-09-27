@@ -31,9 +31,13 @@ package kinetic.math;
  * </pre>
  *
  * @author openecho
- * @version 1.0.0
+ * @version 2.0.0
  */
 public class RowArrayMatrixD extends MatrixD {
+
+    /**
+     * TODO: Scalar functions need to be mutate aware.
+     */
 
     Double[][] data;
 
@@ -63,30 +67,6 @@ public class RowArrayMatrixD extends MatrixD {
 
     public RowArrayMatrixD(Double[][] data, boolean mutable) {
         super(data, mutable);
-    }
-
-    @Override
-    protected final void initData(Number[][] data) {
-        m = data.length;
-        n = data[0].length;
-        if (data instanceof Double[][]) {
-            this.data = (Double[][]) data;
-        } else {
-            for (int i = 0; i < m; i++) {
-                for (int j = 0; j < n; j++) {
-                    this.data[i][j] = data[i][j].doubleValue();
-                }
-            }
-        }
-    }
-
-    @Override
-    protected final void initData(int i, int j, Number data) {
-        if (data instanceof Double) {
-            this.data[i][j] = (Double) data;
-        } else {
-            this.data[i][j] = data.doubleValue();
-        }
     }
 
     @Override
@@ -163,7 +143,12 @@ public class RowArrayMatrixD extends MatrixD {
     }
 
     @Override
-    public final MatrixD add(Matrix b) {
+    public final RowArrayMatrixD add(Matrix b) {
+        return add(b, mutate);
+    }
+
+    @Override
+    public final RowArrayMatrixD add(Matrix b, boolean mutate) {
         RowArrayMatrixD a = this;
         if (a.m != b.m || a.n != b.n) {
             throw new RuntimeException("Matrix dimensions are not equal.");
@@ -183,7 +168,12 @@ public class RowArrayMatrixD extends MatrixD {
     }
 
     @Override
-    public final MatrixD subtract(Matrix b) {
+    public final RowArrayMatrixD subtract(Matrix b) {
+        return subtract(b, mutate);
+    }
+
+    @Override
+    public final RowArrayMatrixD subtract(Matrix b, boolean mutate) {
         RowArrayMatrixD a = this;
         if (a.m != b.m || a.n != b.n) {
             throw new RuntimeException("Matrix dimensions are not equal.");
@@ -203,7 +193,7 @@ public class RowArrayMatrixD extends MatrixD {
     }
 
     @Override
-    public MatrixD multiply(Matrix b) {
+    public RowArrayMatrixD multiply(Matrix b) {
         RowArrayMatrixD a = this;
         if (a.n != b.m) {
             throw new RuntimeException("Matrix dimensions are incorrect.");
@@ -217,6 +207,11 @@ public class RowArrayMatrixD extends MatrixD {
             }
         }
         return c;
+    }
+
+    @Override
+    public RowArrayMatrixD multiply(Matrix b, boolean mutate) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
@@ -246,7 +241,12 @@ public class RowArrayMatrixD extends MatrixD {
     }
 
     @Override
-    public MatrixD addScalar(Number v) {
+    public RowArrayMatrixD addScalar(Number v) {
+        return addScalar(v, mutate);
+    }
+
+    @Override
+    public RowArrayMatrixD addScalar(Number v, boolean mutate) {
         RowArrayMatrixD a = this;
         RowArrayMatrixD c = new RowArrayMatrixD(m, n);
         for (int i = 0; i < m; i++) {
@@ -258,7 +258,12 @@ public class RowArrayMatrixD extends MatrixD {
     }
 
     @Override
-    public MatrixD subtractScalar(Number v) {
+    public final RowArrayMatrixD subtractScalar(Number v) {
+        return subtractScalar(v, mutate);
+    }
+
+    @Override
+    public RowArrayMatrixD subtractScalar(Number v, boolean mutate) {
         RowArrayMatrixD a = this;
         RowArrayMatrixD c = new RowArrayMatrixD(m, n);
         for (int i = 0; i < m; i++) {
@@ -270,7 +275,12 @@ public class RowArrayMatrixD extends MatrixD {
     }
 
     @Override
-    public MatrixD multiplyScalar(Number v) {
+    public RowArrayMatrixD multiplyScalar(Number v) {
+        return multiplyScalar(v, mutate);
+    }
+
+    @Override
+    public RowArrayMatrixD multiplyScalar(Number v, boolean mutate) {
         RowArrayMatrixD a = this;
         RowArrayMatrixD c = new RowArrayMatrixD(m, n);
         for (int i = 0; i < m; i++) {
@@ -282,7 +292,12 @@ public class RowArrayMatrixD extends MatrixD {
     }
 
     @Override
-    public MatrixD divideScalar(Number v) {
+    public RowArrayMatrixD divideScalar(Number v) {
+        return divideScalar(v, mutate);
+    }
+
+    @Override
+    public RowArrayMatrixD divideScalar(Number v, boolean mutate) {
         if (v.doubleValue() == 0) {
             throw new RuntimeException("Divide by Zero");
         }
@@ -294,5 +309,15 @@ public class RowArrayMatrixD extends MatrixD {
             }
         }
         return c;
+    }
+
+    @Override
+    public MatrixD invert() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public Matrix solve(Matrix b) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }

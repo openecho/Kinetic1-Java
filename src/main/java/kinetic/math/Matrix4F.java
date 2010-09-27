@@ -16,8 +16,11 @@
 package kinetic.math;
 
 /**
+ * Performance optimised 4 dimensional float matrix. This class can be mutable
+ * or immutable.
  *
  * @author openecho
+ * @version 2.0.0
  */
 public class Matrix4F extends MatrixF {
 
@@ -259,6 +262,11 @@ public class Matrix4F extends MatrixF {
 
     @Override
     public final Matrix4F add(Matrix b) {
+        return add(b, mutate);
+    }
+
+    @Override
+    public final Matrix4F add(Matrix b, boolean mutate) {
         if (m != b.m || n != b.n) {
             throw new RuntimeException("Matrix dimensions are not equal.");
         }
@@ -301,6 +309,10 @@ public class Matrix4F extends MatrixF {
     }
 
     public final Matrix4F add4F(Matrix4F b) {
+        return add4F(b, mutate);
+    }
+
+    public final Matrix4F add4F(Matrix4F b, boolean mutate) {
         if (mutate) {
             m00 += b.m00;
             m01 += b.m01;
@@ -329,6 +341,11 @@ public class Matrix4F extends MatrixF {
 
     @Override
     public final Matrix4F subtract(Matrix b) {
+        return subtract(b, mutate);
+    }
+
+    @Override
+    public final Matrix4F subtract(Matrix b, boolean mutate) {
         if (m != b.m || n != b.n) {
             throw new RuntimeException("Matrix dimensions are not equal.");
         }
@@ -371,6 +388,10 @@ public class Matrix4F extends MatrixF {
     }
 
     public final Matrix4F subtract4F(Matrix4F b) {
+        return subtract4F(b, mutate);
+    }
+
+    public final Matrix4F subtract4F(Matrix4F b, boolean mutate) {
         if (mutate) {
             m00 -= b.m00;
             m01 -= b.m01;
@@ -406,11 +427,16 @@ public class Matrix4F extends MatrixF {
         for (int i = 0; i < c.m; i++) {
             for (int j = 0; j < c.n; j++) {
                 for (int k = 0; k < n; k++) {
-                    c.data[i][j] += (float) (getData(i,k) * b.getData(k, j).doubleValue());
+                    c.data[i][j] += (float) (getData(i, k) * b.getData(k, j).doubleValue());
                 }
             }
         }
         return c;
+    }
+
+    @Override
+    public MatrixF multiply(Matrix b, boolean mutate) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     public Matrix4F multiply4F(Matrix4F b) {
@@ -429,6 +455,10 @@ public class Matrix4F extends MatrixF {
             }
         }
         return c;
+    }
+
+    public Matrix4F multiply4F(Matrix b, boolean mutate) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
@@ -457,10 +487,19 @@ public class Matrix4F extends MatrixF {
 
     @Override
     public Matrix4F addScalar(Number v) {
-        return addScalar4F(v.floatValue());
+        return addScalar4F(v.floatValue(), mutate);
+    }
+
+    @Override
+    public MatrixF addScalar(Number v, boolean mutate) {
+        return addScalar4F(v.floatValue(), mutate);
     }
 
     public final Matrix4F addScalar4F(float f) {
+        return addScalar4F(f, mutate);
+    }
+
+    public final Matrix4F addScalar4F(float f, boolean mutate) {
         if (mutate) {
             m00 = m00 + f;
             m01 = m01 + f;
@@ -489,10 +528,19 @@ public class Matrix4F extends MatrixF {
 
     @Override
     public Matrix4F subtractScalar(Number v) {
-        return subtractScalar4F(v.floatValue());
+        return subtractScalar4F(v.floatValue(), mutate);
+    }
+
+    @Override
+    public MatrixF subtractScalar(Number v, boolean mutate) {
+        return subtractScalar4F(v.floatValue(), mutate);
     }
 
     public final Matrix4F subtractScalar4F(float f) {
+        return subtractScalar4F(f, mutate);
+    }
+
+    public final Matrix4F subtractScalar4F(float f, boolean mutate) {
         if (mutate) {
             m00 = m00 - f;
             m01 = m01 - f;
@@ -521,10 +569,19 @@ public class Matrix4F extends MatrixF {
 
     @Override
     public Matrix4F multiplyScalar(Number v) {
-        return multiplyScalar4F(v.floatValue());
+        return multiplyScalar4F(v.floatValue(), mutate);
+    }
+
+    @Override
+    public MatrixF multiplyScalar(Number v, boolean mutate) {
+        return multiplyScalar4F(v.floatValue(), mutate);
     }
 
     public final Matrix4F multiplyScalar4F(float f) {
+        return multiplyScalar4F(f, mutate);
+    }
+
+    public final Matrix4F multiplyScalar4F(float f, boolean mutate) {
         if (mutate) {
             m00 = m00 * f;
             m01 = m01 * f;
@@ -553,10 +610,19 @@ public class Matrix4F extends MatrixF {
 
     @Override
     public Matrix4F divideScalar(Number v) {
-        return divideScalar4F(v.floatValue());
+        return divideScalar4F(v.floatValue(), mutate);
+    }
+
+    @Override
+    public MatrixF divideScalar(Number v, boolean mutate) {
+        return divideScalar4F(v.floatValue(), mutate);
     }
 
     public final Matrix4F divideScalar4F(float f) {
+        return divideScalar4F(f, mutate);
+    }
+
+    public final Matrix4F divideScalar4F(float f, boolean mutate) {
         if (f == 0F) {
             throw new RuntimeException("Divide By Zero.");
         }
@@ -586,22 +652,24 @@ public class Matrix4F extends MatrixF {
         }
     }
 
-    public VectorF multiplyVectorAsColumnMatrix(VectorF column) {
-        if(column instanceof Vector3F) {
-            return multiplyVectorAsColumnMatrix((Vector3F) column);
-        }
-        // TODO: calculation.
-        return null;
+    @Override
+    public MatrixF solve(Matrix b) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    public Vector3F multiplyVectorAsColumnMatrix(Vector3F column) {
-        Vector3F result = new Vector3F();
-        for (int i = 0; i < n; i++) {
-            for (int k = 0; k < n; k++) {
-                result.setData(i, getData(i, 1) * ((k != 3) ? column.getData(k).floatValue() :  1F));
-            }
-        }
-        return result;
+    @Override
+    public MatrixF invert() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public Float determinant() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public VectorF transformVector(VectorF v) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     /**
@@ -609,7 +677,7 @@ public class Matrix4F extends MatrixF {
      * @return Matrix4F constructed identity Matrix4F.
      */
     public static Matrix4F identity() {
-        Matrix4F i = new Matrix4F(1F,0,0,0,0,1F,0,0,0,0,1F,0,0,0,0,1F);
+        Matrix4F i = new Matrix4F(1F, 0, 0, 0, 0, 1F, 0, 0, 0, 0, 1F, 0, 0, 0, 0, 1F);
         return i;
     }
 }

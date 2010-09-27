@@ -30,7 +30,7 @@ package kinetic.math;
  * that are both mutable and immutable.
  *
  * @author openecho
- * @version 1.0.0
+ * @version 2.0.0
  */
 public abstract class MatrixF extends Matrix {
 
@@ -40,7 +40,7 @@ public abstract class MatrixF extends Matrix {
      * @param n columns in the MatrixF.
      */
     public MatrixF(int m, int n) {
-        this(m,n,true);
+        this(m, n, true);
     }
 
     public MatrixF(int m, int n, boolean mutable) {
@@ -54,9 +54,8 @@ public abstract class MatrixF extends Matrix {
      * @param data datum for the matrix.
      */
     public MatrixF(Float[][] data) {
-        this(data,false);
+        this(data, false);
     }
-
 
     public MatrixF(Float[][] data, boolean mutable) {
         m = data.length;
@@ -101,17 +100,19 @@ public abstract class MatrixF extends Matrix {
         }
         Float[] result = new Float[m];
         for (int j = 0; j < m; j++) {
-            result[j] = getData(j,i);
+            result[j] = getData(j, i);
         }
         return result;
     }
 
-  /**
+    /**
      * Adds a Matrix to this instance. Matrix A + Matrix B = Matrix C.
      * @param b Matrix B.
      * @return Matrix Matrix C.
      */
     public abstract MatrixF add(Matrix b);
+
+    public abstract MatrixF add(Matrix b, boolean mutate);
 
     /**
      * Subtracts a Matrix from this instance. Matrix A - Matrix B = Matrix C.
@@ -120,12 +121,16 @@ public abstract class MatrixF extends Matrix {
      */
     public abstract MatrixF subtract(Matrix b);
 
+    public abstract MatrixF subtract(Matrix b, boolean mutate);
+
     /**
      * Multiplies a Matrix to this instance. Matrix A * Matrix B = Matrix C.
      * @param b Matrix B.
      * @return Matrix Matrix C.
      */
     public abstract MatrixF multiply(Matrix b);
+
+    public abstract MatrixF multiply(Matrix b, boolean mutate);
 
     /**
      * Returns the transpose of this instance. Matrix A' = transpose(Matrix A)
@@ -140,12 +145,16 @@ public abstract class MatrixF extends Matrix {
      */
     public abstract MatrixF addScalar(Number v);
 
+    public abstract MatrixF addScalar(Number v, boolean mutate);
+
     /**
      * Adds a scalar value to this Matrix instance. Matrix C = C(c[i,j]) = a[i,j]-v
      * @param v Value to subtract
      * @return Matrix Matrix C
      */
     public abstract MatrixF subtractScalar(Number v);
+
+    public abstract MatrixF subtractScalar(Number v, boolean mutate);
 
     /**
      * Adds a scalar value to this Matrix instance. Matrix C = C(c[i,j]) = a[i,j]*v
@@ -154,17 +163,34 @@ public abstract class MatrixF extends Matrix {
      */
     public abstract MatrixF multiplyScalar(Number v);
 
+    public abstract MatrixF multiplyScalar(Number v, boolean mutate);
+
     /**
      * Adds a scalar value to this Matrix instance. Matrix C = C(c[i,j]) = a[i,j]/v
      * @param v Value to divide
      * @return Matrix Matrix C
      */
     public abstract MatrixF divideScalar(Number v);
-    
+
+    public abstract MatrixF divideScalar(Number v, boolean mutate);
 
     public abstract VectorF multiplyVectorAsColumnMatrix(VectorF column);
 
-      /**
+    /**
+     * Return the invert of the Matrix A.
+     * @return Matrix A^-1
+     */
+    public abstract MatrixF invert();
+
+    /**
+     * Matrix Solver in the form A*X=B where A is this Matrix and X is the
+     * solutions.
+     * @param b Matrix B
+     * @return Solution Matrix X
+     */
+    public abstract MatrixF solve(Matrix b);
+
+    /**
      * Calculates the determinant of the MatrixF if it is square (n=m). Currently
      * this supports cases where n < 3.
      * @return double detminant of the MatrixF.
@@ -200,7 +226,7 @@ public abstract class MatrixF extends Matrix {
         for (int i = 0; i < m; i++) {
             dataString += "{";
             for (int j = 0; j < n; j++) {
-                dataString += getData(i,j) + ((j < n - 1) ? "F," : "F");
+                dataString += getData(i, j) + ((j < n - 1) ? "F," : "F");
             }
             dataString += "}" + ((i < m - 1) ? "," : "");
         }
@@ -219,7 +245,7 @@ public abstract class MatrixF extends Matrix {
         MatrixF e = new RowArrayMatrixF(m, n);
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
-                e.setData(i,j,0F);
+                e.setData(i, j, 0F);
             }
         }
         return e;
@@ -276,7 +302,7 @@ public abstract class MatrixF extends Matrix {
     public static MatrixF identity(int n) {
         MatrixF i = new RowArrayMatrixF(n, n);
         for (int j = 0; j < n; j++) {
-            i.setData(j,j,1F);
+            i.setData(j, j, 1F);
         }
         return i;
     }

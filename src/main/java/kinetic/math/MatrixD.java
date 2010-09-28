@@ -15,6 +15,7 @@
  **/
 package kinetic.math;
 
+import java.security.InvalidParameterException;
 import kinetic.math.linear.LUDecompositionD;
 
 /**
@@ -270,6 +271,29 @@ public abstract class MatrixD extends Matrix {
             }
         }
         return e;
+    }
+
+    /**
+     * Create a MatrixD for the specified Data. Returns an Immutable MatrixD.
+     * @param data datum for the MatrixD.
+     * @return MatrixD the constructed MatrixD.
+     */
+    public static MatrixD create(double[][] data) {
+        int m = data.length;
+        if(m == 0) {
+            throw new RuntimeException("Invalid Argument.");
+        }
+        int n = data[0].length;
+        if(n == 0) {
+            throw new RuntimeException("Invalid Argument.");
+        }
+        MatrixD c = MatrixD.empty(m, n);
+        for(int i=0;i<m;i++) {
+            for(int j=0;j<n;j++) {
+                c.setData(i, j, data[i][j]);
+            }
+        }
+        return c;
     }
 
     /**

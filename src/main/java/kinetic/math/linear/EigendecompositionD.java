@@ -33,13 +33,13 @@ import kinetic.math.MatrixD;
 import kinetic.math.QuickMath;
 
 /** 
- * Decomposes a real matrix A into its eigenvalues and eigenvectors.
- * <P>
+ * Decomposes a real matrix A into its eigenvalues and eigenvectors
+ *
  * If A is symmetric, then A = V*D*V' where the eigenvalue matrix D is
  * diagonal and the eigenvector matrix V is orthogonal.
  * I.e. A = V.times(D.times(V.transpose())) and
  * V.times(V.transpose()) equals the identity matrix.
- * <P>
+ *
  * If A is not symmetric, then the eigenvalue matrix D is block diagonal
  * with the real eigenvalues in 1-by-1 blocks and any complex eigenvalues,
  * lambda + i*mu, in 2-by-2 blocks, [lambda, mu; -mu, lambda].  The

@@ -15,6 +15,12 @@
  **/
 package kinetic.math;
 
+import java.io.PrintWriter;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.text.NumberFormat;
+import java.util.Locale;
+
 /**
  * Abstract m by n Matrix in the following form.
  * <pre>
@@ -274,4 +280,51 @@ public abstract class Matrix {
      * @return The determinant of the Matrix.
      */
     public abstract Number determinant();
+
+    /**
+     * Prints the Matrix to the System.out (Stdout)
+     * @param w Width for each cell.
+     * @param d Number of decimal points for each cell.
+     */
+    public void print(int w, int d) {
+        print(new PrintWriter(System.out, true), w, d);
+    }
+
+    /**
+     * Prints the Matrix to the specified output.
+     * @param output PrintWriter to write to.
+     * @param w Width for each cell.
+     * @param d Number of decimal points for each cell.
+     */
+    public void print(PrintWriter output, int w, int d) {
+        DecimalFormat format = new DecimalFormat();
+        format.setDecimalFormatSymbols(new DecimalFormatSymbols(Locale.US));
+        format.setMinimumIntegerDigits(1);
+        format.setMaximumFractionDigits(d);
+        format.setMinimumFractionDigits(d);
+        format.setGroupingUsed(false);
+        print(output, format, w + 2);
+    }
+
+    /**
+     * Prints the Matrix to the specified output.
+     * @param output PrintWriter to write to.
+     * @param format Format to write numbers.
+     * @param width The width to pad each cell to.
+     */
+    public void print(PrintWriter output, NumberFormat format, int width) {
+        output.println();
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                String s = format.format(getData(i, j));
+                int padding = Math.max(1, width - s.length());
+                for (int k = 0; k < padding; k++) {
+                    output.print(' ');
+                }
+                output.print(s);
+            }
+            output.println();
+        }
+        output.println();
+    }
 }

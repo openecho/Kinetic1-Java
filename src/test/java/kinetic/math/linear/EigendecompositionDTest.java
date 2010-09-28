@@ -6,8 +6,6 @@
 package kinetic.math.linear;
 
 import kinetic.math.MatrixD;
-import kinetic.math.Matrix;
-import kinetic.math.Vector;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -46,16 +44,70 @@ public class EigendecompositionDTest {
     @Test
     public void testHandleDecompose() {
         System.out.println("handleDecompose");
-
-        MatrixD matrix = MatrixD.create(new Double[][]{{1D, 2D, 3D}, {3D, 2D, 1D}, {10D, 5D, 1D}});
+        MatrixD matrix = MatrixD.create(new Double[][]{{1D, 2D, 1D}, {6D, -1D, 0D}, {-1D, -2D, -1D}});
         EigendecompositionD instance = new EigendecompositionD(matrix);
         instance.decompose();
-        boolean expResult = false;
+        boolean expResult = true;
         boolean result = instance.handleDecompose();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
+    /**
+     * 
+     */
+    @Test
+    public void testGetD() {
+        System.out.println("getD");
+        MatrixD matrix = MatrixD.create(new Double[][]{{1D, 2D, 1D}, {6D, -1D, 0D}, {-1D, -2D, -1D}});
+        EigendecompositionD instance = new EigendecompositionD(matrix);
+        MatrixD d = instance.getD();
+        d.print(10, 4);
 
+    }
+
+    /**
+     *
+     */
+    @Test
+    public void testGetV() {
+        System.out.println("getV");
+        MatrixD matrix = MatrixD.create(new Double[][]{{1D, 2D, 1D}, {6D, -1D, 0D}, {-1D, -2D, -1D}});
+        EigendecompositionD instance = new EigendecompositionD(matrix);
+        MatrixD v = instance.getV();
+        v.print(10, 4);
+
+    }
+
+    /**
+     *
+     */
+    @Test
+    public void testGetEigenValues() {
+        System.out.println("getEigenValues");
+        //MatrixD matrix = MatrixD.create(new Double[][]{{3D, 0D, 1D}, {-4D, 1D, 2D}, {-6D, 0D, 2D}});
+        MatrixD matrix = MatrixD.create(new Double[][]{{1D, 2D, 1D}, {6D, -1D, 0D}, {-1D, -2D, -1D}});
+        EigendecompositionD instance = new EigendecompositionD(matrix);
+        double[] rE = instance.getRealEigenvalues();
+        double[] iE = instance.getImagEigenvalues();
+        for(int i=0;i<rE.length;i++) {
+            System.out.println("[" + i + "]:" + rE[i] + " " + iE[i] + "i");
+        }
+    }
+
+    /**
+     *
+     */
+    @Test
+    public void testReconstruction() {
+        System.out.println("reconstruction");
+        MatrixD matrix = MatrixD.create(new Double[][]{{1D, 2D, 1D}, {6D, -1D, 0D}, {-1D, -2D, -1D}});
+        EigendecompositionD instance = new EigendecompositionD(matrix);
+
+        MatrixD v = instance.getV();
+        MatrixD d = instance.getD();
+        MatrixD vTranspose = v.transpose();
+
+        MatrixD matrixReconstruct = vTranspose.multiply(d).multiply(v);
+        matrixReconstruct.print(10, 4);
+    }
 }

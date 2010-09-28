@@ -12,6 +12,19 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ * 
+ * This class contains portions of code which are Copyright The Mathworks and
+ * NIST. Their license statement follows,
+ *
+ * --------------------------------------------------------------------------
+ *
+ * This software is a cooperative product of The MathWorks and the National
+ * Institute of Standards and Technology (NIST) which has been released to the
+ * public domain. Neither The MathWorks nor NIST assumes any responsibility
+ * whatsoever for its use by other parties, and makes no guarantees, expressed
+ * or implied, about its quality, reliability, or any other characteristic.
+ *
+ * Copyright (C) 1999 The Mathworks and NIST
  **/
 package kinetic.math.linear;
 

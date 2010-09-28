@@ -65,4 +65,46 @@ public class QuickMath {
     public static int min(int i, int j) {
         return Math.min(i, j);
     }
+
+    public static double sqrt(double d) {
+        return Math.sqrt(d);
+    }
+
+    public static float sqrt(float f) {
+        return (float) Math.sqrt(f);
+    }
+
+    public static int max(int a, int b) {
+        return Math.max(a, b);
+    }
+
+    public static float max(float a, float b) {
+        return Math.max(a, b);
+    }
+
+    public static double max(double a, double b) {
+        return Math.max(a, b);
+    }
+
+    public static float pow(float b, float p) {
+        return (float) Math.pow(p, b);
+    }
+
+    public static double pow(double b, double p) {
+        return Math.pow(p, b);
+    }
+
+    public static double hypot(double a, double b) {
+        double r;
+        if (Math.abs(a) > Math.abs(b)) {
+            r = b / a;
+            r = QuickMath.abs(a) * QuickMath.sqrt(1 + r * r);
+        } else if (b != 0) {
+            r = a / b;
+            r = QuickMath.abs(b) * QuickMath.sqrt(1 + r * r);
+        } else {
+            r = 0.0;
+        }
+        return r;
+    }
 }

@@ -98,10 +98,10 @@ public class QuickMath {
         double r;
         if (Math.abs(a) > Math.abs(b)) {
             r = b / a;
-            r = QuickMath.abs(a) * QuickMath.sqrt(1 + r * r);
+            r = Math.abs(a) * Math.sqrt(1 + r * r);
         } else if (b != 0) {
             r = a / b;
-            r = QuickMath.abs(b) * QuickMath.sqrt(1 + r * r);
+            r = Math.abs(b) * Math.sqrt(1 + r * r);
         } else {
             r = 0.0;
         }

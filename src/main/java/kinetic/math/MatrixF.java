@@ -277,6 +277,11 @@ public abstract class MatrixF extends Matrix {
         }
     }
 
+    @Override
+    public Matrix getSubMatrix(int mi, int mj, int ni, int nj) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
     /**
      * Convert the MatrixF to a String
      * @return String MatrixF as String

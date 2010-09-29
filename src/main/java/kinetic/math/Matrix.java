@@ -262,6 +262,16 @@ public abstract class Matrix {
     public abstract Matrix divideScalar(Number v, boolean mutate);
 
     /**
+     * Extracts a sub-matrix sA from A.
+     * @param mi The index of the starting row.
+     * @param mj The index of the finishing row.
+     * @param ni The index of the starting column.
+     * @param nj The index of the finishing column.
+     * @return new m by n Matrix where m = mj-mi and n = nj - ni
+     */
+    public abstract Matrix getSubMatrix(int mi, int mj, int ni, int nj);
+
+    /**
      * Return the invert of the Matrix A.
      * @return Matrix A^-1
      */

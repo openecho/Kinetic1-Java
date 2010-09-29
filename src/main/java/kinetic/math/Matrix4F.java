@@ -653,13 +653,13 @@ public class Matrix4F extends MatrixF {
     }
 
     @Override
-    public MatrixF solve(Matrix b) {
+    public MatrixF invert() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
-    public MatrixF invert() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public MatrixF solve(Matrix b) {
+        return super.solve(b);
     }
 
     @Override

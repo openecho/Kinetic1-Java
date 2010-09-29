@@ -476,7 +476,7 @@ public class Matrix3F extends MatrixF {
 
     @Override
     public MatrixF solve(Matrix b) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return super.solve(b);
     }
 
     @Override

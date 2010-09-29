@@ -317,7 +317,7 @@ public class RowArrayMatrixD extends MatrixD {
     }
 
     @Override
-    public Matrix solve(Matrix b) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public MatrixD solve(Matrix b) {
+        return super.solve(b);
     }
 }

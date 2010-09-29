@@ -290,6 +290,24 @@ public class RowArrayMatrixDTest extends TestCase {
         assertTrue(expResult.equals(result));
     }
 
+
+    /**
+     * Test of solve method, of class RowArrayMatrixD.
+     */
+    public void testSolve() {
+        System.out.println("solve");
+        Double[][] data = new Double[][]{{1D, 2D, 3D}, {2D, -1D, 1D}, {3D, 0D, -1D}};
+        RowArrayMatrixD instance = new RowArrayMatrixD(data);
+        data = new Double[][]{{9D}, {8D}, {3D}};
+        RowArrayMatrixD soultion = new RowArrayMatrixD(data);
+        data = new Double[][]{{2D}, {-1D}, {3D}};
+        MatrixD expResult = new RowArrayMatrixD(data);
+        MatrixD result = instance.solve(soultion);
+        for(int i = 0; i < expResult.m; i++) {
+            assertEquals(expResult.getData(i, 0).doubleValue(), result.getData(i, 0).doubleValue(), 0.0000001);
+        }
+    }
+
     /**
      * Test of transpose method, of class SimpleImmutableMatrix.
      */

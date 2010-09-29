@@ -190,7 +190,64 @@ public abstract class MatrixF extends Matrix {
      * @param b Matrix B
      * @return Solution Matrix X
      */
-    public abstract MatrixF solve(Matrix b);
+    public MatrixF solve(Matrix b) {
+        if (m != n || b.getM() != n || b.getN() != 1) {
+            throw new RuntimeException("Incorrect matrix dimensions.");
+        }
+        for (int i = 0; i < n; i++) {
+            int max = i;
+            for (int j = i + 1; j < n; j++) {
+                if (Math.abs(getData(j, i)) > Math.abs(getData(max, i))) {
+                    max = j;
+                }
+            }
+            /**
+             * Swap i and max
+             */
+            float tmp;
+            for (int j = 0; j < n; j++) {
+                tmp = getData(i, j).floatValue();
+                setData(i, j, getData(max, j));
+                setData(max, j, tmp);
+            }
+            for (int j = 0; j < b.getN(); j++) {
+                tmp = b.getData(i, j).floatValue();
+                b.setData(i, j, b.getData(max, j));
+                b.setData(max, j, tmp);
+            }
+            /**
+             * Check Singular
+             */
+            if (getData(i, i) == 0) {
+                throw new RuntimeException("Matrix is singular.");
+            }
+            /**
+             * Pivot B
+             */
+            for (int j = i + 1; j < n; j++) {
+                b.setData(j, 0, (b.getData(j, 0).floatValue() - (b.getData(i, 0).floatValue() * getData(j, i).floatValue() / getData(i, i).floatValue())));
+            }
+            /**
+             * Pivot A
+             */
+            for (int j = i + 1; j < n; j++) {
+                float f = getData(j, i) / getData(i, i);
+                for (int k = i + 1; k < n; k++) {
+                    setData(j, k, (getData(j, k) - getData(i, k) * f));
+                }
+                setData(j, i, 0);
+            }
+        }
+        MatrixF x = MatrixF.empty(n, 1);
+        for(int j = n - 1; j >= 0; j--) {
+            double v = 0;
+            for(int k = j + 1; k < n; k++) {
+                v += getData(j,k).floatValue() * x.getData(k, 0).floatValue();
+            }
+            x.setData(j, 0, ((b.getData(j, 0).floatValue() - v) / getData(j, j).floatValue()));
+        }
+        return x;
+    }
 
     /**
      * Calculates the determinant of the MatrixF if it is square (n=m). Currently

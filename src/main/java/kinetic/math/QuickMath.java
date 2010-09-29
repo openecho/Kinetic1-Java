@@ -12,10 +12,42 @@ import kinetic.math.random.MersenneTwisterFast;
  */
 public class QuickMath {
 
+    /**
+     * TODO:
+     * Implement this correctly.
+     *
+     * angles that should be hard coded, 0, 30, 45, 90, 120, 180, 240, 360 (360 should reduce to 0 anyway)
+     */
+
+    float[] quickSin = null;
+    float[] quickCos = null;
+    float[] quickTan = null;
+
     MersenneTwisterFast mtf = null;
     static QuickMath random = null;
 
+    public static final float PI;
+    public static final float E;
+    public static final int DEFAULT_QUICK_TRIG_SIZE;
+
+    static {
+        PI = (float) Math.PI;
+        E = (float) Math.E;
+        DEFAULT_QUICK_TRIG_SIZE = 360;
+    }
+
     private QuickMath() {
+        quickSin = new float[DEFAULT_QUICK_TRIG_SIZE];
+        quickCos = new float[DEFAULT_QUICK_TRIG_SIZE];
+        quickTan = new float[DEFAULT_QUICK_TRIG_SIZE];
+        double chunk = 2D*Math.PI/DEFAULT_QUICK_TRIG_SIZE;
+        double chunkStep;
+        for(int i=0;i<DEFAULT_QUICK_TRIG_SIZE;i++) {
+            chunkStep = chunk * (double) i;
+            quickSin[i] = (float) Math.sin(chunkStep);
+            quickCos[i] = (float) Math.cos(chunkStep);
+            quickTan[i] = (float) Math.tan(chunkStep);
+        }
         mtf = new MersenneTwisterFast();
     }
 

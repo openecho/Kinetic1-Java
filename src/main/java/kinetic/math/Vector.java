@@ -16,9 +16,18 @@
 package kinetic.math;
 
 /**
- * Generic Vector Instance. Provides all the functionality shared by all
+ * Abstract size n Vector. Provides all the functionality shared by all
  * Vector classes.
  *
+ * <pre>
+ *
+ * Index     0   1   2     n-1
+ *       +---------------------
+ * Value |  n1  n2  n3 ...  nN
+ *       +---------------------
+ *
+ * </pre>
+ * 
  * @author openecho
  * @version 2.0.0
  */

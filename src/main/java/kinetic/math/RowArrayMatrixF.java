@@ -290,8 +290,8 @@ public class RowArrayMatrixF extends MatrixF {
     }
 
     @Override
-    public RowArrayMatrixF solve(Matrix b) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public MatrixF solve(Matrix b) {
+        return super.solve(b);
     }
 
     @Override

@@ -15,7 +15,6 @@
  **/
 package kinetic.math;
 
-import java.security.InvalidParameterException;
 import kinetic.math.linear.LUDecompositionD;
 
 /**
@@ -114,6 +113,7 @@ public abstract class MatrixD extends Matrix {
      * @param b MatrixD B.
      * @return boolean true when equal otherwise false.
      */
+    @Override
     public boolean equals(Matrix b) {
         MatrixD a = this;
         Number[][] bData = b.getData();
@@ -208,7 +208,64 @@ public abstract class MatrixD extends Matrix {
      * @param b MatrixD B
      * @return Solution MatrixD X
      */
-    public abstract Matrix solve(Matrix b);
+    public MatrixD solve(Matrix b) {
+        if (m != n || b.getM() != n || b.getN() != 1) {
+            throw new RuntimeException("Incorrect matrix dimensions.");
+        }
+        for (int i = 0; i < n; i++) {
+            int max = i;
+            for (int j = i + 1; j < n; j++) {
+                if (Math.abs(getData(j, i)) > Math.abs(getData(max, i))) {
+                    max = j;
+                }
+            }
+            /**
+             * Swap i and max
+             */
+            double tmp;
+            for (int j = 0; j < n; j++) {
+                tmp = getData(i, j).doubleValue();
+                setData(i, j, getData(max, j));
+                setData(max, j, tmp);
+            }
+            for (int j = 0; j < b.getN(); j++) {
+                tmp = b.getData(i, j).doubleValue();
+                b.setData(i, j, b.getData(max, j));
+                b.setData(max, j, tmp);
+            }
+            /**
+             * Check Singular
+             */
+            if (getData(i, i) == 0) {
+                throw new RuntimeException("Matrix is singular.");
+            }
+            /**
+             * Pivot B
+             */
+            for (int j = i + 1; j < n; j++) {
+                b.setData(j, 0, (b.getData(j, 0).doubleValue() - (b.getData(i, 0).doubleValue() * getData(j, i).doubleValue() / getData(i, i).doubleValue())));
+            }
+            /**
+             * Pivot A
+             */
+            for (int j = i + 1; j < n; j++) {
+                Double f = getData(j, i) / getData(i, i);
+                for (int k = i + 1; k < n; k++) {
+                    setData(j, k, (getData(j, k) - getData(i, k) * f));
+                }
+                setData(j, i, 0);
+            }
+        }
+        MatrixD x = MatrixD.empty(n, 1);
+        for(int j = n - 1; j >= 0; j--) {
+            double v = 0;
+            for(int k = j + 1; k < n; k++) {
+                v += getData(j,k).doubleValue() * x.getData(k, 0).doubleValue();
+            }
+            x.setData(j, 0, ((b.getData(j, 0).doubleValue() - v) / getData(j, j).doubleValue()));
+        }
+        return x;
+    }
 
     /**
      * Calculates the determinant of the MatrixD if it is square (n=m). Currently
@@ -280,16 +337,16 @@ public abstract class MatrixD extends Matrix {
      */
     public static MatrixD create(double[][] data) {
         int m = data.length;
-        if(m == 0) {
+        if (m == 0) {
             throw new RuntimeException("Invalid Argument.");
         }
         int n = data[0].length;
-        if(n == 0) {
+        if (n == 0) {
             throw new RuntimeException("Invalid Argument.");
         }
         MatrixD c = MatrixD.empty(m, n);
-        for(int i=0;i<m;i++) {
-            for(int j=0;j<n;j++) {
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
                 c.setData(i, j, data[i][j]);
             }
         }

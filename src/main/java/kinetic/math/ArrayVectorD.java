@@ -23,8 +23,6 @@ public class ArrayVectorD extends VectorD {
 
     Double[] data;
 
-    double xCross, yCross, zCross;
-
     public ArrayVectorD(int n) {
         super(n);
         data = new Double[n];
@@ -191,6 +189,7 @@ public class ArrayVectorD extends VectorD {
         if (n != 3 || b.n != 3) {
             throw new RuntimeException("Vector dimensions are not both equal to three.");
         }
+        double xCross, yCross, zCross;
         xCross = data[Y] * b.getData(Z).doubleValue() - data[Z] * b.getData(Y).doubleValue();
         yCross = data[Z] * b.getData(X).doubleValue() - data[X] * b.getData(Z).doubleValue();
         zCross = data[X] * b.getData(Y).doubleValue() - data[Y] * b.getData(X).doubleValue();
